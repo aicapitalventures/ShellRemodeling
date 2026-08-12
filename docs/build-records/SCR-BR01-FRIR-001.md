@@ -1,159 +1,156 @@
-# SCR-BR01-FRIR-001 — Founder Feedback & Pre-Build Intake Reconciliation Record v1.1
+# SCR-BR01-FRIR-001 — Founder Feedback & Pre-Build Intake Reconciliation Record v2.0
 
 **Record ID:** SCR-BR01-FRIR-001  
-**Version:** 1.1  
-**Status:** PARTIAL RECONCILIATION — LIVE-SITE FEEDBACK INGESTED / PRE-BUILD INTAKE PENDING  
+**Version:** 2.0  
+**Status:** COMPLETED INTAKE INGESTED — FINAL CONFLICT RESOLUTION PENDING  
 **Effective date:** 2026-08-12  
 **Branch:** `build/01-ux-ui-prototype`  
-**Dependencies:** SCR-META-000, SCR-BRAND-001 v1.2, SCR-BRAND-ASSET-REVIEW-002 v1.0, SCR-BR01-001 v0.5, SCR-BR01-LIVE-QA-001, SCR-BR01-VISUAL-QA-002, SCR-BR01-VISUAL-REFINE-003, SCR-WEB-001, SCR-AIVIS-001
+**Dependencies:** SCR-META-000, SCR-BRAND-001 v1.3, SCR-BRAND-ASSET-REVIEW-002 v1.0, SCR-BR01-INTAKE-200-001 v1.0, SCR-BR01-PORTFOLIO-001 v1.0, SCR-BR01-VISUAL-REFINE-003, SCR-WEB-001, SCR-AIVIS-001
 
 ## Evidence Ingested
 
-Available founder feedback reported by Elijah L. Cooley after Bernard Shell Jr. reviewed the live GitHub Pages prototype:
+1. Bernard Shell Jr. live-site founder review: positive approval of the prototype and agreement with the stronger visual direction.
+2. Founder-selected public-location direction: remove street address from customer-facing website and use **Kentuckiana**.
+3. Completed 200-question Pre-Build Founder Intake.
+4. Elijah L. Cooley clarification that all answered intake fields are to be treated as **FOUNDER-SELECTED** even where the PDF status dropdown was not changed.
+5. Founder-supplied project-photo archive and governed visual classification under Q087 delegation.
 
-- Bernard Shell Jr. reviewed `https://aicapitalventures.github.io/ShellRemodeling/`.
-- He likes the prototype.
-- He expressed strong positive reaction to the work.
-- He agrees with Elijah L. Cooley on the visual changes previously identified for the founder-review prototype.
-- Bernard Shell Jr. additionally directed that his street address be removed from the public website and replaced with the public-facing location label **Kentuckiana**.
-- The Pre-Build Founder Intake Fillable PDF has **not yet been completed or returned**.
+The complete intake extraction and unresolved-item registry is maintained in SCR-BR01-INTAKE-200-001.
 
-No additional written, recorded, or itemized Bernard Shell Jr. website-change list was supplied in this reconciliation turn.
+## Reconciled Founder Decisions
 
-## Founder Decision Classification
+### Legal / Governance
+- Intended formation: Indiana.
+- Intended legal entity: Shell & Co Remodeling LLC.
+- Entity not yet filed.
+- Intended registered agent: Bernard Shell Jr.
+- Manager-managed; Bernard Shell Jr. has day-to-day management and customer-contract signing authority.
+- 70% Bernard Shell Jr. / 30% Divinityx Enterprises LLC ownership approved.
+- Ownership percentages and Divinityx ownership are not customer-facing website content.
 
-### Brand application
-**APPROVED — VISUAL DIRECTION.** The adopted Shell & Co identity remains in force. The stronger presentation direction under SCR-BR01-VISUAL-REFINE-003 is accepted by both founders at the visual-direction level.
+### Public Website Identity
+- Public location: **Kentuckiana**.
+- Public street-address display: **SUPERSEDED**.
+- Phone: **(502) 303-2398**.
+- Call hours: **9 AM–5 PM**.
+- Customer communication direction: Call + Text + Request an Estimate.
+- Primary CTA: **Request an Estimate**.
+- Customer-facing target email: `support@shellremodeling.com`, but activation remains verification-gated.
 
-### Header logo scale / upper-left brand presence
-**APPROVED.** The founder-directed enlargement of the approved horizontal header lockup is retained.
+### Service Positioning
+- Core positioning: premium bathroom-remodeling craftsmanship.
+- Website emphasis: bathroom transformation + tile precision + accessibility.
+- Initial geographic answers: Clark County, IN; Jefferson County, KY; Louisville/Kentucky yes; normal radius 50 miles; public label Kentuckiana.
+- Bathroom service matrix from SCR-BR01-INTAKE-200-001 is founder-selected.
+- Kitchen remodeling and general interior remodeling are rejected for the initial service model.
 
-### Hero logo scale / right-side presentation panel
-**APPROVED.** The founder-directed enlargement of the approved stacked mark and reduction of unused hero-panel space are retained.
+### Brand
+- Primary logo: canon-locked.
+- `Cutting Edge. Lasting Results.`: canon-locked.
+- `Built with the Right Tools. Finished the Right Way.`: canon-locked.
+- `Our Best Tool Is Precision. Our Standard Is Excellence.`: canon-locked.
+- Diamond-blade symbol is controlling.
+- Approved feel: premium/luxury + craftsman/tradesman.
 
-### Gray / beige / white / charcoal intensity
-**APPROVED.** The deeper, higher-contrast, less-pastel presentation is retained while the adopted neutral color family remains controlling.
+### Portfolio
+- Bernard Shell Jr. confirms he personally performed or supervised all supplied photo work.
+- None of the supplied projects were completed while working for another company.
+- Commercial-use rights confirmed.
+- Archive = exactly three jobs.
+- Sequencing delegated for governed analysis.
+- Three representative project comparisons classified and authorized under SCR-BR01-PORTFOLIO-001.
+- Project gallery desired; individual case-study pages rejected.
+- No testimonials currently.
 
-### Overall live prototype / customer-experience concept
-**APPROVED FOR CONTINUED DEVELOPMENT.** Bernard Shell Jr.'s reaction supports continuing the current Shell & Co prototype direction. This is not equivalent to final production authorization.
+### Founder / About
+- 35 years experience reported and stated substantiable.
+- Apprenticeship-trained.
+- Bathroom remodeling is preferred trade focus.
+- Elijah L. Cooley should not have a customer-facing title, founder story, or photograph on the website.
+- Exact Bernard public title remains unresolved because the intake answer did not select one title from the multi-option question.
 
-### UX/UI canon lock
-**UNRESOLVED / GATE CLOSED.** Final Build Room 01 lock is withheld until the Pre-Build Founder Intake is completed and reconciled.
+### Conversion / Technical
+- Sticky mobile Call and Text controls desired.
+- Confirmation page and response expectation desired.
+- Both members receive leads.
+- Website chat desired; AI/VAPI intake later.
+- Project gallery + accessibility page + FAQ desired; blog and individual project case studies rejected at launch.
+- GitHub Pages preferred; repository confirmed.
+- Avoid frameworks/npm/database dependencies unless justified.
+- Metadata Law inheritance required for major changes.
+- Search Console, Ads/Meta conversion preparation, lawful call tracking, and source attribution desired.
 
-### Service offerings
-**PROVISIONAL / INTAKE REQUIRED.** Current website/service assumptions remain subject to founder-intake reconciliation.
+## Applied Website Corrections
 
-### Service area
-**FOUNDER-SELECTED PUBLIC LABEL / PROVISIONAL OPERATING SCOPE.** The website shall publicly display **Kentuckiana** instead of Bernard Shell Jr.'s street address. Exact operating radius and jurisdictional service boundaries remain subject to founder-intake reconciliation and verification.
+The founder-review prototype now incorporates founder-selected changes that are both clear and safe to represent without external verification:
 
-### Public company information
-**PARTIALLY APPROVED / PARTIALLY REQUIRES VERIFICATION.** Public street-address display is superseded for the website. The public-facing geographic label is **Kentuckiana**. Other public company facts remain subject to completed operational intake and legal verification.
+- `Our Work` / before-and-after gallery route added;
+- three-project comparison proof asset installed;
+- homepage project-proof preview added;
+- bathroom-focused hero taxonomy (`Bathroom Remodeling • Tile Precision • Accessibility`);
+- bathroom-only Remodel Studio room-type choices;
+- `Request an Estimate` promoted as primary CTA;
+- Call and Text remain prominent;
+- 9 AM–5 PM hours added to the contact experience;
+- sticky mobile Call / Text / Estimate dock added;
+- Kentuckiana public-location rule preserved.
 
-### Founder roles / titles
-**PROVISIONAL / INTAKE REQUIRED.** No new title or authority answer is supplied by the pending intake.
+## Conflicts / Missing Values
 
-### Contact information
-**FOUNDER-SELECTED PUBLIC DISPLAY.** Phone remains displayed. The prior public street-address presentation is **SUPERSEDED** and shall be replaced on the website with **Kentuckiana**. This record does not determine or alter any underlying legal, mailing, registration, tax, or internal business-address requirement.
+The following remain unresolved and prevent a final Build Room 01 lock:
 
-### Estimate workflow
-**APPROVED FOR PROTOTYPE CONTINUATION / NOT PRODUCTION AUTHORIZED.** The current Remodel Studio → concept selection → human buildability review → pre-estimate workflow may continue as prototype architecture.
+1. `Flooring outside bathrooms = YES` conflicts with `do not accept jobs outside bathroom remodeling`.
+2. Minimum project size desired but no threshold supplied.
+3. Estimates are not free but fee/waiver rule not supplied.
+4. Budget-range selector desired but no ranges supplied.
+5. Deposit language desired but terms not supplied.
+6. `No checks` does not fully define accepted payment rails.
+7. Financing should be mentioned, but provider/terms are not established.
+8. Permit-puller answer does not identify who pulls permits.
+9. Travel-charge threshold/amount not supplied.
+10. Response-time promise not supplied.
+11. `shellremodeling.com` purchase status conflicts with related account/2FA/domain-only answers and requires direct verification.
+12. Exact Bernard public title not supplied.
+13. Warranty publication timing was delegated for advice; final terms/review gate remains open.
+14. Marketing-consent separation requires explanation/final choice.
+15. Customer-photo use/storage disclosure architecture remains a production privacy decision even though the founder answered `NO` to putting that explanation in the form.
 
-### Customer intake
-**PROVISIONAL.** Current browser-local prototype intake remains acceptable for founder review. Production transmission remains closed.
+## Delegated Decisions — Current Recommendation
 
-### Payment / financing presentation
-**UNRESOLVED / INTAKE REQUIRED.** No founder-intake answer available.
-
-### Portfolio rules
-**FOUNDER-ADOPTED HOLD REMAINS.** Historical remodel photographs remain excluded until project grouping, BEFORE/PROGRESS/AFTER sequencing, and commercial-use status are verified.
-
-### Trust claims
-**REQUIRES VERIFICATION.** No unsupported trust claim is authorized by this founder feedback.
-
-### Warranty claims
-**UNRESOLVED / INTAKE REQUIRED.** No warranty representation is authorized.
-
-### Licensing / registration
-**REQUIRES VERIFICATION.** No licensing or registration representation is authorized beyond verified facts.
-
-### Insurance
-**REQUIRES VERIFICATION.** No policy-specific or “licensed and insured” representation is authorized absent verification.
-
-### Website conversion architecture
-**APPROVED FOR PROTOTYPE CONTINUATION.** Existing CTA, Remodel Studio, and estimate-path architecture may continue through founder review.
-
-### Technical architecture
-**PROVISIONAL.** Secure-backend planning may continue, but implementation remains gated.
-
-### Analytics
-**UNRESOLVED / INTAKE REQUIRED.** No production analytics implementation is authorized by this record.
-
-### Marketing / social / reputation
-**PROVISIONAL / INTAKE REQUIRED.** No new public claim or channel commitment is authorized by this record.
-
-### Privacy / customer photo handling
-**PROVISIONAL / PRODUCTION GATE CLOSED.** Browser-local prototype handling remains permitted. Persistent storage, transmission, retention, deletion, and consent architecture remain unresolved.
-
-### Deployment authority
-**FOUNDER REVIEW PAGES APPROVED / PRODUCTION DEPLOYMENT NOT AUTHORIZED.** GitHub Pages remains the founder-review environment. Custom-domain production deployment is not opened by this record.
-
-## Conflicts
-
-No substantive founder-to-founder conflict is evidenced in the available website feedback. Bernard Shell Jr. agrees with the visual changes previously directed by Elijah L. Cooley.
-
-The public website location decision is also non-conflicting: the prior street-address presentation is superseded by **Kentuckiana**.
-
-The absence of a completed Pre-Build Founder Intake is **not treated as approval** of unresolved operational, legal, service, privacy, payment, insurance, licensing, warranty, analytics, or deployment assumptions.
-
-## Website Corrections Reconciliation
-
-The founder-authorized visual corrections identified before Bernard Shell Jr.'s review were already applied on `build/01-ux-ui-prototype` under SCR-BR01-VISUAL-REFINE-003:
-
-- larger approved horizontal header logo;
-- larger approved stacked hero logo;
-- deeper gray / beige / white / charcoal presentation;
-- stronger contrast and dimensionality;
-- stronger Remodel Studio visual prominence.
-
-Bernard Shell Jr.'s reported feedback approves that direction.
-
-An additional founder-authorized public-information correction is now applied:
-
-- remove Bernard Shell Jr.'s street address from public website presentation;
-- replace it with **Kentuckiana** in the contact bar, estimate contact card, and footer;
-- relabel the estimate contact-card field from **Address** to **Service Area**.
+- **Service-page architecture:** use focused conversion pages, not one page per small service: Home, Bathroom Remodeling, Showers & Tile, Accessibility, Our Work, Remodel Studio, FAQ, Request Estimate / Contact. This recommendation is not canon-locked until Bernard Shell Jr. approves the final structure.
+- **Build branch:** keep `build/01-ux-ui-prototype` as the controlled working branch until final founder approval; do not merge main yet.
+- **Warranty language:** do not publish an unlimited customer-satisfaction warranty until exact scope/limitations and appropriate review are complete.
+- **Marketing consent:** keep optional marketing consent separate from the core estimate/contact permission in production architecture.
 
 ## Canon Lock Determination
 
-**Build Room 01 SHALL NOT YET BE CLASSIFIED `FOUNDER APPROVED — UX/UI & CUSTOMER EXPERIENCE DIRECTION LOCKED`.**
+**NOT LOCKED.** The completed intake eliminates the broad information gap, but the limited conflict/missing-value list above materially affects the final service, estimate, payment, privacy, and public-claim architecture.
 
-Reason: visual direction and public-location presentation are approved, but the Pre-Build Founder Intake remains incomplete. The intake is expected to control or materially inform unresolved service, operational, trust, privacy, payment, deployment, and public-company facts.
+The next founder interaction should resolve only those remaining items; the 200-question intake does not need to be repeated.
 
 ## Gate State
 
 ### OPEN
 - founder-review Pages environment
-- visual refinement within approved direction
-- collection of completed Pre-Build Founder Intake
-- reconciliation preparation
+- project gallery / portfolio refinement
+- final conflict-resolution checklist
 - secure-backend research/planning without production activation
 
 ### CLOSED
-- final Build Room 01 UX/UI/customer-experience canon lock
-- Build Room 02 production implementation
+- final Build Room 01 customer-experience canon lock
 - live OpenAI generation
-- customer PII/photo transmission
-- persistent customer photo storage
-- production pricing/scope automation
-- unverified licensing/insurance/warranty claims
-- historical remodel-photo use
+- production customer PII/photo transmission
+- persistent photo storage
+- production financing/warranty/license/insurance claims
 - custom-domain production launch
+- Build Room 02 production implementation
 
 ## Next Best Action
 
-Obtain Bernard Shell Jr.'s completed Pre-Build Founder Intake Fillable PDF and ingest it into this record as the missing second evidence set. Then perform final founder-intake reconciliation and determine whether Build Room 01 can be locked.
+Resolve the remaining founder lock checklist in one short decision pass, then perform the final website correction and Build Room 01 lock determination.
 
 ## Change History
 
-- v1.0 — Live-site founder feedback ingested; visual direction jointly approved; Pre-Build Founder Intake remained pending.
-- v1.1 — Bernard Shell Jr. public-location privacy direction ingested; website street-address display superseded and replaced with `Kentuckiana`; exact operating service radius remains intake-dependent.
+- v1.0 — Live-site founder feedback ingested.
+- v1.1 — Kentuckiana public-location privacy direction adopted.
+- v2.0 — Completed 200-question founder intake ingested under founder-selected status override; core brand canon locked; three-job portfolio evidence reconciled; founder-safe website corrections applied; final lock reduced to a limited conflict-resolution checklist.
