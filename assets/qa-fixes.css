@@ -1,0 +1,74 @@
+/* SCR-BR01 founder-review QA corrections — 2026-08-12 */
+
+/* Strong keyboard visibility across interactive controls. */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+.dropzone:focus-within {
+  outline: 3px solid #8f7354;
+  outline-offset: 3px;
+}
+
+/* Improve small-text contrast and minimum touch targets. */
+.research-note { color: #625d57; }
+.chip,
+.concept button,
+.form-card input,
+.form-card select,
+.form-card textarea {
+  min-height: 44px;
+}
+.chip { display: inline-flex; align-items: center; justify-content: center; }
+.concept button { min-width: 64px; padding: 9px 12px; }
+
+/* Keep the approved horizontal brand lockup undistorted. */
+.brand-logo-horizontal {
+  height: auto !important;
+  max-height: 76px;
+}
+
+/* Avoid sticky-header anchor targets hiding under the header. */
+section[id] { scroll-margin-top: 110px; }
+
+/* Tablet founder-review refinement. */
+@media (max-width: 920px) {
+  .site-header .nav { gap: 14px; }
+  .brand-logo-horizontal { width: min(270px, 48vw); }
+  .site-header > .wrap > .button { flex: 0 0 auto; white-space: nowrap; }
+}
+
+/* Mobile: prevent the generic full-width button rule from breaking the header. */
+@media (max-width: 560px) {
+  .prototype-bar { font-size: 9px; letter-spacing: .08em; padding: 7px 10px; }
+  .contact-bar { font-size: 12px; padding: 9px 10px; }
+  .site-header .nav { padding: 9px 0; gap: 8px; }
+  .brand-logo-horizontal {
+    width: min(210px, 66vw) !important;
+    height: auto !important;
+    max-height: 62px;
+  }
+  .site-header > .wrap > .button { display: none; }
+  .hero-copy { padding: 50px 20px; }
+  .hero-visual { min-height: 340px; padding: 30px 20px; }
+  .hero-brand-mark { width: min(330px, 92%); }
+  .hero h1 { font-size: clamp(39px, 12vw, 48px); }
+  .section h2 { font-size: clamp(32px, 10vw, 40px); }
+  .section { padding: 54px 0; }
+  .studio-head { padding: 17px 18px; }
+  .studio-head span { line-height: 1.5; }
+  .form-card, .contact-card { padding: 22px 18px; }
+}
+
+@media (max-width: 380px) {
+  .brand-logo-horizontal { width: min(185px, 72vw) !important; }
+  .hero-copy { padding-left: 16px; padding-right: 16px; }
+  .wrap { width: calc(100% - 20px); }
+}
+
+/* Respect reduced-motion preferences. */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; }
+}
