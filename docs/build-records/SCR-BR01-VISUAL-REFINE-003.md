@@ -1,12 +1,12 @@
-# SCR-BR01-VISUAL-REFINE-003 — Founder-Directed Visual Intensity Refinement v1.0
+# SCR-BR01-VISUAL-REFINE-003 — Founder-Directed Visual Intensity Refinement v1.1
 
 **Record ID:** SCR-BR01-VISUAL-REFINE-003  
-**Version:** 1.0  
-**Status:** FOUNDER-DIRECTED / APPLIED FOR REVIEW — NOT UX/UI CANON-LOCKED  
+**Version:** 1.1  
+**Status:** JOINT FOUNDER VISUAL DIRECTION APPROVED — NOT FINAL UX/UI CANON-LOCKED  
 **Effective date:** 2026-08-12  
-**Authority:** Elijah L. Cooley  
+**Authorities:** Elijah L. Cooley; Bernard Shell Jr.  
 **Branch:** `build/01-ux-ui-prototype`  
-**Dependencies:** SCR-META-000, SCR-BRAND-001 v1.2, SCR-BRAND-ASSET-REVIEW-002 v1.0, SCR-BR01-001 v0.3, SCR-BR01-VISUAL-QA-002
+**Dependencies:** SCR-META-000, SCR-BRAND-001 v1.2, SCR-BRAND-ASSET-REVIEW-002 v1.0, SCR-BR01-001 v0.4, SCR-BR01-VISUAL-QA-002, SCR-BR01-FRIR-001 v1.0
 
 ## Founder Direction
 
@@ -16,6 +16,8 @@ Elijah L. Cooley requested that the live founder-review prototype retain the ado
 - make the large approved stacked logo fill more of the right-side hero presentation box;
 - deepen the gray, beige, white, and charcoal presentation so the site does not feel pastel, washed out, or visually weak;
 - preserve the exact approved core S&C + diamond-blade artwork rather than redesigning the adopted logo.
+
+Bernard Shell Jr. subsequently reviewed the live founder prototype, expressed a strong positive reaction, and agreed with Elijah L. Cooley on these visual changes. Accordingly, this visual direction is jointly founder-approved while the broader Build Room 01 lock remains pending completion of the Pre-Build Founder Intake.
 
 ## Applied Prototype Refinements
 
@@ -32,9 +34,9 @@ The founder-review stylesheet now:
 
 ## Canon Boundary
 
-These are **presentation-layer founder-directed refinements**, not a redesign of the adopted logo artwork. The authoritative founder-approved logo/favicon source package under SCR-BRAND-ASSET-REVIEW-002 remains unchanged.
+These are **presentation-layer founder-approved refinements**, not a redesign of the adopted logo artwork. The authoritative founder-approved logo/favicon source package under SCR-BRAND-ASSET-REVIEW-002 remains unchanged.
 
-This refinement is not yet UX/UI canon-locked because Bernard Shell Jr. has not yet completed his live-site review and the Pre-Build Founder Intake Fillable PDF has not yet been returned.
+The visual-direction question governed by this record is approved. The broader UX/UI and customer-experience architecture is **not yet final-canon locked** because the Pre-Build Founder Intake Fillable PDF has not yet been completed and reconciled.
 
 ## Photo Hold
 
@@ -42,4 +44,9 @@ Historical remodel photographs supplied by Bernard Shell Jr. remain excluded fro
 
 ## Next Authorized Action
 
-Wait for Bernard Shell Jr.'s live-site feedback and completed Pre-Build Founder Intake Fillable PDF; then reconcile both founders' inputs into a consolidated Build Room 01 Founder Decision & Intake Reconciliation Record before UX/UI lock or backend implementation.
+Obtain Bernard Shell Jr.'s completed Pre-Build Founder Intake Fillable PDF and reconcile it under SCR-BR01-FRIR-001 before final Build Room 01 lock or Build Room 02 implementation.
+
+## Change History
+
+- v1.0 — Elijah L. Cooley visual-intensity direction recorded and applied for founder review.
+- v1.1 — Bernard Shell Jr. live-site review received; stronger logo scale and deeper neutral presentation direction jointly founder-approved; final UX/UI canon lock remains pending completed Pre-Build Founder Intake reconciliation.
