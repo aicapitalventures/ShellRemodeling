@@ -1,12 +1,12 @@
-# SCR-BRAND-001 — Brand Identity Foundation v1.1
+# SCR-BRAND-001 — Brand Identity Foundation v1.2
 
 **Record ID:** SCR-BRAND-001  
-**Version:** 1.1  
-**Status:** FOUNDER-SELECTED / DESIGN BUILD AUTHORIZED  
+**Version:** 1.2  
+**Status:** FOUNDER-ADOPTED — DIGITAL BRAND ASSET FAMILY APPLIED  
 **Effective date:** 2026-08-12  
-**Dependencies:** SCR-META-000  
+**Dependencies:** SCR-META-000, SCR-BRAND-ASSET-REVIEW-002  
 **Canon status:** PARTIAL — DIGITAL BRAND ASSETS ADOPTED  
-**Next authorized action:** Use the selected visual identity for controlled UX/UI prototype work; final production asset package remains subject to later quality/reproduction review.
+**Next authorized action:** Verify GitHub Pages founder-review rendering and complete desktop/mobile visual QA before production deployment.
 
 ## Adopted Identity Inputs
 
@@ -16,6 +16,8 @@
 - Craftsmanship symbol: **diamond blade / wet saw**
 - Craft principle: precision
 - Founder-selected primary logo artwork: uploaded `Shell&CoLogo.png`
+- Founder-approved digital favicon/icon family: adopted under SCR-BRAND-ASSET-REVIEW-002
+- Authorized horizontal website-header lockup: `assets/brand/shell-co-header-horizontal.png`
 
 ## Positioning System
 
@@ -49,19 +51,17 @@ The diamond blade/wet saw may communicate precision, technical capability, clean
 
 ## Logo System Requirements
 
-The selected primary artwork may be used as the visual source for prototype work. A future production identity package should create and verify:
-- primary stacked logo
-- horizontal variant
+The founder-approved stacked artwork and digital favicon/icon family are adopted. The authorized horizontal website-header lockup is also adopted as a derived web application created by recomposing the approved artwork without redesigning the core S&C + diamond-blade mark.
+
+Future specialized production derivatives may still include:
 - secondary mark
 - craftsmanship badge
-- diamond-blade mark
 - one-color version
 - grayscale version
-- dark-background version
-- light-background version
+- light-background production version
 - transparent-background source
 - embroidery/small-format mark
-- favicon/social avatar mark
+- vehicle/signage production files
 
 Do not redraw or materially alter the founder-selected artwork without explicit approval.
 
@@ -106,11 +106,10 @@ AI-generated renovation imagery must be labeled as visualization/concept imagery
 
 ## Current Visual Artwork Status
 
-The uploaded Shell & Co logo is founder-selected for prototype and brand-system development. Production-format derivatives are not yet fully generated or technically validated.
+The digital brand migration authorized by SCR-BRAND-ASSET-REVIEW-002 is complete on `build/01-ux-ui-prototype`. The founder-approved favicon/icon family is installed, the authorized horizontal website-header lockup is installed, and the temporary prototype SVG has been superseded and removed. Live browser rendering on GitHub Pages remains pending Pages activation and founder-review QA.
 
 ## Change History
 
 - v1.0 — Brand architecture established; two-layer positioning adopted; prior “Precision Cuts. Beautiful Results.” concept superseded.
 - v1.1 — Founder-selected logo, logo micro-tagline, and strict hold on prior-remodel photographs recorded.
-
-- v1.2 — Founder-approved digital asset family adopted under SCR-BRAND-ASSET-REVIEW-002; prototype SVG superseded.
+- v1.2 — Founder-approved digital asset family adopted under SCR-BRAND-ASSET-REVIEW-002; favicon family and authorized horizontal web lockup installed; prototype SVG superseded and removed; Metadata Law status synchronized with applied repository state.
