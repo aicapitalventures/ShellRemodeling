@@ -1,114 +1,119 @@
-# SCR-BR01-INTAKE-200-001 — Completed Pre-Build Founder Intake Ingestion v1.0
+# SCR-BR01-INTAKE-200-001 — Completed Pre-Build Founder Intake Ingestion v1.1
 
 **Record ID:** SCR-BR01-INTAKE-200-001  
-**Version:** 1.0  
-**Status:** FOUNDER-SELECTED ANSWERS INGESTED — CONFLICT RESOLUTION PENDING  
+**Version:** 1.1  
+**Status:** FOUNDER-SELECTED ANSWERS INGESTED — FINAL CONFLICTS RESOLVED  
 **Effective date:** 2026-08-12  
 **Authority:** Bernard Shell Jr. answers as transmitted by Elijah L. Cooley  
-**Branch:** `build/01-ux-ui-prototype`
+**Branch:** `build/01-ux-ui-prototype`  
+**Final-resolution dependency:** SCR-BR01-FINAL-LOCK-001 v1.0
 
 ## Metadata Status Override
 
-The completed PDF contains many saved status dropdowns that remain `UNDECIDED`. Elijah L. Cooley expressly clarified after receiving Bernard Shell Jr.'s answers that **all answered fields are founder-selected** and that the unchecked status boxes reflect convenience rather than substantive indecision.
+The completed PDF contains many saved status dropdowns that remained `UNDECIDED`. Elijah L. Cooley expressly clarified that all answered fields are founder-selected and that unchecked status boxes reflected convenience rather than substantive indecision.
 
-Therefore the written answer in each answered Q001–Q200 field is governed as **FOUNDER-SELECTED**, except where the answer itself delegates a decision, requests advice/explanation, is non-responsive, or still requires external factual verification before a public claim can be made.
+Therefore written answers Q001–Q200 are governed as **FOUNDER-SELECTED**, except where the answer itself delegated a decision, requested advice/explanation, or required factual verification before a public claim.
 
-## Founder-Selected Core State
+## Core Founder-Selected State
 
 ### Company / Governance
 - Formation state: Indiana.
 - Intended legal name: Shell & Co Remodeling LLC.
-- LLC not yet filed.
-- Registered agent intended: Bernard Shell Jr.
+- LLC not yet filed as of intake.
+- Intended registered agent: Bernard Shell Jr.
 - Manager-managed.
 - Day-to-day management: Bernard Shell Jr.
 - Customer-contract signing authority: Bernard Shell Jr.
-- 70% Bernard Shell Jr. / 30% Divinityx Enterprises LLC ownership approved.
-- Ownership percentages and Divinityx ownership are not to be displayed on the customer-facing site.
+- Intended ownership: 70% Bernard Shell Jr. / 30% Divinityx Enterprises LLC.
+- Ownership percentages and Divinityx ownership are not customer-facing site content.
 
 ### Public Contact / Service Area
 - Phone: 502-303-2398.
-- Initial phone answerer: Bernard.
-- Target business email: support@shellremodeling.com — activation must be verified before publication as working contact.
+- Initial phone answerer: Bernard Shell Jr.
+- Target business email: support@shellremodeling.com; activation must be verified.
 - Call hours: 9 AM–5 PM.
 - Texting: yes.
-- Website should support Call + Text + Request an Estimate.
-- After-hours: voicemail; AI chatbot eventually.
-- Primary operating city: Charlestown, IN.
+- Website supports Call + Text + Request an Estimate.
+- After-hours: voicemail; AI chatbot later.
+- Operating origin for travel policy: Charlestown, IN.
 - Initial counties: Clark County, IN and Jefferson County, KY.
 - Louisville/Kentucky service: yes.
-- Normal travel radius: 50 miles.
 - Public geographic label: Kentuckiana.
-- Travel charge beyond a radius: yes; exact threshold/fee unresolved.
+- Founder-selected response time: within 24 hours.
+- Travel policy: no surcharge through 35 one-way miles from Charlestown; then $1.50 per additional one-way mile, disclosed before booking.
 
 ### Service Focus
-Founder-selected YES: full bathroom gut/remodel, tub/shower replacement, custom tile showers, shower surrounds, tile floors, bathroom wall tile, backsplashes, vanity installation, toilet replacement, fixtures, walk-in/accessibility tubs, grab bars, bathroom accessibility modifications, flooring outside bathrooms, bathroom painting, bathroom trim/crown, decorative ceilings, demolition-only work, repair work.
+Founder-selected YES: full bathroom gut/remodel, tub/shower replacement, custom tile showers, shower surrounds, tile floors, bathroom wall tile, backsplashes, vanity installation, toilet replacement, fixtures, walk-in/accessibility tubs, grab bars, bathroom accessibility modifications, bathroom painting, bathroom trim/crown, decorative ceilings, demolition-only work, repairs.
 
-Founder-selected NO: countertop installation, drywall, kitchen remodeling, general interior remodeling.
+Tile flooring may also be accepted outside bathrooms as a core skill. This does not authorize carpet, hardwood or broad flooring-company positioning.
 
-Founder-selected exclusion: jobs outside bathroom remodeling. This conflicts with `flooring outside bathrooms = YES` and requires one final clarification before service canon lock.
+Founder-selected NO: countertop installation, drywall, kitchen remodeling, general interior remodeling, carpet and hardwood flooring as company service categories.
+
+No minimum project size. The earlier answer indicating a minimum is superseded as a typo.
 
 ### Estimates / Sales / Pricing
-- Estimates are not free; amount/waiver rule unresolved.
-- Onsite + preliminary photo/video estimates.
+- Initial phone/photo review: no charge.
+- Confirmed onsite assessment: $49 appointment reservation fee; credited if hired within 30 days; 24-hour cancellation/reschedule protection; late cancel/no-show non-refundable.
+- Onsite + preliminary photo/video estimates supported.
 - Customer project-photo uploads desired.
-- Budget selector desired, but no budget ranges supplied — configuration unresolved.
+- Planning budget selector adopted: Under $5k / $5k–$10k / $10k–$20k / $20k–$35k / $35k+ / Not sure yet.
+- Budget selection is not a quote.
 - Desired start date question desired.
-- Property ownership / renter authorization / decision-maker questions desired.
-- Deposit language desired, but terms unresolved.
-- Checks not accepted; other accepted payment rails not fully specified.
-- Financing should be mentioned at launch, but no financing provider/terms are verified; no `financing available` claim is authorized until established.
-- No public starting prices.
-- Projects individually quoted.
+- Property ownership / renter authorization / decision-maker questions desired for production intake.
+- Standard project scheduling/mobilization deposit: 15% of contract price unless stricter jurisdictional law applies.
+- Progress payments tied to written milestones; special-order materials documented separately.
+- Payment methods: cash with receipt, card, ACH; personal/business checks excluded.
+- No public starting prices; projects individually quoted.
 - Positioning: premium craftsmanship.
 - Estimates depend on scope/materials/site conditions.
+- Financing platform selected: Acorn Finance, activation pending contractor enrollment/approval.
+
+### Permits
+- Bernard Shell Jr. is primary permit coordinator.
+- Building permits may be obtained by him where legally authorized.
+- Trade-specific permits are handled by legally authorized property owners or licensed/identified trade contractors where required.
 
 ### Portfolio
 - Bernard Shell Jr. personally performed or supervised every supplied photo project.
 - None were completed while working for another company.
-- Commercial marketing use rights confirmed.
-- Supplied archive represents exactly three jobs.
-- Photo sequencing delegated to governed analysis.
+- Commercial marketing rights confirmed.
+- Archive represents exactly three jobs.
+- Sequencing delegated to governed analysis and recorded in SCR-BR01-PORTFOLIO-001.
 - Project locations may be city-only.
 - No testimonials currently.
-- Additional photos/videos expected.
+- Additional photos/videos may be supplied later.
 - Project gallery desired.
 
 ### Brand / Founder Presentation
-- Primary logo final: yes.
-- `Cutting Edge. Lasting Results.` approved.
-- `Built with the Right Tools. Finished the Right Way.` approved.
-- `Our Best Tool Is Precision. Our Standard Is Excellence.` approved.
-- All four identity decisions authorized for canon lock.
-- Additional production logo derivatives authorized.
-- Diamond-blade symbol preferred over wet-saw imagery.
-- Desired feel: premium/luxury + craftsman/tradesman.
-- 35 years remodeling/construction experience reported and stated substantiable.
-- Trade learned through apprenticeship.
-- Favorite focus: bathroom remodeling.
-- Elijah L. Cooley is not to have a public founder title/story/photo on the customer-facing website.
-- Exact Bernard public title remains unresolved because the multi-choice title question received only `YES` rather than a specific title.
+- Primary logo final and canon-locked.
+- `Cutting Edge. Lasting Results.` canon-locked.
+- `Built with the Right Tools. Finished the Right Way.` canon-locked.
+- `Our Best Tool Is Precision. Our Standard Is Excellence.` canon-locked.
+- Diamond-blade symbol preferred.
+- Brand feel: premium/luxury + craftsman/tradesman.
+- Bernard Shell Jr. public title: **Founder & Owner**.
+- 35 years remodeling/construction experience founder-reported as substantiable.
+- Apprenticeship-trained.
+- Preferred focus: bathroom remodeling.
+- Elijah L. Cooley is not to have a public customer-facing title/story/photo.
 
 ### Trust / Claims
-- No current license/registration available for display.
-- General liability insurance not yet obtained.
-- Website does not need to remain unpublished solely because insurance is not yet confirmed.
-- Bonding desired/reported as future direction, not verified current status.
-- No certifications reported.
-- Workmanship guarantee desired, with customer-satisfaction language; publication remains gated pending appropriate review and exact terms.
-- `locally owned` and `owner operated` desired where factually accurate.
+- Production launch standard: **Licensed, Bonded & Insured** as factually applicable to service jurisdictions.
+- This standard is not a Build Room 01 UX blocker.
+- Present-tense public claim activation remains document-verification gated.
+- Workmanship warranty desired, but unlimited satisfaction language is withheld until exact written terms/coverage/exclusions/duration/remedies are finalized and reviewed.
+- `locally owned` and `owner operated` may be used where factually accurate.
 
 ### Conversion / Content
-- Primary customer task: clearly detail desired work.
 - Primary CTA: Request an Estimate.
 - Phone equally prominent.
-- Sticky mobile Call and Text buttons desired.
-- Confirmation page desired.
-- Response-time expectation desired; exact timeframe unresolved.
-- Both members receive new lead notifications.
-- Automated acknowledgments desired later.
-- Website chat desired at launch; AI/VAPI intake later.
-- Dedicated accessibility-remodeling page desired.
+- Sticky mobile Call/Text/Estimate controls desired.
+- Confirmation page desired for production.
+- Response within 24 hours.
+- Both members receive lead notifications.
+- Automated acknowledgments later.
+- Website chat desired; AI/VAPI intake later.
+- Dedicated accessibility page desired.
 - FAQ desired.
 - Project gallery desired.
 - No individual project case-study pages.
@@ -116,16 +121,16 @@ Founder-selected exclusion: jobs outside bathroom remodeling. This conflicts wit
 - Emphasize bathroom transformation + tile precision + accessibility.
 
 ### Domain / Technical
-- Founder answer says shellremodeling.com is not yet purchased, while other answers reference Bernard's account, 2FA, and domain-only purchase. Domain purchase/control state requires direct verification before production custom-domain claims.
-- Intended long-term control: Shell & Co / Bernard.
+- Founder-confirmed update superseding Q148: `shellremodeling.com` purchased on 2026-08-12 through Bernard Shell Jr.’s Namecheap account at a reported $6.99 first-year promotional price.
+- DNS/control remains to be technically verified before custom-domain production deployment.
+- Intended long-term domain control: Shell & Co / Bernard Shell Jr.
 - Preferred email provider: SpaceMail.com.
-- Elijah L. Cooley to retain website/domain/email administrative access.
+- Elijah L. Cooley retains website/domain/email administrative access.
 - GitHub Pages preferred.
-- Repo confirmed: aicapitalventures/ShellRemodeling.
-- Production site intended in this repository.
-- Avoid frameworks/npm/database dependencies unless later justified.
+- Repo: aicapitalventures/ShellRemodeling.
+- Avoid frameworks/npm/database dependencies unless justified.
 - Optimize for GitHub Pages + custom domain.
-- Structured data, sitemap/robots, and automated checks desired where factually appropriate.
+- Structured data, sitemap/robots and automated checks desired where factually appropriate.
 
 ### Analytics / Marketing / Social
 - Google Business Profile not yet created.
@@ -134,52 +139,34 @@ Founder-selected exclusion: jobs outside bathroom remodeling. This conflicts wit
 - Google Ads conversion tracking desired.
 - Meta/Facebook tracking desired.
 - Lawful call tracking desired.
-- Every lead source should be recorded.
+- Lead-source attribution desired.
 - Paid Google Ads launch desired; initial stated risk budget $100/month.
-- Dedicated ad landing pages desired, subject to further discussion.
+- Dedicated ad landing pages desired.
 - Desired social channels: Facebook, Instagram, TikTok, Nextdoor, YouTube, LinkedIn.
-- Intended social-account owner: Shell & Co Remodeling LLC after formation.
+- Intended social-account owner after formation: Shell & Co Remodeling LLC.
 - Elijah L. Cooley responds to reviews and approves project photos.
-- Review request for completed customers and referral request for satisfied customers desired.
+- Completed customers receive review requests; satisfied customers receive referral requests.
 - Branded before/after social templates desired.
 
 ### Privacy / Policies / Deployment
-- Intended footer legal entity after formation: Shell & Co Remodeling LLC.
-- Privacy Policy, Terms of Use, Accessibility Statement, and SMS consent language desired.
-- Customer data should route only to private systems, not the public GitHub repository.
-- Founder answered `NO` to explicitly stating photo use/storage in the form; this does not authorize implementation that conflicts with a later adopted privacy architecture, platform requirements, or applicable obligations. Production photo handling remains gated.
-- Marketing-consent separation question was delegated for explanation and remains unresolved.
+- Privacy Policy, Terms of Use, Accessibility Statement and SMS consent desired.
+- Customer data routes only to private systems, not public GitHub.
+- Production photo upload will include understandable use/storage/retention/deletion disclosure.
+- Optional marketing consent is separate from estimate-request contact consent.
 - Final technical/workmanship-claim approval: Bernard Shell Jr.
 - Final business/digital/marketing architecture approval: Bernard Shell Jr.
-- Bernard wants to approve website before publication.
-- Consolidated review preferred over section-by-section stopping.
-- Production deployment can be authorized by either Bernard Shell Jr. or Elijah L. Cooley.
+- Production deployment can be authorized by Bernard Shell Jr. or Elijah L. Cooley.
 
-## Founder-Selected Delegations / Non-Responsive Items
+## Conflict Resolution Summary
 
-The following are not silently resolved by this record:
+All material founder-decision conflicts and missing selections isolated in v1.0 have now been resolved by the final founder lock checklist and delegated market-policy determinations in SCR-BR01-FINAL-LOCK-001.
 
-1. Service-page architecture — delegated to `Love` based on conversion value.
-2. Dedicated build-branch choice — delegated to `Love`.
-3. Warranty-publication timing — delegated to `Love` for advice.
-4. Marketing-consent separation — founder requested explanation.
-5. Permit puller — answer `YES` does not identify a person/entity.
-6. Exact Bernard public title — answer does not select one title.
-
-## Material Conflicts / Missing Values Preventing Final Build Room 01 Lock
-
-1. `Flooring outside bathrooms = YES` vs. `do not accept jobs outside bathroom remodeling`.
-2. Minimum project size desired, but no minimum dollar/scope threshold supplied.
-3. Non-free estimate selected, but estimate fee/waiver rule absent.
-4. Budget-range selector selected, but no ranges supplied.
-5. Deposit language selected, but deposit terms absent.
-6. `No checks` does not fully define accepted payment methods.
-7. Financing launch mention selected, but financing provider/terms not established.
-8. Domain purchase status contradicts related domain-account answers.
-9. Exact response-time promise absent.
-10. Exact travel-charge threshold/amount absent.
-11. Privacy/photo-handling disclosure and separate marketing-consent architecture require a final governed decision before production submission.
+Remaining items such as LLC formation, contractor credentials, insurance, bond, financing enrollment, domain DNS, payment processor and secure backend are **production verification/implementation dependencies**, not unresolved founder preferences.
 
 ## Gate Determination
 
-The completed founder intake is now **INGESTED**, but Build Room 01 is **NOT YET CANON-LOCKED**. The remaining items are a small conflict-resolution list, not a requirement to redo the 200-question intake.
+The founder intake is **COMPLETE / RECONCILED**.
+
+Build Room 01 may be classified under SCR-BR01-FINAL-LOCK-001 as:
+
+**FOUNDER APPROVED — UX/UI & CUSTOMER EXPERIENCE DIRECTION LOCKED**.
