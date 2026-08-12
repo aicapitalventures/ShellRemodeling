@@ -1,22 +1,26 @@
-# SCR-BRAND-001 — Brand Identity Foundation v1.0
+# SCR-BRAND-001 — Brand Identity Foundation v1.1
 
 **Record ID:** SCR-BRAND-001  
-**Version:** 1.0  
-**Status:** ADOPTED — BRAND ARCHITECTURE / VISUAL ARTWORK NOT LOCKED  
-**Effective date:** 2026-08-11  
+**Version:** 1.1  
+**Status:** FOUNDER-SELECTED / DESIGN BUILD AUTHORIZED  
+**Effective date:** 2026-08-12  
 **Dependencies:** SCR-META-000  
 **Canon status:** PARTIAL  
-**Next authorized action:** Founder selection/approval of final visual logo system after legal/name verification dependency is satisfied or explicitly waived for design-only work.
+**Next authorized action:** Use the selected visual identity for controlled UX/UI prototype work; final production asset package remains subject to later quality/reproduction review.
 
 ## Adopted Identity Inputs
 
 - Working brand: **Shell & Co Remodeling**
-- Palette: **Gray / White / Beige**
+- Palette: **Gray / White / Beige** with supporting charcoal neutrals
 - Market identity: residential remodeling
 - Craftsmanship symbol: **diamond blade / wet saw**
 - Craft principle: precision
+- Founder-selected primary logo artwork: uploaded `Shell&CoLogo.png`
 
 ## Positioning System
+
+### Logo Micro-Tagline
+**Cutting Edge. Lasting Results.**
 
 ### Primary Brand Tagline
 **Built with the Right Tools. Finished the Right Way.**
@@ -35,7 +39,7 @@ These are complementary elements and need not appear together in every applicati
 
 “Finished the Right Way” emphasizes final quality, fit/finish, inspection, accountability, and the completed customer outcome.
 
-“Our Best Tool Is Precision” elevates precision above any single piece of equipment and applies it to measurement, estimating, scheduling, documentation, communication, procurement, job costing, QC, and service.
+“Our Best Tool Is Precision” elevates precision above any single piece of equipment and applies it to measurement, estimating, scheduling, documentation, communication, procurement, job costing, quality control, and service.
 
 “Our Standard Is Excellence” expresses the intended quality culture across craftsmanship, customer experience, administration, financial control, project management, safety, documentation, and delivery.
 
@@ -45,8 +49,9 @@ The diamond blade/wet saw may communicate precision, technical capability, clean
 
 ## Logo System Requirements
 
-A future final identity package should include:
-- primary horizontal/stacked logo
+The selected primary artwork may be used as the visual source for prototype work. A future production identity package should create and verify:
+- primary stacked logo
+- horizontal variant
 - secondary mark
 - craftsmanship badge
 - diamond-blade mark
@@ -54,17 +59,19 @@ A future final identity package should include:
 - grayscale version
 - dark-background version
 - light-background version
-- small-format/embroidery mark
+- transparent-background source
+- embroidery/small-format mark
 - favicon/social avatar mark
 
-Detailed wet-saw illustrations should generally be treated as secondary/badge graphics rather than the only primary mark because small-format reproduction may lose detail.
+Do not redraw or materially alter the founder-selected artwork without explicit approval.
 
 ## Application Hierarchy
 
 **Primary company identity:** may use primary tagline.  
+**Logo artwork:** may retain “Cutting Edge. Lasting Results.” as the embedded micro-tagline.  
 **Secondary craftsmanship badge:** may use craftsmanship statement.  
-**Full presentation:** may use both with controlled hierarchy.  
-**Compact applications:** tagline may be omitted for legibility.
+**Full presentation:** may use all elements with controlled hierarchy.  
+**Compact applications:** taglines may be omitted for legibility.
 
 Applications to plan for:
 - work shirts
@@ -80,16 +87,28 @@ Applications to plan for:
 
 ## Palette Rule
 
-Core neutral palette: gray, white, beige. Supporting charcoal, warm off-white, and restrained neutral variants may be proposed for contrast/accessibility but may not displace the core palette without founder approval.
+Core neutral palette: gray, white, beige. Supporting charcoal, warm off-white, and restrained neutral variants may be used for contrast/accessibility but may not displace the core palette without founder approval.
 
 ## Photography / Proof Law
 
-Use real project photography only when Shell & Co or the authorized founder has the right to use it. Obtain customer permission for identifiable/private property imagery where appropriate. AI-generated renovation imagery must never be represented as completed Shell & Co work. Testimonials/reviews must never be fabricated.
+The prior-remodel photographs supplied by Bernard Shell Jr. are **WITHHELD FROM PUBLIC WEBSITE USE UNTIL PROJECT SEQUENCING IS VERIFIED**.
+
+Current status of those photographs:
+- founder-supplied evidence exists
+- exact before/after pairing is unresolved
+- project-by-project grouping is unresolved
+- commercial-use/permission status must be verified where applicable
+- they must not be presented as Shell & Co completed-company projects unless that statement becomes factually supportable
+
+Until verification is complete, UX/UI prototypes must use no Bernard Shell Jr. remodel photographs.
+
+AI-generated renovation imagery must be labeled as visualization/concept imagery and never represented as completed Shell & Co work. Testimonials/reviews must never be fabricated.
 
 ## Current Visual Artwork Status
 
-Concept boards exist, but no specific logo artwork is canon-locked by this record.
+The uploaded Shell & Co logo is founder-selected for prototype and brand-system development. Production-format derivatives are not yet fully generated or technically validated.
 
 ## Change History
 
-- v1.0 — Brand architecture established; new two-layer positioning adopted; prior “Precision Cuts. Beautiful Results.” concept recorded as superseded.
+- v1.0 — Brand architecture established; two-layer positioning adopted; prior “Precision Cuts. Beautiful Results.” concept superseded.
+- v1.1 — Founder-selected logo, logo micro-tagline, and strict hold on prior-remodel photographs recorded.
