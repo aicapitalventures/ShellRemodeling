@@ -5,7 +5,7 @@ on:
     branches:
       - build/01-ux-ui-prototype
     paths:
-      - 'assets/brand/source/favicon_io.zip'
+      - 'assets/brand/source/chunks/**'
       - '.github/workflows/apply-brand-assets.yml'
 
 permissions:
@@ -21,11 +21,15 @@ jobs:
           ref: build/01-ux-ui-prototype
           fetch-depth: 0
 
-      - name: Extract approved favicon family
+      - name: Reconstruct and verify founder-approved source package
         run: |
           set -euo pipefail
-          mkdir -p assets/brand
-          unzip -o assets/brand/source/favicon_io.zip -d /tmp/shell-brand
+          cat assets/brand/source/chunks/part-* | tr -d '\n' | base64 -d > /tmp/favicon_io.zip
+          echo '3c6560a095a8f513b5f36493d1b8bca31a86c05d1be41eafded469141d440ab1  /tmp/favicon_io.zip' | sha256sum -c -
+          cp /tmp/favicon_io.zip assets/brand/source/favicon_io.zip
+          rm -rf /tmp/shell-brand
+          mkdir -p /tmp/shell-brand assets/brand
+          unzip -o /tmp/favicon_io.zip -d /tmp/shell-brand
           cp /tmp/shell-brand/favicon.ico assets/brand/favicon.ico
           cp /tmp/shell-brand/favicon-16x16.png assets/brand/favicon-16x16.png
           cp /tmp/shell-brand/favicon-32x32.png assets/brand/favicon-32x32.png
@@ -38,9 +42,7 @@ jobs:
           python -m pip install --quiet pillow
           python - <<'PY'
           from PIL import Image
-          from pathlib import Path
           src = Image.open('assets/brand/android-chrome-512x512.png').convert('RGBA')
-          # Recompose exact pixel regions from the approved source; no symbol redraw.
           mark = src.crop((122, 48, 400, 312))
           word = src.crop((72, 310, 444, 451))
           bg = src.getpixel((8, 8))
@@ -52,11 +54,10 @@ jobs:
           canvas.save('assets/brand/shell-co-header-horizontal.png', optimize=True)
           PY
 
-      - name: Correct manifest and website brand references
+      - name: Apply website and Metadata Law brand updates
         run: |
           python - <<'PY'
-          import json, pathlib, re, hashlib
-          root = pathlib.Path('.')
+          import json, pathlib, re, hashlib, shutil
           manifest = {
             'name': 'Shell & Co Remodeling',
             'short_name': 'Shell & Co',
@@ -82,16 +83,15 @@ jobs:
           cssp = pathlib.Path('assets/styles.css')
           css = cssp.read_text(encoding='utf-8')
           css = re.sub(r'\.brand-logo\{[^}]*\}', '.brand-logo{display:block;object-fit:contain}.brand-logo-horizontal{width:min(320px,34vw);height:auto;background:transparent;border-radius:0}', css, count=1)
-          css += '\n.hero-brand-mark{position:relative;z-index:1;width:min(480px,88%);height:auto;object-fit:contain;filter:drop-shadow(0 18px 36px rgba(0,0,0,.2))}\n@media(max-width:560px){.brand-logo-horizontal{width:220px}.hero-brand-mark{width:min(390px,92%)}}\n'
+          if '.hero-brand-mark{' not in css:
+              css += '\n.hero-brand-mark{position:relative;z-index:1;width:min(480px,88%);height:auto;object-fit:contain;filter:drop-shadow(0 18px 36px rgba(0,0,0,.2))}\n@media(max-width:560px){.brand-logo-horizontal{width:220px}.hero-brand-mark{width:min(390px,92%)}}\n'
           cssp.write_text(css, encoding='utf-8')
 
-          # Retire the prototype-only SVG.
           old = pathlib.Path('assets/shell-co-logo.svg')
           if old.exists(): old.unlink()
 
-          # Metadata Law asset adoption record.
           source_hash = hashlib.sha256(pathlib.Path('assets/brand/source/favicon_io.zip').read_bytes()).hexdigest()
-          record = f'''# SCR-BRAND-ASSET-REVIEW-002 — Official Digital Brand Asset Adoption Record v1.0\n\n**Record ID:** SCR-BRAND-ASSET-REVIEW-002  \n**Version:** 1.0  \n**Status:** FOUNDER-ADOPTED — APPLIED  \n**Effective date:** 2026-08-12  \n**Authority:** Elijah L. Cooley  \n**Source package:** `assets/brand/source/favicon_io.zip`  \n**Source SHA-256:** `{source_hash}`  \n**Branch applied:** `build/01-ux-ui-prototype`\n\n## Adopted Assets\n\n- `assets/brand/favicon.ico`\n- `assets/brand/favicon-16x16.png`\n- `assets/brand/favicon-32x32.png`\n- `assets/brand/apple-touch-icon.png`\n- `assets/brand/android-chrome-192x192.png`\n- `assets/brand/android-chrome-512x512.png`\n- `assets/brand/shell-co-header-horizontal.png` — derived lockup created only by recomposing pixel regions from the approved artwork; core mark not redesigned.\n- `site.webmanifest` — corrected for Shell & Co identity and GitHub Pages-safe relative asset paths.\n\n## Superseded\n\n`assets/shell-co-logo.svg` — **SUPERSEDED / REMOVED**. It was a temporary prototype reconstruction and is no longer an authorized Shell & Co logo asset.\n\n## Photo Hold\n\nHistorical remodeling photographs supplied by Bernard Shell Jr. remain excluded until before/progress/after sequencing and commercial-use status are verified.\n\n## Authorization Boundary\n\nThis adoption governs digital logo/icon assets only. It does not authorize use of unverified project photographs, unverified licensing/insurance claims, live customer-data transmission, or live OpenAI API generation.\n\n## Next Authorized Action\n\nVerify the GitHub Pages founder-review rendering across desktop/mobile and confirm favicon/header asset delivery before proceeding to secure AI backend implementation.\n'''
+          record = f'''# SCR-BRAND-ASSET-REVIEW-002 — Official Digital Brand Asset Adoption Record v1.0\n\n**Record ID:** SCR-BRAND-ASSET-REVIEW-002  \n**Version:** 1.0  \n**Status:** FOUNDER-ADOPTED — APPLIED  \n**Effective date:** 2026-08-12  \n**Authority:** Elijah L. Cooley  \n**Source package:** `assets/brand/source/favicon_io.zip`  \n**Source SHA-256:** `{source_hash}`  \n**Branch applied:** `build/01-ux-ui-prototype`\n\n## Adopted Assets\n\n- `assets/brand/favicon.ico`\n- `assets/brand/favicon-16x16.png`\n- `assets/brand/favicon-32x32.png`\n- `assets/brand/apple-touch-icon.png`\n- `assets/brand/android-chrome-192x192.png`\n- `assets/brand/android-chrome-512x512.png`\n- `assets/brand/shell-co-header-horizontal.png` — derived only by recomposing regions of the approved artwork; the core S&C + diamond-blade mark was not redesigned.\n- `site.webmanifest` — corrected for Shell & Co identity and GitHub Pages-safe relative paths.\n\n## Superseded\n\n`assets/shell-co-logo.svg` — **SUPERSEDED / REMOVED**. It was a temporary prototype reconstruction and is not an authorized current Shell & Co logo asset.\n\n## Photo Hold\n\nHistorical remodeling photographs supplied by Bernard Shell Jr. remain excluded until before/progress/after sequencing and commercial-use status are verified.\n\n## Authorization Boundary\n\nThis record governs digital logo/icon assets only. It does not authorize unverified project photographs, licensing/insurance claims, production customer-data transmission, or live OpenAI API generation.\n\n## Next Authorized Action\n\nVerify the GitHub Pages founder-review rendering on desktop/mobile and confirm favicon/header delivery before secure AI backend implementation.\n'''
           pathlib.Path('docs/brand/SCR-BRAND-ASSET-REVIEW-002.md').write_text(record, encoding='utf-8')
 
           bp = pathlib.Path('docs/brand/SCR-BRAND-001.md')
@@ -99,7 +99,7 @@ jobs:
           brand = brand.replace('**Version:** 1.0', '**Version:** 1.2', 1)
           brand = brand.replace('**Status:** ADOPTED — BRAND ARCHITECTURE / VISUAL ARTWORK NOT LOCKED', '**Status:** ADOPTED — FOUNDER-SELECTED DIGITAL IDENTITY & ASSET FAMILY', 1)
           brand = brand.replace('**Canon status:** PARTIAL', '**Canon status:** PARTIAL — DIGITAL BRAND ASSETS ADOPTED', 1)
-          brand = brand.replace('Concept boards exist, but no specific logo artwork is canon-locked by this record.', 'Founder-approved digital artwork is now adopted through SCR-BRAND-ASSET-REVIEW-002. The uploaded favicon family is authoritative for digital icon use. The prior prototype SVG is superseded and removed. The horizontal website-header lockup is a derived web application created from the approved artwork without redesigning the core S&C + diamond-blade mark.')
+          brand = brand.replace('Concept boards exist, but no specific logo artwork is canon-locked by this record.', 'Founder-approved digital artwork is adopted through SCR-BRAND-ASSET-REVIEW-002. The favicon family is authoritative for digital icon use. The prior prototype SVG is superseded and removed. The horizontal website-header lockup is derived from the approved artwork without redesigning the core S&C + diamond-blade mark.')
           if 'v1.2 — Founder-approved digital asset family adopted' not in brand:
               brand += '\n- v1.2 — Founder-approved digital asset family adopted under SCR-BRAND-ASSET-REVIEW-002; prototype SVG superseded.\n'
           bp.write_text(brand, encoding='utf-8')
@@ -109,19 +109,21 @@ jobs:
           txt = txt.replace('`/assets/shell-co-logo.svg`', '`/assets/brand/shell-co-header-horizontal.png`\n- `/assets/brand/favicon.ico` + PNG icon family\n- `/site.webmanifest`')
           txt = txt.replace('## Next Best Action\n\nEnable GitHub Pages for `build/01-ux-ui-prototype` and conduct founder visual review with Bernard Shell Jr. while the secure backend architecture is designed separately.', '## Brand Asset Update\n\nSCR-BRAND-ASSET-REVIEW-002 has been applied. The founder-approved favicon/icon family is authoritative; the temporary prototype SVG has been superseded and removed. Historical remodel photos remain withheld.\n\n## Next Best Action\n\nEnable or verify GitHub Pages for `build/01-ux-ui-prototype`, then conduct founder visual review with Bernard Shell Jr. using the approved brand assets.')
           br.write_text(txt, encoding='utf-8')
+
+          shutil.rmtree('assets/brand/source/chunks', ignore_errors=True)
+          pathlib.Path('assets/brand/source/TRIGGER.md').unlink(missing_ok=True)
+          pathlib.Path('.github/workflows/apply-brand-assets.yml').unlink(missing_ok=True)
           PY
 
-      - name: Verify Pages-safe asset paths and photo hold
+      - name: Verify asset integrity, Pages paths, and photo hold
         run: |
           set -euo pipefail
-          test -f index.html
-          test -f site.webmanifest
-          test -f assets/brand/favicon.ico
-          test -f assets/brand/favicon-16x16.png
-          test -f assets/brand/favicon-32x32.png
-          test -f assets/brand/apple-touch-icon.png
-          test -f assets/brand/android-chrome-192x192.png
-          test -f assets/brand/android-chrome-512x512.png
+          echo 'c506b53bab498bef770bee094f87885bc2003203443d905c8d362b08495350e5  assets/brand/favicon.ico' | sha256sum -c -
+          echo 'a63a45c46d241db7114639874e8c975e4287939b07d259a6a38934ad8fe9198f  assets/brand/favicon-16x16.png' | sha256sum -c -
+          echo 'e99d64c0b8324dfdf43c6a99705b4ac809c83304c0fe17f4cbead7461f1591ba  assets/brand/favicon-32x32.png' | sha256sum -c -
+          echo '964d1e37c150937a0e7b9dae0f3a6d6b9a329ce434ee004e06dc2e745eca80d9  assets/brand/apple-touch-icon.png' | sha256sum -c -
+          echo 'b0568f87df233fe22b31044b062f27e01f37d914167f429551fe03592b5a2643  assets/brand/android-chrome-192x192.png' | sha256sum -c -
+          echo '2844dff035ceeaedb318fd4cd1660e71debf113fc0f5a0d22716feac110deccd  assets/brand/android-chrome-512x512.png' | sha256sum -c -
           test -f assets/brand/shell-co-header-horizontal.png
           test ! -e assets/shell-co-logo.svg
           grep -q 'assets/brand/shell-co-header-horizontal.png' index.html
@@ -130,11 +132,10 @@ jobs:
           ! grep -q '58689fd5-cf45' index.html
           ! grep -q 'all_1234' index.html
 
-      - name: Commit generated brand assets
+      - name: Commit applied brand assets
         run: |
           git config user.name 'AICV Brand Asset Automation'
           git config user.email 'a.i.capitalventures@proton.me'
-          git add index.html site.webmanifest assets/brand docs/brand docs/build-records/SCR-BR01-001.md
-          git add -u assets/shell-co-logo.svg || true
+          git add -A
           git commit -m 'Apply founder-approved Shell & Co digital brand assets' || exit 0
           git push origin HEAD:build/01-ux-ui-prototype
