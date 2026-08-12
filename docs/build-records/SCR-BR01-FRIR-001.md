@@ -1,156 +1,153 @@
-# SCR-BR01-FRIR-001 — Founder Feedback & Pre-Build Intake Reconciliation Record v2.0
+# SCR-BR01-FRIR-001 — Founder Feedback & Pre-Build Intake Reconciliation Record v3.0
 
 **Record ID:** SCR-BR01-FRIR-001  
-**Version:** 2.0  
-**Status:** COMPLETED INTAKE INGESTED — FINAL CONFLICT RESOLUTION PENDING  
+**Version:** 3.0  
+**Status:** FINAL FOUNDER ANSWERS INGESTED — CONFLICTS RESOLVED / UX LOCK AUTHORIZED  
 **Effective date:** 2026-08-12  
 **Branch:** `build/01-ux-ui-prototype`  
-**Dependencies:** SCR-META-000, SCR-BRAND-001 v1.3, SCR-BRAND-ASSET-REVIEW-002 v1.0, SCR-BR01-INTAKE-200-001 v1.0, SCR-BR01-PORTFOLIO-001 v1.0, SCR-BR01-VISUAL-REFINE-003, SCR-WEB-001, SCR-AIVIS-001
+**Dependencies:** SCR-META-000, SCR-BRAND-001 v1.3, SCR-BRAND-ASSET-REVIEW-002 v1.0, SCR-BR01-INTAKE-200-001 v1.1, SCR-BR01-PORTFOLIO-001 v1.0, SCR-BR01-FINAL-LOCK-001 v1.0, SCR-WEB-001, SCR-AIVIS-001
 
 ## Evidence Ingested
 
-1. Bernard Shell Jr. live-site founder review: positive approval of the prototype and agreement with the stronger visual direction.
-2. Founder-selected public-location direction: remove street address from customer-facing website and use **Kentuckiana**.
+1. Bernard Shell Jr. live-site founder review and joint approval of the stronger visual direction.
+2. Founder-selected public-location direction: Kentuckiana; public street address removed.
 3. Completed 200-question Pre-Build Founder Intake.
-4. Elijah L. Cooley clarification that all answered intake fields are to be treated as **FOUNDER-SELECTED** even where the PDF status dropdown was not changed.
-5. Founder-supplied project-photo archive and governed visual classification under Q087 delegation.
+4. Elijah L. Cooley clarification that all answered intake fields are founder-selected even where the PDF dropdown remained `UNDECIDED`.
+5. Founder-supplied three-project photo archive and governed sequencing analysis.
+6. Final 15-item founder lock checklist supplied 2026-08-12.
+7. Explicit delegated authority to resolve fair-market budget bands, appointment/deposit protection, payment rails, travel charge, financing platform and privacy/warranty architecture using current evidence.
 
-The complete intake extraction and unresolved-item registry is maintained in SCR-BR01-INTAKE-200-001.
+## Final Founder Decisions Reconciled
 
-## Reconciled Founder Decisions
+### Service Scope
+- Bathroom remodeling remains the core market identity.
+- Tile installation is a core skill and may be accepted outside bathrooms.
+- Shell & Co is **not** positioned as a carpet, hardwood or broad all-material flooring company.
+- Prior `flooring outside bathrooms` conflict is **RESOLVED**.
+- No minimum project size; prior minimum answer was a typo and is **SUPERSEDED**.
 
-### Legal / Governance
-- Intended formation: Indiana.
-- Intended legal entity: Shell & Co Remodeling LLC.
-- Entity not yet filed.
-- Intended registered agent: Bernard Shell Jr.
-- Manager-managed; Bernard Shell Jr. has day-to-day management and customer-contract signing authority.
-- 70% Bernard Shell Jr. / 30% Divinityx Enterprises LLC ownership approved.
-- Ownership percentages and Divinityx ownership are not customer-facing website content.
+### Estimate / Appointment Protection
+- Free initial phone/photo review.
+- Confirmed on-site assessment requires a $49 appointment reservation fee.
+- Fee is credited toward a signed project if hired within 30 days.
+- At least 24 hours notice permits refund/reschedule; late cancellation/no-show forfeits the fee.
+- Extra travel may apply under the adopted travel policy.
 
-### Public Website Identity
-- Public location: **Kentuckiana**.
-- Public street-address display: **SUPERSEDED**.
-- Phone: **(502) 303-2398**.
-- Call hours: **9 AM–5 PM**.
-- Customer communication direction: Call + Text + Request an Estimate.
-- Primary CTA: **Request an Estimate**.
-- Customer-facing target email: `support@shellremodeling.com`, but activation remains verification-gated.
+### Budget Qualification
+Founder-delegated ranges are adopted as planning bands, not public project prices:
+- Under $5,000
+- $5,000–$10,000
+- $10,000–$20,000
+- $20,000–$35,000
+- $35,000+
+- Not sure yet
 
-### Service Positioning
-- Core positioning: premium bathroom-remodeling craftsmanship.
-- Website emphasis: bathroom transformation + tile precision + accessibility.
-- Initial geographic answers: Clark County, IN; Jefferson County, KY; Louisville/Kentucky yes; normal radius 50 miles; public label Kentuckiana.
-- Bathroom service matrix from SCR-BR01-INTAKE-200-001 is founder-selected.
-- Kitchen remodeling and general interior remodeling are rejected for the initial service model.
+### Project Deposit / Payment Schedule
+- Standard scheduling/mobilization deposit: 15% of signed contract price, subject to stricter jurisdictional law if applicable.
+- Special-order/nonreturnable materials may require separately documented funding/direct customer purchase.
+- Progress payments tied to written milestones.
+- Final balance tied to completion/punch-list closeout under the written contract.
 
-### Brand
-- Primary logo: canon-locked.
-- `Cutting Edge. Lasting Results.`: canon-locked.
-- `Built with the Right Tools. Finished the Right Way.`: canon-locked.
-- `Our Best Tool Is Precision. Our Standard Is Excellence.`: canon-locked.
-- Diamond-blade symbol is controlling.
-- Approved feel: premium/luxury + craftsman/tradesman.
+### Payment Methods
+- Accept cash with receipt, card, and ACH through approved business payment systems.
+- Do not accept personal/business checks.
+- Electronic funds must be confirmed/cleared before being treated as paid.
 
-### Portfolio
-- Bernard Shell Jr. confirms he personally performed or supervised all supplied photo work.
-- None of the supplied projects were completed while working for another company.
-- Commercial-use rights confirmed.
-- Archive = exactly three jobs.
-- Sequencing delegated for governed analysis.
-- Three representative project comparisons classified and authorized under SCR-BR01-PORTFOLIO-001.
-- Project gallery desired; individual case-study pages rejected.
-- No testimonials currently.
+### Financing
+- Preferred launch platform: **Acorn Finance**, subject to contractor approval and activation.
+- No claim that financing is currently available until enrollment and live financing link are verified.
 
-### Founder / About
-- 35 years experience reported and stated substantiable.
-- Apprenticeship-trained.
-- Bathroom remodeling is preferred trade focus.
-- Elijah L. Cooley should not have a customer-facing title, founder story, or photograph on the website.
-- Exact Bernard public title remains unresolved because the intake answer did not select one title from the multi-option question.
+### Permits
+- Bernard Shell Jr. — Founder & Owner — is primary Shell & Co permit coordinator.
+- Building permits may be obtained by him where legally authorized.
+- Trade-specific permits are handled by the legally authorized property owner or licensed/identified trade contractor where required.
 
-### Conversion / Technical
-- Sticky mobile Call and Text controls desired.
-- Confirmation page and response expectation desired.
-- Both members receive leads.
-- Website chat desired; AI/VAPI intake later.
-- Project gallery + accessibility page + FAQ desired; blog and individual project case studies rejected at launch.
-- GitHub Pages preferred; repository confirmed.
-- Avoid frameworks/npm/database dependencies unless justified.
-- Metadata Law inheritance required for major changes.
-- Search Console, Ads/Meta conversion preparation, lawful call tracking, and source attribution desired.
+### Travel
+- No surcharge through 35 one-way miles from Charlestown, Indiana.
+- Beyond 35 miles: $1.50 per additional one-way mile, disclosed before scheduling.
+- Formula is cost-oriented and based on the 2026 round-trip business-mileage benchmark.
 
-## Applied Website Corrections
+### Response Time
+- Customer estimate/contact requests: response within 24 hours.
 
-The founder-review prototype now incorporates founder-selected changes that are both clear and safe to represent without external verification:
+### Domain
+- Founder-confirmed purchased 2026-08-12 through Bernard Shell Jr.’s Namecheap account using a reported $6.99 first-year new-customer promotion.
+- Founder-confirmed purchase supersedes the intake’s earlier `NO` answer.
+- Direct DNS/control verification remains an implementation task.
 
-- `Our Work` / before-and-after gallery route added;
-- three-project comparison proof asset installed;
-- homepage project-proof preview added;
-- bathroom-focused hero taxonomy (`Bathroom Remodeling • Tile Precision • Accessibility`);
-- bathroom-only Remodel Studio room-type choices;
-- `Request an Estimate` promoted as primary CTA;
-- Call and Text remain prominent;
-- 9 AM–5 PM hours added to the contact experience;
-- sticky mobile Call / Text / Estimate dock added;
-- Kentuckiana public-location rule preserved.
+### Founder Public Title
+**Bernard Shell Jr. — Founder & Owner**.
 
-## Conflicts / Missing Values
+Elijah L. Cooley remains non-customer-facing on the public About/founder presentation per the completed intake.
 
-The following remain unresolved and prevent a final Build Room 01 lock:
+### Warranty
+- Recommendation approved: do not publish an unlimited satisfaction/workmanship warranty until exact written terms, coverage, exclusions, duration and remedies are finalized and reviewed.
+- Existing craftsmanship statements are brand positioning, not unlimited legal warranty language.
 
-1. `Flooring outside bathrooms = YES` conflicts with `do not accept jobs outside bathroom remodeling`.
-2. Minimum project size desired but no threshold supplied.
-3. Estimates are not free but fee/waiver rule not supplied.
-4. Budget-range selector desired but no ranges supplied.
-5. Deposit language desired but terms not supplied.
-6. `No checks` does not fully define accepted payment rails.
-7. Financing should be mentioned, but provider/terms are not established.
-8. Permit-puller answer does not identify who pulls permits.
-9. Travel-charge threshold/amount not supplied.
-10. Response-time promise not supplied.
-11. `shellremodeling.com` purchase status conflicts with related account/2FA/domain-only answers and requires direct verification.
-12. Exact Bernard public title not supplied.
-13. Warranty publication timing was delegated for advice; final terms/review gate remains open.
-14. Marketing-consent separation requires explanation/final choice.
-15. Customer-photo use/storage disclosure architecture remains a production privacy decision even though the founder answered `NO` to putting that explanation in the form.
+### Consent / Privacy
+- Optional marketing consent must be separate from estimate-request contact permission.
+- Production customer photo upload must disclose use, storage/transmission, retention and deletion-request handling in clear language.
 
-## Delegated Decisions — Current Recommendation
+### Licensed / Bonded / Insured
+- Founder direction: completed production launch should be **Licensed, Bonded & Insured** as applicable to the jurisdictions served.
+- This does **not** block Build Room 01 UX/UI lock.
+- The factual public claim remains an evidence-activation gate: no present-tense `Licensed, Bonded & Insured` representation until supporting credentials/documents exist.
+- The website may prepare a production-launch-standard trust component without misrepresenting current status.
 
-- **Service-page architecture:** use focused conversion pages, not one page per small service: Home, Bathroom Remodeling, Showers & Tile, Accessibility, Our Work, Remodel Studio, FAQ, Request Estimate / Contact. This recommendation is not canon-locked until Bernard Shell Jr. approves the final structure.
-- **Build branch:** keep `build/01-ux-ui-prototype` as the controlled working branch until final founder approval; do not merge main yet.
-- **Warranty language:** do not publish an unlimited customer-satisfaction warranty until exact scope/limitations and appropriate review are complete.
-- **Marketing consent:** keep optional marketing consent separate from the core estimate/contact permission in production architecture.
+## Market / Compliance Resolutions Applied Under Delegated Authority
+
+- Budget bands reflect current 2026 bathroom-remodel market distribution and retain a `Not sure yet` option.
+- $49 appointment reservation is intentionally modest relative to current paid inspection/estimate norms and is designed as anti-no-show protection rather than a profit center.
+- Travel rate is $1.50 per excess one-way mile because the July–December 2026 IRS business vehicle benchmark is $0.76 per actual mile; round trip approximates $1.52 per excess one-way mile and is rounded down.
+- 15% standard project deposit sits within ordinary remodeling deposit practice and is paired with milestone payments rather than large advance collection.
+- Acorn Finance is selected over higher-fixed-cost alternatives for launch because it currently offers a multi-lender model and represents no contractor setup/monthly/dealer fees; provider onboarding/credentials still control actual availability.
+
+## Conflicts
+
+**All 15 founder-level lock conflicts/missing selections recorded in v2.0 are resolved.**
+
+Remaining unknowns are factual production dependencies rather than founder-preference conflicts.
+
+## Website Corrections Authorized
+
+The founder-review site should now reflect:
+- Our Work / before-and-after gallery;
+- bathroom-first services plus tile flooring outside bathrooms;
+- Bernard Shell Jr. — Founder & Owner;
+- 35 years founder-reported experience / apprenticeship training;
+- planning-budget selector;
+- 24-hour response expectation;
+- Call + Text + Request Estimate hierarchy;
+- $49 appointment reservation policy and 35-mile travel rule in transparent estimate copy;
+- payment methods: cash/card/ACH; no checks;
+- Acorn Finance selected/activation pending;
+- production launch standard: Licensed • Bonded • Insured, verification required before active claim;
+- separate marketing consent architecture for production;
+- production photo privacy disclosure requirement.
 
 ## Canon Lock Determination
 
-**NOT LOCKED.** The completed intake eliminates the broad information gap, but the limited conflict/missing-value list above materially affects the final service, estimate, payment, privacy, and public-claim architecture.
+**AUTHORIZED.**
 
-The next founder interaction should resolve only those remaining items; the 200-question intake does not need to be repeated.
+Build Room 01 qualifies for:
 
-## Gate State
+# FOUNDER APPROVED — UX/UI & CUSTOMER EXPERIENCE DIRECTION LOCKED
 
-### OPEN
-- founder-review Pages environment
-- project gallery / portfolio refinement
-- final conflict-resolution checklist
-- secure-backend research/planning without production activation
+This lock does not imply formation, licensing, bond, insurance, financing enrollment, privacy/security implementation or production-data transmission are complete.
 
-### CLOSED
-- final Build Room 01 customer-experience canon lock
-- live OpenAI generation
-- production customer PII/photo transmission
-- persistent photo storage
-- production financing/warranty/license/insurance claims
-- custom-domain production launch
-- Build Room 02 production implementation
+## Build Room 02 Eligibility
 
-## Next Best Action
+**OPEN FOR CONTROLLED IMPLEMENTATION.**
 
-Resolve the remaining founder lock checklist in one short decision pass, then perform the final website correction and Build Room 01 lock determination.
+Next dependency:
+
+**Shell & Co Remodel Studio™ — Secure Backend, Customer Photo Intelligence & OpenAI Visualization Architecture — Build Room 02**
+
+Live customer PII/photo transmission remains closed until the secure backend, privacy and credential gates are satisfied.
 
 ## Change History
 
 - v1.0 — Live-site founder feedback ingested.
 - v1.1 — Kentuckiana public-location privacy direction adopted.
-- v2.0 — Completed 200-question founder intake ingested under founder-selected status override; core brand canon locked; three-job portfolio evidence reconciled; founder-safe website corrections applied; final lock reduced to a limited conflict-resolution checklist.
+- v2.0 — 200-question founder intake ingested; remaining conflict list isolated.
+- v3.0 — Final founder lock checklist ingested; delegated market/commercial policies resolved; all founder-level conflicts closed; Build Room 01 UX/UI/customer-experience lock authorized; Build Room 02 eligibility opened subject to production verification gates.
