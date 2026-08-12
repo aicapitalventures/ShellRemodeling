@@ -5,7 +5,7 @@
 **Status:** FOUNDER-SELECTED / DESIGN BUILD AUTHORIZED  
 **Effective date:** 2026-08-12  
 **Dependencies:** SCR-META-000  
-**Canon status:** PARTIAL  
+**Canon status:** PARTIAL — DIGITAL BRAND ASSETS ADOPTED  
 **Next authorized action:** Use the selected visual identity for controlled UX/UI prototype work; final production asset package remains subject to later quality/reproduction review.
 
 ## Adopted Identity Inputs
@@ -112,3 +112,5 @@ The uploaded Shell & Co logo is founder-selected for prototype and brand-system 
 
 - v1.0 — Brand architecture established; two-layer positioning adopted; prior “Precision Cuts. Beautiful Results.” concept superseded.
 - v1.1 — Founder-selected logo, logo micro-tagline, and strict hold on prior-remodel photographs recorded.
+
+- v1.2 — Founder-approved digital asset family adopted under SCR-BRAND-ASSET-REVIEW-002; prototype SVG superseded.
