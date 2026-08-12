@@ -1,11 +1,11 @@
-# SCR-BR01-FRIR-001 — Founder Feedback & Pre-Build Intake Reconciliation Record v1.0
+# SCR-BR01-FRIR-001 — Founder Feedback & Pre-Build Intake Reconciliation Record v1.1
 
 **Record ID:** SCR-BR01-FRIR-001  
-**Version:** 1.0  
+**Version:** 1.1  
 **Status:** PARTIAL RECONCILIATION — LIVE-SITE FEEDBACK INGESTED / PRE-BUILD INTAKE PENDING  
 **Effective date:** 2026-08-12  
 **Branch:** `build/01-ux-ui-prototype`  
-**Dependencies:** SCR-META-000, SCR-BRAND-001 v1.2, SCR-BRAND-ASSET-REVIEW-002 v1.0, SCR-BR01-001 v0.4, SCR-BR01-LIVE-QA-001, SCR-BR01-VISUAL-QA-002, SCR-BR01-VISUAL-REFINE-003, SCR-WEB-001, SCR-AIVIS-001
+**Dependencies:** SCR-META-000, SCR-BRAND-001 v1.2, SCR-BRAND-ASSET-REVIEW-002 v1.0, SCR-BR01-001 v0.5, SCR-BR01-LIVE-QA-001, SCR-BR01-VISUAL-QA-002, SCR-BR01-VISUAL-REFINE-003, SCR-WEB-001, SCR-AIVIS-001
 
 ## Evidence Ingested
 
@@ -15,6 +15,7 @@ Available founder feedback reported by Elijah L. Cooley after Bernard Shell Jr. 
 - He likes the prototype.
 - He expressed strong positive reaction to the work.
 - He agrees with Elijah L. Cooley on the visual changes previously identified for the founder-review prototype.
+- Bernard Shell Jr. additionally directed that his street address be removed from the public website and replaced with the public-facing location label **Kentuckiana**.
 - The Pre-Build Founder Intake Fillable PDF has **not yet been completed or returned**.
 
 No additional written, recorded, or itemized Bernard Shell Jr. website-change list was supplied in this reconciliation turn.
@@ -43,16 +44,16 @@ No additional written, recorded, or itemized Bernard Shell Jr. website-change li
 **PROVISIONAL / INTAKE REQUIRED.** Current website/service assumptions remain subject to founder-intake reconciliation.
 
 ### Service area
-**PROVISIONAL / INTAKE REQUIRED.** No new founder-intake answer is available in this turn.
+**FOUNDER-SELECTED PUBLIC LABEL / PROVISIONAL OPERATING SCOPE.** The website shall publicly display **Kentuckiana** instead of Bernard Shell Jr.'s street address. Exact operating radius and jurisdictional service boundaries remain subject to founder-intake reconciliation and verification.
 
 ### Public company information
-**PROVISIONAL / REQUIRES VERIFICATION.** Existing public prototype information remains founder-review content, not a substitute for completed operational intake and legal verification.
+**PARTIALLY APPROVED / PARTIALLY REQUIRES VERIFICATION.** Public street-address display is superseded for the website. The public-facing geographic label is **Kentuckiana**. Other public company facts remain subject to completed operational intake and legal verification.
 
 ### Founder roles / titles
 **PROVISIONAL / INTAKE REQUIRED.** No new title or authority answer is supplied by the pending intake.
 
 ### Contact information
-**PROVISIONAL / CURRENTLY DISPLAYED.** Existing phone/address remain in the prototype unless superseded by founder intake or verified operational records.
+**FOUNDER-SELECTED PUBLIC DISPLAY.** Phone remains displayed. The prior public street-address presentation is **SUPERSEDED** and shall be replaced on the website with **Kentuckiana**. This record does not determine or alter any underlying legal, mailing, registration, tax, or internal business-address requirement.
 
 ### Estimate workflow
 **APPROVED FOR PROTOTYPE CONTINUATION / NOT PRODUCTION AUTHORIZED.** The current Remodel Studio → concept selection → human buildability review → pre-estimate workflow may continue as prototype architecture.
@@ -100,6 +101,8 @@ No additional written, recorded, or itemized Bernard Shell Jr. website-change li
 
 No substantive founder-to-founder conflict is evidenced in the available website feedback. Bernard Shell Jr. agrees with the visual changes previously directed by Elijah L. Cooley.
 
+The public website location decision is also non-conflicting: the prior street-address presentation is superseded by **Kentuckiana**.
+
 The absence of a completed Pre-Build Founder Intake is **not treated as approval** of unresolved operational, legal, service, privacy, payment, insurance, licensing, warranty, analytics, or deployment assumptions.
 
 ## Website Corrections Reconciliation
@@ -112,13 +115,19 @@ The founder-authorized visual corrections identified before Bernard Shell Jr.'s 
 - stronger contrast and dimensionality;
 - stronger Remodel Studio visual prominence.
 
-Bernard Shell Jr.'s reported feedback approves that direction. No additional itemized code correction was supplied in this turn, so no ungrounded redesign is authorized.
+Bernard Shell Jr.'s reported feedback approves that direction.
+
+An additional founder-authorized public-information correction is now applied:
+
+- remove Bernard Shell Jr.'s street address from public website presentation;
+- replace it with **Kentuckiana** in the contact bar, estimate contact card, and footer;
+- relabel the estimate contact-card field from **Address** to **Service Area**.
 
 ## Canon Lock Determination
 
 **Build Room 01 SHALL NOT YET BE CLASSIFIED `FOUNDER APPROVED — UX/UI & CUSTOMER EXPERIENCE DIRECTION LOCKED`.**
 
-Reason: visual direction is approved, but the Pre-Build Founder Intake remains incomplete. The intake is expected to control or materially inform unresolved service, operational, trust, privacy, payment, deployment, and public-company facts.
+Reason: visual direction and public-location presentation are approved, but the Pre-Build Founder Intake remains incomplete. The intake is expected to control or materially inform unresolved service, operational, trust, privacy, payment, deployment, and public-company facts.
 
 ## Gate State
 
@@ -143,3 +152,8 @@ Reason: visual direction is approved, but the Pre-Build Founder Intake remains i
 ## Next Best Action
 
 Obtain Bernard Shell Jr.'s completed Pre-Build Founder Intake Fillable PDF and ingest it into this record as the missing second evidence set. Then perform final founder-intake reconciliation and determine whether Build Room 01 can be locked.
+
+## Change History
+
+- v1.0 — Live-site founder feedback ingested; visual direction jointly approved; Pre-Build Founder Intake remained pending.
+- v1.1 — Bernard Shell Jr. public-location privacy direction ingested; website street-address display superseded and replaced with `Kentuckiana`; exact operating service radius remains intake-dependent.
