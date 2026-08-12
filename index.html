@@ -3,54 +3,88 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Shell & Co Remodeling — Remodel Studio UX Preview</title>
-<meta name="description" content="Shell & Co Remodeling UX/UI prototype featuring a homeowner remodel visualization and pre-estimate intelligence workflow.">
+<title>Shell & Co Remodeling — Bathroom Remodeling, Tile & Remodel Studio</title>
+<meta name="description" content="Shell & Co Remodeling founder-review website for premium bathroom remodeling, tile precision, accessibility improvements, real project proof and a guided Remodel Studio pre-estimate workflow in Kentuckiana.">
 <meta name="robots" content="noindex,nofollow">
 <link rel="apple-touch-icon" sizes="180x180" href="assets/brand/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="assets/brand/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="assets/brand/favicon-16x16.png">
 <link rel="icon" href="assets/brand/favicon.ico">
 <link rel="manifest" href="site.webmanifest">
-<meta name="theme-color" content="#3d3b39">
+<meta name="theme-color" content="#343331">
 <link rel="stylesheet" href="assets/styles.css">
+<style>
+.service-grid,.policy-grid,.proof-preview-grid,.founder-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:30px}
+.service-card,.policy-card,.proof-card,.founder-card{background:#fff;border:1px solid #c9bda9;border-radius:5px;padding:24px;box-shadow:0 12px 34px rgba(38,33,28,.06)}
+.service-card h3,.policy-card h3,.proof-card h3,.founder-card h3{font-family:Georgia,"Times New Roman",serif;font-size:22px;margin:8px 0 10px}
+.service-card p,.policy-card p,.proof-card p,.founder-card p{font-size:13px;color:#5d5750;margin:0}
+.proof-preview{background:#20201f;color:#fff}
+.proof-preview-grid{grid-template-columns:1.35fr .65fr;align-items:center}
+.proof-preview img{display:block;width:100%;height:auto;border-radius:5px;border:1px solid #695a46;box-shadow:0 26px 60px rgba(0,0,0,.32)}
+.proof-copy{padding:18px 0 18px 18px}
+.proof-copy .lead{color:#d9d0c5}
+.founder-grid{grid-template-columns:1.1fr .9fr}
+.founder-card.dark-card{background:#242321;color:#fff;border-color:#665944}
+.founder-card.dark-card p{color:#ddd3c6}
+.policy-grid{grid-template-columns:repeat(3,1fr)}
+.policy-card .policy-kicker{font-size:11px;text-transform:uppercase;letter-spacing:.14em;color:#8b6432;font-weight:800}
+.launch-standard{border:1px solid #c6a778;background:linear-gradient(135deg,#292825,#1d1d1c);color:#fff;padding:22px;border-radius:5px;margin-top:22px}
+.launch-standard strong{display:block;font-family:Georgia,"Times New Roman",serif;font-size:27px;margin-bottom:8px}
+.launch-standard small{color:#d9ccb8}
+.form-help{font-size:12px;color:#625c55;margin-top:7px;line-height:1.55}
+.mobile-contact-dock{display:none}
+@media(max-width:980px){.service-grid{grid-template-columns:repeat(2,1fr)}.policy-grid{grid-template-columns:1fr}.proof-preview-grid,.founder-grid{grid-template-columns:1fr}.proof-copy{padding-left:0}}
+@media(max-width:560px){.service-grid{grid-template-columns:1fr}.mobile-contact-dock{position:fixed;z-index:1000;display:grid;grid-template-columns:repeat(3,1fr);left:0;right:0;bottom:0;background:#181817;border-top:1px solid #c6a778;padding:7px}.mobile-contact-dock a{color:#fff;text-decoration:none;text-align:center;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;padding:11px 5px;border-right:1px solid #4d4943}.mobile-contact-dock a:last-child{border-right:0;background:#c6a778;color:#181817}.footer{padding-bottom:78px}}
+</style>
 </head>
 <body>
-<div class="prototype-bar">Founder Review Prototype • AI visualization backend not connected • Prior remodel photos intentionally withheld pending before/after verification</div>
-<div class="contact-bar">Shell &amp; Co Remodeling &nbsp;•&nbsp; <a href="tel:+15023032398">(502) 303-2398</a> &nbsp;•&nbsp; Kentuckiana</div>
+<div class="prototype-bar">Founder-Approved UX Direction • Secure AI backend and production credential verification still in progress</div>
+<div class="contact-bar">Shell &amp; Co Remodeling &nbsp;•&nbsp; <a href="tel:+15023032398">(502) 303-2398</a> &nbsp;•&nbsp; <a href="sms:+15023032398">Text Us</a> &nbsp;•&nbsp; Kentuckiana &nbsp;•&nbsp; Calls 9 AM–5 PM</div>
 <header class="site-header"><div class="wrap nav">
 <a class="brand" href="#top"><img class="brand-logo brand-logo-horizontal" src="assets/brand/shell-co-header-horizontal.png" alt="Shell & Co Remodeling — Cutting Edge. Lasting Results."></a>
-<nav class="nav-links" aria-label="Primary"><a href="#studio">Remodel Studio</a><a href="#difference">Our Difference</a><a href="#process">Process</a><a href="#estimate">Estimate</a></nav>
-<a class="button" href="#studio">Visualize My Remodel</a>
+<nav class="nav-links" aria-label="Primary"><a href="#studio">Remodel Studio</a><a href="our-work.html">Our Work</a><a href="#services">Services</a><a href="#process">Process</a><a href="#estimate">Estimate</a></nav>
+<a class="button" href="#estimate">Request an Estimate</a>
 </div></header>
 <main id="top">
 <section class="hero"><div class="hero-copy">
-<div class="eyebrow">Bathroom Remodeling • Tile • Residential Renovation</div>
+<div class="eyebrow">Bathroom Remodeling • Tile Precision • Accessibility</div>
 <h1>See the vision.<br>Then build it the right way.</h1>
-<p>Shell &amp; Co is developing a guided remodel experience that lets homeowners upload their actual space, explore multiple AI-assisted concepts, capture what they want preserved or changed, and bring a clearer vision into the estimate process.</p>
-<div class="hero-actions"><a class="button" href="#studio">Try the Remodel Studio</a><a class="button light" href="tel:+15023032398">Call (502) 303-2398</a></div>
+<p>Shell &amp; Co Remodeling combines hands-on bathroom craftsmanship with a guided pre-estimate experience designed to help homeowners show what they want, compare directions, and move into a clearer conversation before work begins.</p>
+<div class="hero-actions"><a class="button" href="#estimate">Request an Estimate</a><a class="button light" href="our-work.html">See Before &amp; After Work</a><a class="button light" href="sms:+15023032398">Text Us</a></div>
 <p class="research-note">Built with the Right Tools. Finished the Right Way. • Our Best Tool Is Precision. Our Standard Is Excellence.</p>
 </div><div class="hero-visual" aria-hidden="true"><img class="hero-brand-mark" src="assets/brand/android-chrome-512x512.png" alt=""></div></section>
 
 <section class="section white" id="difference"><div class="wrap">
 <div class="eyebrow">Not Just Another Contact Form</div><h2>From a homeowner photo to a contractor-ready conversation.</h2>
-<p class="lead">AI room visualizers already exist. Our product direction is different: use visualization as the first step in a governed pre-estimate workflow that captures preferences, flags uncertainty, and gives Shell &amp; Co useful project intelligence before the first site visit.</p>
+<p class="lead">The Remodel Studio direction uses visualization as the first step in a governed pre-estimate workflow: capture the actual space, preserve what matters, identify desired changes, compare concepts, flag uncertainty, and give the contractor useful project intelligence before the first site visit.</p>
 <div class="feature-grid">
-<article class="feature"><span class="num">01</span><h3>Space Truth</h3><p>Start with the customer’s own room photo and document what must stay, what may change, and what matters most.</p></article>
-<article class="feature"><span class="num">02</span><h3>Multiple Directions</h3><p>Generate distinct remodel concepts rather than asking the homeowner to imagine the finished room from words alone.</p></article>
-<article class="feature"><span class="num">03</span><h3>Reality Check</h3><p>Separate inspiration from buildability. AI never certifies code, structure, plumbing, electrical, dimensions, price, or permits.</p></article>
+<article class="feature"><span class="num">01</span><h3>Space Truth</h3><p>Start with the customer’s own bathroom/project photo and document what must stay, what may change, and what matters most.</p></article>
+<article class="feature"><span class="num">02</span><h3>Multiple Directions</h3><p>Explore distinct remodel concepts instead of asking the homeowner to imagine the finished room from words alone.</p></article>
+<article class="feature"><span class="num">03</span><h3>Reality Check</h3><p>Separate inspiration from buildability. Visualization never certifies code, structure, plumbing, electrical, dimensions, price or permits.</p></article>
+</div>
+</div></section>
+
+<section class="section sand" id="services"><div class="wrap">
+<div class="eyebrow">Founder-Selected Service Direction</div><h2>Bathroom-first. Tile-skilled. Not a generic flooring company.</h2>
+<p class="lead">Shell &amp; Co is focused on bathroom transformation, shower and tile craftsmanship, accessibility improvements and related repair work. Tile installation may also extend beyond the bathroom when it fits the project.</p>
+<div class="service-grid">
+<article class="service-card"><span class="num">01</span><h3>Bathroom Remodeling</h3><p>Full gut-and-remodel work, tub/shower replacement, vanities, toilets, fixtures, trim, bathroom painting, demolition and related bathroom repairs.</p></article>
+<article class="service-card"><span class="num">02</span><h3>Showers &amp; Tile</h3><p>Custom tile showers, shower surrounds, bathroom wall tile, backsplashes, tile floors and precision finish work.</p></article>
+<article class="service-card"><span class="num">03</span><h3>Accessibility</h3><p>Walk-in or accessibility tubs, grab bars and bathroom accessibility modifications designed around the actual space and customer needs.</p></article>
+<article class="service-card"><span class="num">04</span><h3>Tile Beyond the Bathroom</h3><p>Tile-floor installations may be accepted in other areas of the home. Shell &amp; Co is not positioning itself as a carpet, hardwood or broad all-material flooring company.</p></article>
 </div>
 </div></section>
 
 <section class="section sand" id="studio"><div class="wrap">
-<div class="eyebrow">Shell &amp; Co Remodel Studio — Working Product Concept</div><h2>Upload the space. Shape the vision.</h2>
-<p class="lead">This interactive prototype demonstrates the customer workflow. Your photo stays in your browser in this prototype; production AI generation will run through a secure backend so the OpenAI API key is never exposed in GitHub Pages.</p>
+<div class="eyebrow">Shell &amp; Co Remodel Studio™ — Working Product Concept</div><h2>Upload the space. Shape the vision.</h2>
+<p class="lead">This founder-review prototype demonstrates the customer workflow. The uploaded photo stays in the browser in this version. Production generation will run through a secure backend so no OpenAI API key or customer photo is exposed through the public GitHub Pages code.</p>
 <div class="studio-shell">
-<div class="studio-head"><strong>Remodel Studio</strong><span>Prototype • OpenAI integration architecture prepared</span></div>
+<div class="studio-head"><strong>Remodel Studio</strong><span>Prototype • Secure OpenAI integration is the next build room</span></div>
 <div class="studio-grid">
 <div class="controls">
 <div class="step-label"><i>1</i> Upload your space</div>
-<label class="dropzone" id="dropzone" for="spacePhoto"><strong>Choose or drop a room photo</strong><br><small id="photoLabel">JPG, PNG or WEBP • up to 10 MB for prototype</small><input id="spacePhoto" type="file" accept="image/jpeg,image/png,image/webp"><img class="preview-image" id="photoPreview" alt="Customer uploaded room preview"></label>
-<div class="field"><label for="roomType">Room type</label><select id="roomType"><option value="">Choose a room</option><option>Bathroom</option><option>Kitchen</option><option>Shower / Tub Area</option><option>Flooring / Interior Space</option><option>Other Residential Space</option></select></div>
+<label class="dropzone" id="dropzone" for="spacePhoto"><strong>Choose or drop a bathroom/project photo</strong><br><small id="photoLabel">JPG, PNG or WEBP • up to 10 MB for prototype</small><input id="spacePhoto" type="file" accept="image/jpeg,image/png,image/webp"><img class="preview-image" id="photoPreview" alt="Customer uploaded room preview"></label>
+<div class="field"><label for="roomType">Project type</label><select id="roomType"><option value="">Choose a project type</option><option>Full Bathroom Remodel</option><option>Shower / Tub Area</option><option>Accessible Bathroom</option><option>Bathroom Tile / Finish Work</option><option>Tile Flooring Outside Bathroom</option></select></div>
 <div class="field"><label>Design direction</label><div class="chips"><button type="button" class="chip active" data-style="Clean Modern">Clean Modern</button><button type="button" class="chip" data-style="Warm Transitional">Warm Transitional</button><button type="button" class="chip" data-style="Spa / Natural">Spa / Natural</button><button type="button" class="chip" data-style="Custom">Custom</button></div></div>
 <div class="field"><label>Preserve</label><div class="chips"><button type="button" class="chip" data-group="preserve" data-value="Layout">Layout</button><button type="button" class="chip" data-group="preserve" data-value="Window / Door">Window / Door</button><button type="button" class="chip" data-group="preserve" data-value="Plumbing locations">Plumbing locations</button><button type="button" class="chip" data-group="preserve" data-value="Floor plan">Floor plan</button></div></div>
 <div class="field"><label>Change</label><div class="chips"><button type="button" class="chip active" data-group="change" data-value="Tile">Tile</button><button type="button" class="chip active" data-group="change" data-value="Vanity">Vanity</button><button type="button" class="chip" data-group="change" data-value="Tub / Shower">Tub / Shower</button><button type="button" class="chip" data-group="change" data-value="Lighting">Lighting</button><button type="button" class="chip" data-group="change" data-value="Flooring">Flooring</button><button type="button" class="chip" data-group="change" data-value="Paint / Finish">Paint / Finish</button></div></div>
@@ -60,7 +94,7 @@
 </div>
 <div class="output">
 <div class="step-label"><i>2</i> Compare remodel directions</div>
-<div class="notice" id="generationStatus"><strong>Prototype mode:</strong> upload a photo and choose your preferences. The real generation service will use a secure backend and OpenAI image editing/generation. These sample concept slots are not completed work and are not AI outputs yet.</div>
+<div class="notice" id="generationStatus"><strong>Prototype mode:</strong> upload a photo and choose your preferences. The production service will use a secure backend and OpenAI image editing/generation. These sample concept slots are not completed work and are not live AI outputs yet.</div>
 <div id="concepts" hidden>
 <div class="concept-grid">
 <article class="concept" data-name="Concept A — Clean Modern"><button class="concept-select" type="button">Select</button><div class="concept-art"><span>AI Concept A</span></div><div class="concept-copy"><strong>Clean Modern</strong><p>High-contrast fixtures, clean geometry, simplified surfaces.</p></div></article>
@@ -68,18 +102,44 @@
 <article class="concept" data-name="Concept C — Spa Natural"><button class="concept-select" type="button">Select</button><div class="concept-art" style="background:linear-gradient(145deg,#96a092,#e9e3d7 48%,#a88f70)"><span>AI Concept C</span></div><div class="concept-copy"><strong>Spa / Natural</strong><p>Soft neutrals, organic textures and a calmer visual direction.</p></div></article>
 <article class="concept" data-name="Concept D — Custom Direction"><button class="concept-select" type="button">Select</button><div class="concept-art" style="background:linear-gradient(145deg,#9a9892,#e2d2bd 48%,#4b4946)"><span>AI Concept D</span></div><div class="concept-copy"><strong>Custom Direction</strong><p>Compiled from the homeowner’s written goals and must-have selections.</p></div></article>
 </div></div>
-<div class="packet"><h3>Pre-Estimate Intelligence Packet</h3><p id="packetText"></p><div class="packet-tags"><span>Original photo</span><span>Preferences</span><span>Selected concept</span><span>Scope clues</span><span>Questions / unknowns</span></div></div>
-<div id="reviewPanel" hidden><div class="step-label" style="margin-top:20px"><i>3</i> Shell &amp; Co buildability review</div><p style="font-size:13px;color:#625c55">The proposed production system adds a human contractor review after the customer chooses a visual direction. The image itself does not become a promise.</p><div class="review-status"><span class="status green">GREEN — appears feasible pending field verification</span><span class="status yellow">YELLOW — needs measurement / trade / code review</span><span class="status red">RED — likely impractical as shown</span></div></div>
+<div class="packet"><h3>Pre-Estimate Intelligence Packet</h3><p id="packetText"></p><div class="packet-tags"><span>Original photo</span><span>Preferences</span><span>Selected concept</span><span>Budget context</span><span>Scope clues</span><span>Questions / unknowns</span></div></div>
+<div id="reviewPanel" hidden><div class="step-label" style="margin-top:20px"><i>3</i> Contractor buildability review</div><p style="font-size:13px;color:#625c55">The production system adds human technical review after the customer chooses a visual direction. The image itself never becomes a construction promise.</p><div class="review-status"><span class="status green">GREEN — appears feasible pending field verification</span><span class="status yellow">YELLOW — needs measurement / trade / code review</span><span class="status red">RED — likely impractical as shown</span></div></div>
 </div></div></div>
 </div></section>
 
-<section class="section dark" id="process"><div class="wrap"><div class="eyebrow">The Proposed Shell & Co Difference</div><h2>Visualization → preferences → reality check → estimate.</h2><p class="lead">The market already has AI remodel renderers. Our moat must be the disciplined workflow around the render: capture what the homeowner means, preserve provenance, involve the contractor, and move the selected concept directly into the sales and estimating process.</p><div class="feature-grid"><article class="feature"><span class="num">A</span><h3>Customer defines the vision</h3><p>Photo, room type, preserve/change/must-have selections and written goals.</p></article><article class="feature"><span class="num">B</span><h3>AI creates options</h3><p>Multiple controlled concepts from one source photo, each clearly labeled as conceptual.</p></article><article class="feature"><span class="num">C</span><h3>Pops reviews reality</h3><p>Technical review identifies what looks feasible, what needs verification and what should be changed before quoting.</p></article></div></div></section>
+<section class="section proof-preview"><div class="wrap"><div class="proof-preview-grid"><div><img src="assets/projects/before-after-project-proof.webp" alt="Three founder-supplied bathroom remodeling project comparisons showing before and after transformations." loading="lazy"></div><div class="proof-copy"><div class="eyebrow">Real Project Proof</div><h2>Three projects. Visible transformation.</h2><p class="lead">The founder-supplied archive has been classified into three bathroom jobs with representative before-and-after views. No fabricated testimonials or customer identities are used.</p><div class="hero-actions"><a class="button beige" href="our-work.html">View Our Work</a></div></div></div></div></section>
 
-<section class="section white"><div class="wrap"><div class="eyebrow">Trust Architecture</div><h2>Concepts inspire. Field verification decides.</h2><div class="trust-grid"><article class="trust"><b>Licensing / Registration</b><p>Jurisdiction-specific requirements remain under verification. No unverified license claim is made in this prototype.</p></article><article class="trust"><b>Insurance</b><p>Coverage status must be confirmed before “licensed and insured” or policy-specific language is published.</p></article><article class="trust"><b>AI Transparency</b><p>Every generated design will be marked as a concept visualization—not a construction drawing, code approval, material guarantee, or final quote.</p></article></div></div></section>
+<section class="section white"><div class="wrap"><div class="eyebrow">Founder & Craftsmanship</div><h2>Owner-operated. Apprenticeship-trained. Bathroom focused.</h2><div class="founder-grid"><article class="founder-card dark-card"><span class="num">Founder</span><h3>Bernard Shell Jr. — Founder &amp; Owner</h3><p>Founder-reported 35 years of remodeling and construction experience, learned through apprenticeship, with bathroom remodeling identified as his preferred trade focus.</p></article><article class="founder-card"><span class="num">Standard</span><h3>Precision before promises.</h3><p>Shell &amp; Co’s craftsmanship language describes the operating standard. Final measurements, buildability, materials, permits and written warranty terms are confirmed through the actual project process.</p></article></div></div></section>
 
-<section class="section sand" id="estimate"><div class="wrap"><div class="eyebrow">Request an Estimate</div><h2>Bring the vision into the conversation.</h2><p class="lead">This prototype prepares a local project packet so Pops can review the flow. Production will route customer data and uploaded photos to a private backend—not the public GitHub repository.</p><div class="estimate"><aside class="contact-card"><h3>Shell &amp; Co Remodeling</h3><p><strong>Phone</strong><br><a href="tel:+15023032398">(502) 303-2398</a></p><p><strong>Service Area</strong><br>Kentuckiana</p><p><button class="button beige" id="copyPhone" type="button">Copy Phone Number</button></p><p><small>Business email, published hours, final service radius, licensing/registration, insurance and live lead-routing remain pending verification or founder intake.</small></p></aside>
-<form class="form-card" id="estimateForm"><div class="form-grid"><div><label for="name">Name *</label><input id="name" name="name" required autocomplete="name"></div><div><label for="phone">Phone *</label><input id="phone" name="phone" required type="tel" autocomplete="tel"></div><div><label for="email">Email</label><input id="email" name="email" type="email" autocomplete="email"></div><div><label for="zip">Project ZIP *</label><input id="zip" name="zip" required inputmode="numeric"></div><div><label for="timing">Desired timing</label><select id="timing" name="timing"><option>As soon as practical</option><option>Within 30 days</option><option>1–3 months</option><option>3+ months</option><option>Just planning</option></select></div><div><label>Preferred concept</label><input value="Choose above if desired" disabled></div><div class="full"><label><input type="checkbox" required style="width:auto;margin-right:7px"> I agree that Shell &amp; Co Remodeling may contact me about this estimate request.</label></div></div><button class="button" type="submit" style="margin-top:18px">Prepare Estimate Request</button><p class="research-note">Prototype behavior: no customer data leaves the browser. A production privacy policy, secure storage, retention/deletion rules and backend endpoint must be adopted before live submission.</p><div class="form-result" id="formResult"><strong>Prototype packet prepared.</strong> The live system will securely send this information and the customer’s authorized upload to Shell &amp; Co. <a id="downloadPacket" hidden>Download prototype packet</a></div></form></div></div></section>
+<section class="section dark" id="process"><div class="wrap"><div class="eyebrow">The Shell & Co Difference</div><h2>Visualization → preferences → reality check → estimate.</h2><p class="lead">The technology matters, but the workflow around it matters more: capture what the homeowner means, preserve provenance, involve the contractor, and move the selected concept into an organized estimate conversation.</p><div class="feature-grid"><article class="feature"><span class="num">A</span><h3>Customer defines the vision</h3><p>Photo, project type, preserve/change/must-have selections, planning budget and written goals.</p></article><article class="feature"><span class="num">B</span><h3>AI creates options</h3><p>Multiple controlled concepts from one source photo, each clearly labeled as conceptual.</p></article><article class="feature"><span class="num">C</span><h3>Founder reviews reality</h3><p>Bernard Shell Jr., Founder &amp; Owner, leads the technical reality check before quoting and coordinates permitting where legally authorized.</p></article></div></div></section>
+
+<section class="section white"><div class="wrap"><div class="eyebrow">Customer Protection & Trust Architecture</div><h2>Clear terms before money or promises move.</h2><div class="policy-grid">
+<article class="policy-card"><span class="policy-kicker">Appointments</span><h3>Fair anti-no-show protection</h3><p>Start with a free phone/photo review. A confirmed on-site assessment uses a $49 reservation fee, credited to a signed project within 30 days. Give at least 24 hours’ notice to cancel or reschedule; late cancellations/no-shows forfeit the fee.</p></article>
+<article class="policy-card"><span class="policy-kicker">Travel</span><h3>35 miles included</h3><p>No travel surcharge through 35 one-way miles from Charlestown, Indiana. Beyond that, the founder-selected policy is $1.50 per additional one-way mile, disclosed before the appointment is booked.</p></article>
+<article class="policy-card"><span class="policy-kicker">Payments</span><h3>Cash, card or ACH</h3><p>Checks are not accepted. Project contracts use a standard 15% scheduling/mobilization deposit, documented material needs and milestone-based progress payments, subject to stricter applicable legal requirements.</p></article>
+<article class="policy-card"><span class="policy-kicker">Financing</span><h3>Acorn Finance selected</h3><p>Acorn Finance is the founder-selected launch platform for third-party financing. Enrollment and the live customer financing link are still pending, so financing is not represented as currently active.</p></article>
+<article class="policy-card"><span class="policy-kicker">Warranty</span><h3>Written terms, not vague promises</h3><p>Shell &amp; Co will not publish an unlimited satisfaction guarantee. Formal workmanship warranty language will activate only after its coverage, duration, exclusions and remedies are written and reviewed.</p></article>
+<article class="policy-card"><span class="policy-kicker">Privacy</span><h3>Private customer data path</h3><p>Production photo upload will explain how project images are used, where they are sent/stored, how long they are retained and how deletion requests work. Optional marketing consent will remain separate.</p></article>
+</div>
+<div class="launch-standard"><strong>Production Launch Standard — Licensed • Bonded • Insured</strong><small>This is the founder-directed launch standard, not a present-tense credential claim. The active public trust statement will be enabled only after the applicable license/registration, bond and insurance documents are obtained and verified for the jurisdictions served.</small></div>
+</div></section>
+
+<section class="section sand" id="estimate"><div class="wrap"><div class="eyebrow">Request an Estimate</div><h2>Tell us what you want done.</h2><p class="lead">Use the founder-review form to organize the project. Expect a response within 24 hours. This prototype still keeps the packet in your browser; the production version will route authorized customer data through a private backend.</p><div class="estimate"><aside class="contact-card"><h3>Shell &amp; Co Remodeling</h3><p><strong>Founder &amp; Owner</strong><br>Bernard Shell Jr.</p><p><strong>Phone / Text</strong><br><a href="tel:+15023032398">(502) 303-2398</a></p><p><strong>Call Hours</strong><br>9 AM–5 PM</p><p><strong>Service Area</strong><br>Kentuckiana</p><p><strong>Response</strong><br>Within 24 hours</p><p><button class="button beige" id="copyPhone" type="button">Copy Phone Number</button></p></aside>
+<form class="form-card" id="estimateForm"><div class="form-grid">
+<div><label for="name">Name *</label><input id="name" name="name" required autocomplete="name"></div>
+<div><label for="phone">Phone *</label><input id="phone" name="phone" required type="tel" autocomplete="tel"></div>
+<div><label for="email">Email</label><input id="email" name="email" type="email" autocomplete="email"></div>
+<div><label for="zip">Project ZIP *</label><input id="zip" name="zip" required inputmode="numeric"></div>
+<div><label for="projectType">Project type</label><select id="projectType" name="projectType"><option>Full Bathroom Remodel</option><option>Shower / Tub</option><option>Accessibility Upgrade</option><option>Bathroom Tile / Finish Work</option><option>Tile Flooring Outside Bathroom</option><option>Repair / Smaller Bathroom Project</option></select></div>
+<div><label for="budget">Planning budget</label><select id="budget" name="budget"><option>Not sure yet</option><option>Under $5,000</option><option>$5,000–$10,000</option><option>$10,000–$20,000</option><option>$20,000–$35,000</option><option>$35,000+</option></select><div class="form-help">Planning context only — not a quote or price commitment.</div></div>
+<div><label for="timing">Desired timing</label><select id="timing" name="timing"><option>As soon as practical</option><option>Within 30 days</option><option>1–3 months</option><option>3+ months</option><option>Just planning</option></select></div>
+<div><label for="propertyStatus">Property status</label><select id="propertyStatus" name="propertyStatus"><option>I own the property</option><option>I rent and have/will obtain owner authorization</option><option>Other / need to discuss</option></select></div>
+<div><label>Preferred concept</label><input value="Choose above if desired" disabled></div>
+<div class="full"><label><input type="checkbox" required style="width:auto;margin-right:7px"> I agree that Shell &amp; Co Remodeling may contact me about this estimate request.</label></div>
+<div class="full"><label><input type="checkbox" name="marketingConsent" style="width:auto;margin-right:7px"> Optional: I would like occasional Shell &amp; Co project updates or promotions.</label></div>
+</div><button class="button" type="submit" style="margin-top:18px">Prepare Estimate Request</button><p class="research-note"><strong>Founder-review behavior:</strong> no customer data leaves the browser. Production photo/customer submission remains closed until the secure backend, privacy notice, retention/deletion controls and private endpoint are implemented.</p><p class="research-note"><strong>On-site appointment policy:</strong> after the initial phone/photo review, a confirmed on-site assessment uses the $49 reservation policy described above. Any applicable travel charge is disclosed before booking.</p><div class="form-result" id="formResult"><strong>Prototype packet prepared.</strong> The production system will securely send authorized information and project media to Shell &amp; Co. <a id="downloadPacket" hidden>Download prototype packet</a></div></form></div></div></section>
 </main>
-<footer class="footer"><div class="wrap footer-grid"><div><strong>Shell &amp; Co Remodeling</strong><br><small>Built with the Right Tools. Finished the Right Way.<br>Kentuckiana • (502) 303-2398</small></div><div><small>Founder review prototype • shellremodeling.com selected; registration/control verification pending in governing records.<br>Prior remodel photos are intentionally excluded until their before/after sequencing is verified.</small></div></div></footer>
+<footer class="footer"><div class="wrap footer-grid"><div><strong>Shell &amp; Co Remodeling</strong><br><small>Built with the Right Tools. Finished the Right Way.<br>Kentuckiana • (502) 303-2398</small></div><div><small>Founder-approved UX direction • production credentials and secure backend remain verification-gated.<br>shellremodeling.com founder-confirmed purchased; custom-domain activation pending.</small></div></div></footer>
+<div class="mobile-contact-dock" aria-label="Quick contact"><a href="tel:+15023032398">Call</a><a href="sms:+15023032398">Text</a><a href="#estimate">Estimate</a></div>
 <script src="assets/app.js"></script>
 </body></html>
