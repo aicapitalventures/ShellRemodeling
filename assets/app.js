@@ -1,5 +1,41 @@
 const qaStyles=document.createElement('link');qaStyles.rel='stylesheet';qaStyles.href='assets/qa-fixes.css';document.head.appendChild(qaStyles);
 
+/* Founder-selected intake reconciliation: customer-facing prototype refinements. */
+(function applyFounderSelectedUX(){
+  const nav=document.querySelector('.nav-links');
+  if(nav&&!nav.querySelector('[data-our-work]')){
+    const link=document.createElement('a');link.href='our-work.html';link.textContent='Our Work';link.dataset.ourWork='true';
+    const process=[...nav.querySelectorAll('a')].find(a=>a.getAttribute('href')==='#process');
+    nav.insertBefore(link,process||null);
+  }
+  const heroEyebrow=document.querySelector('.hero .eyebrow');
+  if(heroEyebrow)heroEyebrow.textContent='Bathroom Remodeling • Tile Precision • Accessibility';
+  const heroActions=document.querySelector('.hero-actions');
+  if(heroActions){
+    heroActions.innerHTML='<a class="button" href="#estimate">Request an Estimate</a><a class="button light" href="#studio">Try the Remodel Studio</a><a class="button light" href="tel:+15023032398">Call (502) 303-2398</a>';
+  }
+  const room=document.querySelector('#roomType');
+  if(room){room.innerHTML='<option value="">Choose a bathroom project</option><option>Full Bathroom Remodel</option><option>Shower / Tub Area</option><option>Accessible Bathroom / Walk-In Tub</option><option>Tile / Flooring Within Bathroom</option><option>Bathroom Repair / Upgrade</option>';}
+  const difference=document.querySelector('#difference');
+  if(difference&&!document.querySelector('#our-work-preview')){
+    const section=document.createElement('section');section.className='section dark project-preview';section.id='our-work-preview';
+    section.innerHTML='<div class="wrap"><div class="eyebrow">Real Bathroom Transformations</div><h2>See the work before you start yours.</h2><p class="lead">The founder-supplied project archive has now been classified into three bathroom jobs with representative before-and-after comparisons. See the transformations, then bring your own bathroom vision into the Remodel Studio and estimate process.</p><div class="project-preview-grid"><div><span class="project-stat">3</span><strong> project groups</strong><p>Bathroom remodel work personally performed or supervised by Bernard Shell Jr., with commercial-use rights confirmed in the founder intake.</p></div><div><span class="project-stat">35</span><strong> years reported experience</strong><p>Founder-selected experience history: apprenticeship-trained, with bathroom remodeling identified as the preferred trade focus.</p></div></div><div class="hero-actions"><a class="button beige" href="our-work.html">View Before &amp; After Projects</a><a class="button light" href="#estimate">Request an Estimate</a></div></div>';
+    difference.insertAdjacentElement('afterend',section);
+  }
+  const contactCard=document.querySelector('.contact-card');
+  if(contactCard&&!contactCard.querySelector('[data-hours]')){
+    const service=[...contactCard.querySelectorAll('p')].find(p=>p.textContent.includes('Service Area'));
+    const hours=document.createElement('p');hours.dataset.hours='true';hours.innerHTML='<strong>Call Hours</strong><br>9 AM–5 PM';
+    const text=document.createElement('p');text.innerHTML='<a class="button beige" href="sms:+15023032398">Text Shell &amp; Co</a>';
+    if(service){service.insertAdjacentElement('afterend',hours);hours.insertAdjacentElement('afterend',text);}else{contactCard.append(hours,text);}
+  }
+  if(!document.querySelector('.mobile-contact-dock')){
+    const dock=document.createElement('div');dock.className='mobile-contact-dock';dock.setAttribute('aria-label','Quick contact');
+    dock.innerHTML='<a href="tel:+15023032398">Call</a><a href="sms:+15023032398">Text</a><a href="#estimate">Estimate</a>';
+    document.body.appendChild(dock);
+  }
+})();
+
 const state={photo:null,style:'Clean Modern',preserve:new Set(),change:new Set(['Tile','Vanity']),must:new Set(),selectedConcept:null};
 const $=(s)=>document.querySelector(s);const $$=(s)=>[...document.querySelectorAll(s)];
 
@@ -19,7 +55,7 @@ function list(set){return [...set].length?[...set].join(', '):'None selected'}
 function updatePacket(){const el=$('#packetText');if(!el)return;el.replaceChildren();const rows=[['Source',state.photo?state.photo.name:'No customer photo yet'],['Direction',state.style],['Preserve',list(state.preserve)],['Change',list(state.change)],['Must-have',list(state.must)]];if(state.selectedConcept)rows.push(['Preferred concept',state.selectedConcept]);rows.forEach(([label,value],i)=>{const strong=document.createElement('strong');strong.textContent=label+': ';el.appendChild(strong);el.appendChild(document.createTextNode(value));if(i<rows.length-1)el.appendChild(document.createElement('br'))})}
 updatePacket();
 
-$('#generateBtn').addEventListener('click',()=>{if(!state.photo){alert('Upload a room photo first so Pops can see the intended flow.');return}const room=$('#roomType').value;if(!room){alert('Choose the room type first.');return}$('#concepts').hidden=false;$('#generateBtn').textContent='Regenerate Prototype Concepts';$('#generationStatus').textContent='Prototype mode: four concept slots prepared. Production will call a secure OpenAI-backed service; no API key will be stored in this page.';$('#concepts').scrollIntoView({behavior:'smooth',block:'nearest'})});
+$('#generateBtn').addEventListener('click',()=>{if(!state.photo){alert('Upload a bathroom photo first so the intended remodel flow can be demonstrated.');return}const room=$('#roomType').value;if(!room){alert('Choose the bathroom project type first.');return}$('#concepts').hidden=false;$('#generateBtn').textContent='Regenerate Prototype Concepts';$('#generationStatus').textContent='Prototype mode: four concept slots prepared. Production will call a secure OpenAI-backed service; no API key will be stored in this page.';$('#concepts').scrollIntoView({behavior:'smooth',block:'nearest'})});
 
 const preferredConceptInput=document.querySelector('input[disabled][value="Choose above if desired"]');
 $$('.concept-select').forEach(btn=>{setPressed(btn,false);btn.addEventListener('click',()=>{const card=btn.closest('.concept');$$('.concept').forEach(x=>x.classList.remove('selected'));card.classList.add('selected');state.selectedConcept=card.dataset.name;$$('.concept-select').forEach(x=>{x.textContent='Select';setPressed(x,false)});btn.textContent='Selected';setPressed(btn,true);if(preferredConceptInput)preferredConceptInput.value=state.selectedConcept;updatePacket();$('#reviewPanel').hidden=false})});
