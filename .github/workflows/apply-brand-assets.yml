@@ -5,8 +5,7 @@ on:
     branches:
       - build/01-ux-ui-prototype
     paths:
-      - 'assets/brand/source/chunks/**'
-      - '.github/workflows/apply-brand-assets.yml'
+      - 'assets/brand/source/chunks/part-27'
 
 permissions:
   contents: write
