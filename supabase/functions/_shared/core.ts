@@ -5,6 +5,27 @@ export const RESULT_BUCKET = Deno.env.get("BR02_RESULT_BUCKET") || "remodel-resu
 export const MAX_UPLOAD_BYTES = 6 * 1024 * 1024;
 export const ALLOWED_MIME = new Set(["image/jpeg", "image/png", "image/webp"]);
 
+function firstKeyFromMap(envName: string): string | null {
+  const raw = Deno.env.get(envName);
+  if (!raw) return null;
+  try {
+    const parsed = JSON.parse(raw);
+    if (typeof parsed?.default === "string" && parsed.default) return parsed.default;
+    for (const value of Object.values(parsed || {})) if (typeof value === "string" && value) return value;
+  } catch {
+    return null;
+  }
+  return null;
+}
+
+function backendSecretKey(): string | null {
+  return Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") || firstKeyFromMap("SUPABASE_SECRET_KEYS");
+}
+
+function browserPublishableKey(): string | null {
+  return Deno.env.get("SUPABASE_ANON_KEY") || Deno.env.get("SUPABASE_PUBLISHABLE_KEY") || firstKeyFromMap("SUPABASE_PUBLISHABLE_KEYS");
+}
+
 export function corsHeaders(req: Request): Record<string, string> {
   const requestedOrigin = req.headers.get("origin") || "";
   const configured = (Deno.env.get("BR02_ALLOWED_ORIGIN") || "https://aicapitalventures.github.io")
@@ -33,7 +54,7 @@ export function preflight(req: Request): Response | null {
 
 export function serviceClient(): SupabaseClient {
   const url = Deno.env.get("SUPABASE_URL");
-  const key = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
+  const key = backendSecretKey();
   if (!url || !key) throw new Error("SERVER_CONFIG_MISSING");
   return createClient(url, key, { auth: { persistSession: false, autoRefreshToken: false } });
 }
@@ -43,7 +64,7 @@ export async function requireUser(req: Request): Promise<{ userId: string; servi
   if (!auth.toLowerCase().startsWith("bearer ")) throw new Error("NOT_AUTHORIZED");
   const token = auth.slice(7).trim();
   const url = Deno.env.get("SUPABASE_URL");
-  const publishable = Deno.env.get("SUPABASE_ANON_KEY") || Deno.env.get("SUPABASE_PUBLISHABLE_KEY");
+  const publishable = browserPublishableKey();
   if (!url || !publishable) throw new Error("SERVER_CONFIG_MISSING");
   const caller = createClient(url, publishable, {
     global: { headers: { Authorization: `Bearer ${token}` } },
