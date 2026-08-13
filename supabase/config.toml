@@ -1,0 +1,37 @@
+# Shell & Co Remodel Studio — BR02 local/deploy intent.
+# Link to the dedicated Shell & Co Supabase project only after cost confirmation.
+project_id = "shell-remodeling-br02"
+
+[auth]
+enabled = true
+
+# Customer/test functions require a valid Supabase JWT. Production anonymous
+# auth is allowed only with RLS and anti-abuse/CAPTCHA controls configured.
+[functions.create-project]
+verify_jwt = true
+
+[functions.create-upload]
+verify_jwt = true
+
+[functions.finalize-upload]
+verify_jwt = true
+
+[functions.generate-concept]
+verify_jwt = true
+
+[functions.get-concept]
+verify_jwt = true
+
+[functions.select-concept]
+verify_jwt = true
+
+[functions.review-concept]
+verify_jwt = true
+
+[functions.delete-project]
+verify_jwt = true
+
+# Scheduled retention cleanup is service-only and implements its own strong
+# x-br02-cleanup-secret check. Do not expose this endpoint to browser code.
+[functions.purge-expired]
+verify_jwt = false
