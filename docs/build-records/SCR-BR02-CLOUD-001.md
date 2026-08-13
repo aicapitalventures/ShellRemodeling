@@ -2,7 +2,7 @@
 
 **Record ID:** SCR-BR02-CLOUD-001  
 **Version:** 1.0  
-**Status:** CLOUD PROJECT ACTIVE — T02 PASSED / T03 PARTIAL / T04–T06 INVOCATION-GATED  
+**Status:** CLOUD PROJECT ACTIVE — T02–T06 PASSED / OPENAI GATE CLOSED
 **Effective date:** 2026-08-12  
 **Branch:** `build/02-secure-remodel-studio`  
 **Supabase project:** `Shell & Co Remodel Studio`  
@@ -50,7 +50,7 @@ Verified:
 
 ## T03 — Private Buckets
 
-**PARTIAL PASS / OBJECT-RETRIEVAL SUBTEST PENDING.**
+**PASS.**
 
 Hosted bucket configuration verified:
 
@@ -59,7 +59,7 @@ Hosted bucket configuration verified:
 
 No public Storage policy was added.
 
-The remaining T03 acceptance step — prove that a guessed public URL cannot retrieve an actually uploaded synthetic object — requires an actual Storage upload. The connected Supabase tool surface does not expose Storage object upload/invoke operations.
+The synthetic object was uploaded through the returned signed authorization. A guessed public URL returned HTTP 400 and did not retrieve the object.
 
 ## Edge Functions
 
@@ -80,21 +80,65 @@ The non-JWT cleanup function `purge-expired` was not part of this JWT-protected 
 
 ## T04 — Create Test Project
 
-**NOT EXECUTED — CONNECTOR INVOCATION GATE.**
+**PASS.**
 
-The hosted `create-project` function is ACTIVE and JWT-protected, but the connected Supabase management tool exposes deploy/list/get operations and does not expose an Edge Function invocation action or anonymous-auth session creation call. Static deployment is not accepted as a behavioral T04 pass.
+Two anonymous sessions were created. Session A created one synthetic, PII-free project through `create-project` and received HTTP 201. The authenticated owner read verified the owner user ID, `draft` state, and retention at least 29 days from execution. The project later advanced to `source_ready`.
 
 ## T05 — Signed Upload
 
-**NOT EXECUTED — CONNECTOR STORAGE/INVOCATION GATE.**
+**PASS.**
 
-The hosted `create-upload` function is ACTIVE and the private bucket exists, but an authenticated function call plus binary upload is required. The current connector exposes neither Edge Function invocation nor Storage object upload.
+The owner received a random project-scoped signed upload path and uploaded a synthetic PNG. No original filename or public URL was returned. Wrong-owner `create-upload` returned HTTP 404.
 
 ## T06 — Finalize / Validate
 
-**NOT EXECUTED — CONNECTOR STORAGE/INVOCATION GATE.**
+**PASS.**
 
-The hosted `finalize-upload` function is ACTIVE. Actual byte validation, MIME-signature checking, SHA-256 persistence, ready-state transition, mismatch deletion, wrong-owner denial, and missing-object behavior must be exercised against a real synthetic upload before T06 can pass.
+The valid upload finalized with HTTP 200 and `ready`; the function returned the actual MIME `image/png`, actual byte size, and SHA-256. The project reached `source_ready`. Wrong-owner finalize returned HTTP 404. Finalizing an authorized but missing object returned HTTP 409. A declared-PNG object containing synthetic non-image bytes returned HTTP 400 with `INVALID_UPLOAD`; authenticated and public retrieval of that rejected object both returned HTTP 400, proving removal. An over-limit declaration of 6 MiB + 1 byte was rejected by `create-upload` with HTTP 400. Owner deletion returned HTTP 200 and subsequent retrieval of the valid object returned HTTP 400, confirming synthetic cleanup.
+
+## 2026-08-13 Synthetic T03-T06 Execution Evidence
+
+The approved proof script `/tmp/br02-t03-t06.sh` ran on branch `build/02-secure-remodel-studio` using only `/tmp/br02-test.env` and the browser-publishable key. It created two anonymous sessions and used synthetic image and project data only.
+
+Observed results:
+
+- T03 private-object proof: guessed/public URL denied with HTTP 400.
+- T04 create-project: HTTP 201; owner and retention verified; final state verified as `source_ready`.
+- T05 signed upload: HTTP 200; random private path; wrong-owner authorization denied with HTTP 404; synthetic PNG uploaded successfully.
+- T06 valid finalize: HTTP 200 / `ready`; actual size, MIME, magic bytes, and SHA-256 validated.
+- T06 negative cases: wrong-owner finalize HTTP 404; missing object HTTP 409; MIME/signature mismatch HTTP 400; rejected object retrieval denied HTTP 400; over-limit declaration HTTP 400.
+- Cleanup: owner deletion HTTP 200; subsequent valid-object retrieval denied HTTP 400; no synthetic project or objects remained through the function's cleanup path.
+
+No Auth settings, RLS policies, service-role key, management token, OpenAI configuration, or OpenAI function was used. `generate-concept` was not called.
+
+## 2026-08-13 Execution Attempt
+
+The deployed endpoint was reachable from the BR02 container at
+`https://mlxboidajkqyayxjdcvh.supabase.co/functions/v1/create-project`.
+An unauthenticated request returned HTTP 401 with
+`UNAUTHORIZED_NO_AUTH_HEADER`, confirming the deployed function's authentication
+boundary. The REST endpoint likewise returned HTTP 401 and `No API key found`.
+
+This container has no `SUPABASE_ACCESS_TOKEN`, `SUPABASE_AUTH_TOKEN`,
+`SUPABASE_PUBLISHABLE_KEY`, or project client configuration; the repository
+contains placeholders only. Without the existing project's browser-publishable
+key, an anonymous Auth session cannot be created and no valid JWT can be obtained
+for T04–T06. No function invocation, Storage upload, database mutation, OpenAI
+configuration, OpenAI call, or fixture was performed during this attempt.
+
+This historical invocation block was superseded by the completed synthetic
+proof recorded below after the browser-publishable test configuration became
+available.
+
+## 2026-08-13 Anonymous Auth Gate
+
+With the existing project's browser-publishable configuration loaded only from
+`/tmp/br02-test.env`, a POST to `/auth/v1/signup` returned HTTP 422 with
+`Anonymous sign-ins are disabled`. Per the BR02 execution instruction, no Auth
+setting was changed and no T03–T06 function call, Storage upload, fixture, or
+OpenAI action was performed after this result. This historical Auth gate was
+superseded after anonymous sign-in was enabled manually; no Auth setting was
+changed by the proof execution.
 
 ## OpenAI Gate
 
