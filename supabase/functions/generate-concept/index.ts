@@ -8,19 +8,25 @@ const IP_HOURLY_LIMIT = 3;
 const MODEL = "gpt-image-2";
 const QUALITY = "medium";
 const IMAGE_SIZE = "1536x1024";
+const TOTAL_OPENAI_DEADLINE_MS = 120_000;
 const RESERVED_COST = Number(Deno.env.get("BR02_RESERVED_COST_PER_CALL_USD") || "0.08");
 const MONTHLY_BUDGET = Number(Deno.env.get("BR02_MONTHLY_BUDGET_USD") || "20");
 
 function sinceIso(ms: number) { return new Date(Date.now() - ms).toISOString(); }
 function monthStartIso() { const d = new Date(); return new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), 1)).toISOString(); }
 function sleep(ms: number) { return new Promise((resolve) => setTimeout(resolve, ms)); }
+function sourceName(mime: string) { return mime === "image/png" ? "source.png" : mime === "image/webp" ? "source.webp" : "source.jpg"; }
 
-async function callOpenAI(apiKey: string, source: Blob, prompt: string) {
+async function callOpenAI(apiKey: string, source: Blob, sourceMime: string, prompt: string) {
+  const deadlineAt = Date.now() + TOTAL_OPENAI_DEADLINE_MS;
   let lastStatus = 0;
   for (let attempt = 0; attempt < 3; attempt++) {
+    const remaining = deadlineAt - Date.now();
+    if (remaining <= 1500) throw new Error("GENERATION_TIMEOUT");
+
     const form = new FormData();
     form.append("model", MODEL);
-    form.append("image", source, "source-image");
+    form.append("image", source, sourceName(sourceMime));
     form.append("prompt", prompt);
     form.append("n", "1");
     form.append("size", IMAGE_SIZE);
@@ -30,7 +36,7 @@ async function callOpenAI(apiKey: string, source: Blob, prompt: string) {
     form.append("moderation", "auto");
 
     const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 120_000);
+    const timeout = setTimeout(() => controller.abort(), remaining);
     try {
       const response = await fetch("https://api.openai.com/v1/images/edits", {
         method: "POST",
@@ -45,16 +51,20 @@ async function callOpenAI(apiKey: string, source: Blob, prompt: string) {
 
       const upstreamCode = String(payload?.error?.code || "");
       if (upstreamCode === "moderation_blocked") throw new Error("MODERATION_BLOCKED");
-      if (response.status === 429 || response.status >= 500) {
-        if (attempt < 2) { await sleep(500 * (2 ** attempt) + Math.floor(Math.random() * 250)); continue; }
+      const transient = response.status === 429 || response.status >= 500;
+      if (transient && attempt < 2) {
+        const delay = 500 * (2 ** attempt) + Math.floor(Math.random() * 250);
+        if (Date.now() + delay + 1500 < deadlineAt) { await sleep(delay); continue; }
+        throw new Error("GENERATION_TIMEOUT");
       }
       throw new Error("GENERATION_FAILED");
     } catch (err) {
       if (err instanceof DOMException && err.name === "AbortError") throw new Error("GENERATION_TIMEOUT");
-      if (err instanceof Error && ["MODERATION_BLOCKED", "GENERATION_FAILED"].includes(err.message)) throw err;
-      if (attempt < 2 && (lastStatus === 429 || lastStatus >= 500)) {
-        await sleep(500 * (2 ** attempt) + Math.floor(Math.random() * 250));
-        continue;
+      if (err instanceof Error && ["MODERATION_BLOCKED", "GENERATION_TIMEOUT", "GENERATION_FAILED"].includes(err.message)) throw err;
+      const transient = lastStatus === 429 || lastStatus >= 500;
+      if (transient && attempt < 2) {
+        const delay = 500 * (2 ** attempt) + Math.floor(Math.random() * 250);
+        if (Date.now() + delay + 1500 < deadlineAt) { await sleep(delay); continue; }
       }
       throw new Error("GENERATION_FAILED");
     } finally {
@@ -107,12 +117,14 @@ Deno.serve(async (req: Request) => {
     if ((conceptCount || 0) >= MAX_CONCEPTS) return json(req, 429, { error: "RATE_LIMITED" });
 
     const ipHash = await hmacIpHash(req);
-    const { count: userAttempts } = await service.from("generation_events")
+    const { count: userAttempts, error: userRateError } = await service.from("generation_events")
       .select("id", { count: "exact", head: true }).eq("owner_user_id", userId).eq("event_type", "attempt").gte("created_at", sinceIso(24 * 60 * 60 * 1000));
+    if (userRateError) throw userRateError;
     if ((userAttempts || 0) >= USER_DAILY_LIMIT) return json(req, 429, { error: "RATE_LIMITED" });
     if (ipHash) {
-      const { count: ipAttempts } = await service.from("generation_events")
+      const { count: ipAttempts, error: ipRateError } = await service.from("generation_events")
         .select("id", { count: "exact", head: true }).eq("ip_hash", ipHash).eq("event_type", "attempt").gte("created_at", sinceIso(60 * 60 * 1000));
+      if (ipRateError) throw ipRateError;
       if ((ipAttempts || 0) >= IP_HOURLY_LIMIT) return json(req, 429, { error: "RATE_LIMITED" });
     }
 
@@ -150,7 +162,7 @@ Deno.serve(async (req: Request) => {
     const { data: sourceBlob, error: downloadError } = await service.storage.from(sourceAsset.bucket).download(sourceAsset.object_path);
     if (downloadError || !sourceBlob) throw new Error("UPLOAD_NOT_READY");
 
-    const { payload, requestId } = await callOpenAI(apiKey, sourceBlob, compiled.prompt);
+    const { payload, requestId } = await callOpenAI(apiKey, sourceBlob, sourceAsset.mime_type, compiled.prompt);
     const b64 = payload?.data?.[0]?.b64_json;
     if (!b64 || typeof b64 !== "string") throw new Error("GENERATION_FAILED");
     const binary = Uint8Array.from(atob(b64), (c) => c.charCodeAt(0));
@@ -174,7 +186,10 @@ Deno.serve(async (req: Request) => {
     await service.from("remodel_concepts").update({
       result_asset_id: resultAssetId, openai_request_id: requestId, status: "completed", error_code: null,
     }).eq("id", conceptId);
-    await service.from("remodel_projects").update({ status: "concepts_ready" }).eq("id", projectId);
+    await service.from("remodel_projects").update({
+      status: "concepts_ready",
+      retention_expires_at: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(),
+    }).eq("id", projectId);
     await service.from("generation_events").insert({
       project_id: projectId, owner_user_id: userId, concept_id: conceptId, ip_hash: ipHash,
       event_type: "completed", normalized_code: null, reserved_cost_usd: 0,
