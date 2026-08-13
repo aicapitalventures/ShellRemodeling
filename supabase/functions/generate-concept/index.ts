@@ -2,9 +2,6 @@ import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 import { hmacIpHash, json, normalizedError, preflight, requireUser, RESULT_BUCKET, sha256Hex } from "../_shared/core.ts";
 import { compileRemodelPrompt } from "../_shared/prompt.ts";
 
-const MAX_CONCEPTS = 4;
-const USER_DAILY_LIMIT = 8;
-const IP_HOURLY_LIMIT = 3;
 const MODEL = "gpt-image-2";
 const QUALITY = "medium";
 const IMAGE_SIZE = "1536x1024";
@@ -12,8 +9,6 @@ const TOTAL_OPENAI_DEADLINE_MS = 120_000;
 const RESERVED_COST = Number(Deno.env.get("BR02_RESERVED_COST_PER_CALL_USD") || "0.08");
 const MONTHLY_BUDGET = Number(Deno.env.get("BR02_MONTHLY_BUDGET_USD") || "20");
 
-function sinceIso(ms: number) { return new Date(Date.now() - ms).toISOString(); }
-function monthStartIso() { const d = new Date(); return new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), 1)).toISOString(); }
 function sleep(ms: number) { return new Promise((resolve) => setTimeout(resolve, ms)); }
 function sourceName(mime: string) { return mime === "image/png" ? "source.png" : mime === "image/webp" ? "source.webp" : "source.jpg"; }
 
@@ -111,29 +106,8 @@ Deno.serve(async (req: Request) => {
     if (!sourceAsset) return json(req, 404, { error: "NOT_FOUND" });
     if (sourceAsset.validation_status !== "ready") return json(req, 409, { error: "UPLOAD_NOT_READY" });
 
-    const { count: conceptCount, error: countError } = await service.from("remodel_concepts")
-      .select("id", { count: "exact", head: true }).eq("project_id", projectId);
-    if (countError) throw countError;
-    if ((conceptCount || 0) >= MAX_CONCEPTS) return json(req, 429, { error: "RATE_LIMITED" });
-
     const ipHash = await hmacIpHash(req);
-    const { count: userAttempts, error: userRateError } = await service.from("generation_events")
-      .select("id", { count: "exact", head: true }).eq("owner_user_id", userId).eq("event_type", "attempt").gte("created_at", sinceIso(24 * 60 * 60 * 1000));
-    if (userRateError) throw userRateError;
-    if ((userAttempts || 0) >= USER_DAILY_LIMIT) return json(req, 429, { error: "RATE_LIMITED" });
-    if (ipHash) {
-      const { count: ipAttempts, error: ipRateError } = await service.from("generation_events")
-        .select("id", { count: "exact", head: true }).eq("ip_hash", ipHash).eq("event_type", "attempt").gte("created_at", sinceIso(60 * 60 * 1000));
-      if (ipRateError) throw ipRateError;
-      if ((ipAttempts || 0) >= IP_HOURLY_LIMIT) return json(req, 429, { error: "RATE_LIMITED" });
-    }
-
-    const { data: monthRows, error: monthError } = await service.from("generation_events")
-      .select("reserved_cost_usd").eq("event_type", "attempt").gte("created_at", monthStartIso());
-    if (monthError) throw monthError;
-    const reservedMonth = (monthRows || []).reduce((sum: number, row: any) => sum + Number(row.reserved_cost_usd || 0), 0);
-    if (reservedMonth + RESERVED_COST > MONTHLY_BUDGET) return json(req, 402, { error: "BUDGET_LIMIT_REACHED" });
-
+    if (!ipHash) return json(req, 503, { error: "GENERATION_DISABLED" });
     const compiled = await compileRemodelPrompt({
       projectType: project.project_type,
       sourceTruth: project.source_truth,
@@ -146,18 +120,24 @@ Deno.serve(async (req: Request) => {
       conceptDirection,
     });
 
-    conceptId = crypto.randomUUID();
-    const { error: conceptError } = await service.from("remodel_concepts").insert({
-      id: conceptId, project_id: projectId, owner_user_id: userId, source_asset_id: sourceAssetId,
-      ordinal, concept_direction: conceptDirection, model: MODEL, quality: QUALITY, image_size: IMAGE_SIZE,
-      prompt_version: compiled.version, prompt_hash: compiled.hash, status: "generating",
-    });
-    if (conceptError) throw conceptError;
-
-    await service.from("generation_events").insert({
-      project_id: projectId, owner_user_id: userId, concept_id: conceptId, ip_hash: ipHash,
-      event_type: "attempt", reserved_cost_usd: RESERVED_COST,
-    });
+    const { data: reservation, error: reservationError } = await service.rpc("br02_reserve_generation", {
+      p_project_id: projectId,
+      p_owner_user_id: userId,
+      p_source_asset_id: sourceAssetId,
+      p_ordinal: ordinal,
+      p_concept_direction: conceptDirection,
+      p_model: MODEL,
+      p_quality: QUALITY,
+      p_image_size: IMAGE_SIZE,
+      p_prompt_version: compiled.version,
+      p_prompt_hash: compiled.hash,
+      p_ip_hash: ipHash,
+      p_reserved_cost: RESERVED_COST,
+      p_monthly_budget: MONTHLY_BUDGET,
+    }).single();
+    if (reservationError) throw reservationError;
+    if (!reservation?.concept_id) throw new Error(String(reservation?.error_code || "GENERATION_FAILED"));
+    conceptId = reservation.concept_id;
 
     const { data: sourceBlob, error: downloadError } = await service.storage.from(sourceAsset.bucket).download(sourceAsset.object_path);
     if (downloadError || !sourceBlob) throw new Error("UPLOAD_NOT_READY");
