@@ -146,15 +146,28 @@ changed by the proof execution.
 
 No OpenAI generation was performed. No real customer data was used. No production frontend was connected. No custom domain or main-branch deployment occurred.
 
-## Next Required Evidence
+## Next Gate
 
-Obtain a test execution path capable of:
+**READY FOR T07 — OPENAI KILL-SWITCH & SPEND-CONTROL PRECHECK**
 
-1. creating an anonymous/authenticated Supabase session;
-2. POSTing to the deployed Edge Functions with its JWT;
-3. uploading a synthetic image to the returned signed Storage upload authorization;
-4. calling `finalize-upload`;
-5. fetching the guessed/public object URL to prove denial;
-6. executing T04–T06 negative cases.
+T03–T06 have been behaviorally completed and remotely evidenced.
 
-Do not open T07/OpenAI until T03–T06 are behaviorally passed.
+T07 may review:
+- OpenAI secret handling
+- BR02_OPENAI_ENABLED fail-closed behavior
+- BR02_KILL_SWITCH fail-closed behavior
+- spend ceiling
+- per-project concept cap
+- per-user/IP rate limiting
+- timeout/retry behavior
+- moderation/error behavior
+- synthetic-only first-generation controls
+
+T07 must NOT automatically:
+- configure OPENAI_API_KEY
+- enable BR02_OPENAI_ENABLED
+- open BR02_KILL_SWITCH
+- call generate-concept
+- transmit customer data
+
+Opening actual OpenAI generation requires a separate explicit authorization after T07 precheck passes.
