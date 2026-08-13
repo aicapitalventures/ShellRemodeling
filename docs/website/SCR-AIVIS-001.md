@@ -1,209 +1,190 @@
-# SCR-AIVIS-001 — AI Remodel Visualization & Pre-Estimate Intelligence Architecture v0.1
+# SCR-AIVIS-001 — AI Remodel Visualization & Pre-Estimate Intelligence Architecture v0.2
 
 **Record ID:** SCR-AIVIS-001  
-**Version:** 0.1  
-**Status:** PROPOSED — RESEARCH-BACKED PRODUCT ARCHITECTURE / NOT CANON-LOCKED  
+**Version:** 0.2  
+**Status:** ADOPTED PRODUCT ARCHITECTURE — BR02 SECURE IMPLEMENTATION OPEN / PRODUCTION DATA CLOSED  
 **Effective date:** 2026-08-12  
-**Dependencies:** SCR-META-000, SCR-WEB-001, SCR-BRAND-001, SCR-OPS-001  
-**Deployment status:** UX/UI PROTOTYPE AUTHORIZED; LIVE AI GENERATION NOT YET CONNECTED  
-**Security rule:** No OpenAI API key may appear in GitHub Pages, browser JavaScript, repository source, or other client-side code.
+**Dependencies:** SCR-META-000, SCR-WEB-001, SCR-BRAND-001 v1.3, SCR-BR01-001 v1.0, SCR-BR01-PORTFOLIO-001 v1.0, SCR-BR02-001 v1.0, SCR-BR02-DATA-001 v1.0, SCR-BR02-PROMPT-001 v1.0  
+**Security rule:** No OpenAI API key, Supabase service-role key, customer photo or customer PII may appear in GitHub Pages/browser source or the public repository.
 
 ## Purpose
 
-Turn Shell & Co Remodeling’s website from a conventional contractor lead form into a guided homeowner decision system that captures the customer’s actual space, desired transformation, constraints, preferences, and selected visual direction before the first field visit.
+Turn Shell & Co Remodeling’s website from a conventional contractor lead form into a governed homeowner decision system that captures the real space, requested transformation, constraints, preferences and selected visual direction before the first field visit.
 
-The target outcome is not merely an AI picture. The target outcome is a **contractor-ready pre-estimate intelligence packet** that helps Shell & Co understand what the homeowner wants before a site visit while clearly separating inspiration from verified buildability, scope, price, code, measurements, and field conditions.
+The product target is not merely an AI image. It is a **contractor-ready pre-estimate intelligence packet** that separates inspiration from verified buildability, scope, price, code, dimensions and field conditions.
 
-## Research Finding — The Basic Visualizer Is Not Unique
+## Market / IP Position
 
-Current market research confirms that the following workflow already exists in multiple products and contractor websites:
+Basic upload-a-room-photo → choose style → generate remodel image workflows already exist in the market. Shell & Co shall not claim that generic AI remodel visualization is industry-first, patent-protected or exclusive without separate evidence.
 
-1. homeowner uploads a room photo;
-2. homeowner selects a style or describes desired changes;
-3. AI produces one or more photorealistic remodel concepts;
-4. the contractor captures the lead or sends a proposal.
+Shell & Co’s differentiated product layer is its governed workflow, source-truth constraints, structured preference capture, provenance/versioning, human buildability review and estimate handoff.
 
-Examples identified during August 2026 research include Remod, Struqo, RenovateWithAI, Olvera’s AI Remodel Visualizer, Emerald City Construction’s visualizer, See It Done, Renvision, Vistari, Inspire AI, OpenVis, AirBuild, RoomDeco AI, ProEstimate AI, and others.
+“Proprietary” may describe Shell & Co’s own code, workflow design, prompt compiler, data structures, review process and operating system once actually developed/controlled by Shell & Co. It does not make the underlying concept of AI image editing exclusive.
 
-Several competitors already add cost ranges, proposals, material catalogs, CRM features, branded links, and product selection. Therefore Shell & Co must not claim that photo-to-render AI visualization itself is proprietary or industry-first.
+## Controlling Customer Flow
 
-## Proposed Differentiation
+**Space Truth Intake → Preserve / Change / Must-Have → Planning Budget / Timing / Property Context → Secure Photo Intake → Multi-Concept AI Visualization → Customer Selection → Human Buildability Review → Precision Scope Map → Pre-Estimate Intelligence Packet → Shell & Co Lead Routing → Site Visit / Estimate**
 
-The differentiation should be the **governed workflow around the visualization**.
+## Space Truth / Preference Law
 
-### 1. Space Truth Intake
+The original customer photo remains the visual source of truth.
 
-Before generation, the homeowner identifies:
-- room type;
+Before generation, the customer may identify:
+
+- project type;
 - what must remain;
 - what may change;
-- what must change;
-- known dimensions if available;
-- plumbing-fixture locations that should remain or may move;
+- must-have features;
+- known constraints;
 - accessibility needs;
-- preferred materials/colors;
-- target investment band;
+- desired design direction;
+- target planning-budget band;
 - desired timing;
-- inspiration notes.
+- written vision.
 
-The original photo remains the visual source of truth.
+The prompt compiler must favor explicit Preserve/source-truth information over aesthetically convenient hallucinated geometry.
 
-### 2. Preserve / Change / Must-Have Controls
+## Multi-Concept Law
 
-Instead of a generic “pick a style” interface, the homeowner explicitly defines three categories:
+BR02 supports up to four controlled concept directions, one server-side image-edit request at a time:
 
-**PRESERVE** — elements the AI should attempt to keep visually stable.  
-**CHANGE** — elements open to redesign.  
-**MUST-HAVE** — desired features the homeowner considers important.
-
-This becomes part of the prompt and the contractor packet.
-
-### 3. Multi-Concept Generation
-
-Generate multiple materially different concept directions from the same customer photo, for example:
 - Clean Modern;
 - Warm Transitional;
 - Spa / Natural;
 - Custom Direction.
 
-Concept names are product UX labels, not architectural claims.
+Concept labels are UX directions, not architectural claims.
 
-### 4. Reality Check Layer
+## Reality-Check Law
 
-Every AI image is labeled **CONCEPT VISUALIZATION — NOT A CONSTRUCTION DRAWING OR QUOTE**.
+Every generated image is governed as:
 
-The system must explicitly warn that AI may depict changes that are impractical, code-constrained, structurally impossible, dimensionally inaccurate, unavailable, or outside budget.
+**CONCEPT VISUALIZATION — NOT A CONSTRUCTION DRAWING, ENGINEERING DRAWING, PERMIT/CODE APPROVAL, FINAL DIMENSION, MATERIAL GUARANTEE OR CONSTRUCTION QUOTE.**
 
-### 5. Shell & Co Buildability Review
+AI may depict details that are impractical, dimensionally inaccurate, unavailable, code-constrained or outside budget. The concept must enter human review before controlling buildability conclusions are made.
 
-The proposed proprietary layer is a human-in-the-loop review after the homeowner selects a concept.
+## Human Buildability Review
 
-Each important requested feature can later receive a contractor review status:
+Only an authorized human Shell & Co reviewer may assign:
+
 - **GREEN — appears feasible pending field verification**
-- **YELLOW — needs measurement/trade/code verification**
-- **RED — not recommended / likely impractical as shown**
+- **YELLOW — measurement / trade / code verification needed**
+- **RED — likely impractical / not recommended as rendered**
 
-No AI model may independently certify buildability.
+No AI model may independently certify the controlling status.
 
-### 6. Precision Scope Map
+## Precision Scope Map
 
-Translate the chosen visual direction into scope categories for contractor review, such as:
-- demolition;
-- tile;
-- shower/tub;
-- vanity;
-- fixtures;
-- plumbing implications;
-- electrical/lighting implications;
-- flooring;
-- drywall/paint;
-- trim/finish;
-- accessibility;
-- permits/trades requiring verification.
+The selected concept may be translated into preliminary scope categories for contractor review, including demolition, tile, shower/tub, vanity, fixtures, plumbing/electrical implications, flooring, finish work, accessibility and permits/trades requiring verification.
 
-This is a preliminary scope-assistance layer, not a final scope of work.
+This is preconstruction assistance, not the final contract scope.
 
-### 7. Before-the-Visit Intelligence Packet
+## Pre-Estimate Intelligence Packet
 
-When the homeowner requests an estimate, Shell & Co should receive one organized packet containing:
-- customer contact information;
-- original customer-uploaded photos;
-- selected concept(s);
-- style/material preferences;
-- Preserve / Change / Must-Have selections;
-- budget/timing inputs where supplied;
+The future production packet may include:
+
+- customer-authorized contact information;
+- original private project photo(s);
+- structured Space Truth / Preserve / Change / Must-Have;
+- planning budget/timing/property context;
+- generated concept metadata and selected concept;
 - preliminary scope categories;
 - questions/unknowns;
-- AI limitations notice;
-- contractor-review status;
-- lead source and timestamp.
+- human buildability review;
+- AI limitation disclosures;
+- provenance/version timestamps;
+- lead source.
 
-### 8. Selection Lock & Version History
+BR02 proof contains **no customer PII**.
 
-The customer can identify one preferred concept and later revisions. Every revision should retain provenance so the contractor can distinguish the original upload, AI concept version, customer-selected version, and any contractor-reviewed revision.
+## Backend Selection — RESOLVED
 
-## Proposed Product Principle
+Selected architecture:
 
-**Visualization → Preference Capture → Buildability Review → Scope Preparation → Estimate Visit**
+`GitHub Pages frontend → Supabase Auth/JWT → Supabase Edge Functions → private Supabase Postgres/Storage → OpenAI API → private result Storage/Postgres → authorized short-lived retrieval`
 
-The competitive objective is to transform AI inspiration into a disciplined Shell & Co sales and preconstruction workflow rather than offering unlimited fantasy renders with no connection to field execution.
+Supabase is selected for BR02 because it combines authentication, RLS, private storage, signed access, relational provenance, server-side functions and deletion controls in one manageable backend.
 
-## OpenAI Architecture — Current Direction
+Cloudflare Workers/R2/D1 remains a future alternative if scale/cost warrants a migration. Firebase is not selected for the first implementation.
 
-OpenAI currently supports image inputs through its API and provides image generation/editing capabilities through GPT image models. The intended production architecture is:
+Shell & Co must use a dedicated Supabase project. No other venture’s project/data store may be reused.
 
-`GitHub Pages frontend → secure Shell & Co backend endpoint → OpenAI API → secure result storage/response → GitHub Pages UI`
+## OpenAI Decision — RESOLVED
 
-The browser must never call OpenAI using a secret key embedded in JavaScript.
+Initial proof:
 
-Potential backend patterns to evaluate before implementation:
-- Supabase Edge Function + Storage/Database;
-- Cloudflare Worker + object storage/database;
-- Vercel/Netlify serverless function + approved storage;
-- another controlled backend capable of environment-secret management, rate limiting, request validation, upload controls, logging, deletion policy, and spend controls.
+- model: **GPT Image 2 (`gpt-image-2`)**;
+- API: **Image API edits**;
+- one concept per request;
+- maximum four concepts/project;
+- medium quality;
+- 1536×1024 output target;
+- WEBP output;
+- provider image moderation enabled in `auto` mode;
+- server-side only;
+- prompt compiler: SCR-BR02-PROMPT-001 v1.0;
+- raw compiled prompts not stored by default.
 
-Backend selection is **UNRESOLVED**.
+High-quality generation is reserved for a later measured/founder-authorized tier.
 
-## OpenAI Processing Stages — Proposed
+## Security / Privacy Controls
 
-1. Validate file type/size and user consent.
-2. Optionally moderate image/text input.
-3. Analyze the uploaded room image and structured homeowner selections.
-4. Compile a controlled remodel prompt that emphasizes preserving architecture/perspective unless structural change is explicitly requested.
-5. Generate/edit multiple concept images.
-6. Return outputs with concept metadata and disclaimers.
-7. Store only what the adopted privacy/data policy authorizes.
-8. Allow customer selection and estimate-request handoff.
+- private source/result buckets;
+- short-lived signed access;
+- anonymous authenticated project owner session + RLS;
+- server-side ownership checks;
+- signed upload authorization;
+- actual byte-size and file-signature validation after upload;
+- SHA-256 asset provenance;
+- 30-day default pre-estimate retention;
+- owner-request deletion;
+- minimal non-PII deletion tombstone only;
+- separate marketing/photo-publicity consent;
+- no raw IP in application DB;
+- no raw upstream provider error bodies returned to frontend;
+- OpenAI kill switch starts closed;
+- per-project/user/IP-hash quotas and monthly software budget ceiling.
 
-## Safety / Accuracy Controls
+See SCR-BR02-001 and SCR-BR02-DATA-001.
 
-The system must not:
-- claim an AI concept is architecturally accurate;
-- imply code compliance;
-- guarantee materials are available;
-- issue final pricing based only on an image;
-- certify structural, electrical, plumbing, accessibility, or permit feasibility;
-- represent AI-generated concepts as completed Shell & Co work;
-- expose customer photos or PII through the public GitHub repository;
-- expose the OpenAI API key client-side.
+## Founder Project Photography — SUPERSESSION NOTE
 
-## Founder Remodel Photo Hold
+The v0.1 blanket founder-photo hold is **SUPERSEDED** by later founder evidence and SCR-BR01-PORTFOLIO-001. The three-job project-proof archive is separately authorized/governed for website marketing use.
 
-All prior-remodel photographs supplied by Bernard Shell Jr. remain **WITHHELD FROM THE WEBSITE** until their project grouping, before/after sequence, and use authorization are verified.
+Founder portfolio photos and future customer Remodel Studio uploads are different data classes. Authorization to publish founder-supplied portfolio proof does not authorize publication of customer-uploaded project photos.
 
-The UX/UI prototype therefore uses no founder-remodel photographs.
+## Product Name
 
-## Intellectual Property Position
+**Shell & Co Remodel Studio™** is the founder-used working product name in Build Room 02. Use of ™ identifies brand usage; this record does not assert trademark registration, exclusivity or legal clearance.
 
-“Proprietary” may describe Shell & Co’s own code, workflow design, prompt architecture, data structures, review process, and internal operating system once actually developed and controlled by Shell & Co.
+## Gate State
 
-Do not claim the underlying concept of AI remodel visualization, image generation, or contractor visualization is exclusive, patent-protected, or industry-first without separate IP/legal research and appropriate evidence.
+### OPEN
 
-## Working Product Name
+- secure code/schema scaffold;
+- dedicated Supabase project creation after cost confirmation;
+- synthetic-image proof;
+- server-side GPT Image 2 proof after dedicated OpenAI key/budget controls;
+- private signed retrieval;
+- deletion/retention testing;
+- human-review staff-auth testing.
 
-No product name is adopted by this record. The UX may temporarily use **Shell & Co Remodel Studio** as a descriptive prototype label only. A protectable product name should be separately researched and founder-approved.
+### CLOSED
 
-## Prototype Gate
+- real customer photos/PII;
+- public production AI generation;
+- live lead email/SMS transmission;
+- final automated pricing;
+- AI buildability certification;
+- custom-domain production deployment;
+- secret keys in client code;
+- merge to `main`.
 
-OPEN for:
-- upload UX;
-- local image preview;
-- preference controls;
-- multi-concept placeholder flow;
-- contractor packet UX;
-- disclosures;
-- responsive layout;
-- GitHub Pages demonstration.
+## Next Best Action
 
-CLOSED for:
-- live OpenAI generation;
-- persistent customer uploads;
-- live lead storage;
-- automated pricing;
-- claims of buildability;
-- production privacy/data retention;
-- API secrets in client code.
+Create the dedicated Shell & Co Supabase project after founder cost confirmation, apply the BR02 migration with OpenAI disabled, and execute the private-upload/RLS/deletion proof before the first OpenAI image call.
 
 ## Change History
 
-- v0.1 — Competitive research converted into proposed Shell & Co differentiation and secure OpenAI-backed architecture.
+- v0.1 — Competitive research converted into proposed workflow; backend unresolved; live AI closed.
+- v0.2 — Build Room 01 lock incorporated; Supabase backend selected; GPT Image 2/Image Edits selected; privacy/retention/security controls adopted; founder-photo hold supersession reconciled; BR02 secure proof gate opened while production customer data remains closed.
