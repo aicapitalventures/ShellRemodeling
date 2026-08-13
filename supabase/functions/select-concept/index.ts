@@ -18,9 +18,13 @@ Deno.serve(async (req: Request) => {
     if (concept.status !== "completed") return json(req, 409, { error: "RESULT_NOT_READY" });
 
     const { data: project, error: updateError } = await service.from("remodel_projects")
-      .update({ selected_concept_id: conceptId, status: "selected" })
+      .update({
+        selected_concept_id: conceptId,
+        status: "selected",
+        retention_expires_at: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(),
+      })
       .eq("id", projectId).eq("owner_user_id", userId)
-      .select("id,selected_concept_id,status").single();
+      .select("id,selected_concept_id,status,retention_expires_at").single();
     if (updateError) throw updateError;
     await service.from("audit_events").insert({
       subject_project_id: projectId, owner_user_id: userId, event_type: "concept_selected",
