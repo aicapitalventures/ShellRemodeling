@@ -35,3 +35,6 @@ verify_jwt = true
 # x-br02-cleanup-secret check. Do not expose this endpoint to browser code.
 [functions.purge-expired]
 verify_jwt = false
+
+[functions.br02-ip-diagnostic]
+verify_jwt = true
