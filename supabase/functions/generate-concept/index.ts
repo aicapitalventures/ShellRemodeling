@@ -21,7 +21,7 @@ async function callOpenAI(apiKey: string, source: Blob, sourceMime: string, prom
 
     const form = new FormData();
     form.append("model", MODEL);
-    form.append("image", source, sourceName(sourceMime));
+    form.append("image[]", source, sourceName(sourceMime));
     form.append("prompt", prompt);
     form.append("n", "1");
     form.append("size", IMAGE_SIZE);
