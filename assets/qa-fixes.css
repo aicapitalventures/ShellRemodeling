@@ -58,6 +58,11 @@ body { background:var(--cream); }
 .controls { background:#fffdfa; }
 .output { background:#ece3d6; }
 .packet { background:#242321; border:1px solid #675a48; }
+.concept-art.has-image::before,
+.concept-art.has-image::after { content:none; display:none; }
+.concept-art img { width:100%; height:100%; object-fit:cover; display:block; }
+.form-result.error { background:#f8e8e5; border-color:#d5aaa2; color:#6e3028; }
+.form-result.success { background:#edf3ec; border-color:#b7c8b3; color:#365135; }
 .feature,.trust,.form-card { border-color:#c9bda9; }
 .contact-card { background:#242321; }
 section[id] { scroll-margin-top:120px; }

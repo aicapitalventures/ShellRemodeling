@@ -4,7 +4,8 @@ const STUDIO_CONFIG=Object.freeze({
   publishableKey:'sb_publishable_fA2sw0bUz0DipHRI07y1bA_gbLEwz5L',
   maxUploadBytes:6*1024*1024,
   maxConcepts:4,
-  founderReview:true
+  founderReview:true,
+  publicLaunchMode:true
 });
 
 const state={
@@ -21,9 +22,15 @@ $$('[data-style]').forEach(btn=>{setPressed(btn,btn.classList.contains('active')
 const input=$('#spacePhoto'),drop=$('#dropzone'),preview=$('#photoPreview'),photoLabel=$('#photoLabel');
 const generateBtn=$('#generateBtn'),deleteBtn=$('#deleteStudioBtn'),statusBox=$('#generationStatus');
 const conceptCards=$$('.concept'),reviewPanel=$('#reviewPanel');
+if(STUDIO_CONFIG.publicLaunchMode){
+  $$('#studio input,#studio select,#studio textarea,#studio button').forEach(control=>{control.disabled=true});
+  drop.removeAttribute('tabindex');drop.removeAttribute('role');drop.setAttribute('aria-disabled','true');
+}
 conceptCards.forEach(card=>{card.hidden=true;const button=card.querySelector('.concept-select');button.disabled=true;setPressed(button,false)});
-drop.tabIndex=0;drop.setAttribute('role','button');drop.setAttribute('aria-label','Choose or drop a bathroom or project photo');
-drop.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();input.click()}});
+if(!STUDIO_CONFIG.publicLaunchMode){
+  drop.tabIndex=0;drop.setAttribute('role','button');drop.setAttribute('aria-label','Choose or drop a bathroom or project photo');
+  drop.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();input.click()}});
+}
 
 function setStatus(message,type=''){statusBox.className='notice'+(type?' '+type:'');statusBox.textContent=message}
 function normalizedMessage(code){
@@ -101,13 +108,14 @@ async function renderConcept(conceptId,ordinal){
   const blob=await imageResponse.blob(),objectUrl=URL.createObjectURL(blob);
   const card=conceptCards[ordinal-1],art=card.querySelector('.concept-art'),button=card.querySelector('.concept-select');
   const image=document.createElement('img');image.src=objectUrl;image.alt='AI remodel concept '+ordinal+' — conceptual visualization only';
-  art.replaceChildren(image);card.hidden=false;card.dataset.conceptId=conceptId;card.dataset.objectUrl=objectUrl;
+  art.replaceChildren(image);art.classList.add('has-image');card.hidden=false;card.dataset.conceptId=conceptId;card.dataset.objectUrl=objectUrl;
   card.dataset.name='Concept '+String.fromCharCode(64+ordinal)+' — '+directionFor(ordinal);
   card.querySelector('.concept-copy strong').textContent=directionFor(ordinal);
   card.querySelector('.concept-copy p').textContent='Concept visualization only. Measurements, trades, code, materials, pricing and feasibility require human field review.';
   button.disabled=false;$('#concepts').hidden=false
 }
 async function generateNext(){
+  if(STUDIO_CONFIG.publicLaunchMode){setStatus('Remodel Studio Early Access is coming soon. Public photo upload and AI generation remain closed.');return}
   if(state.busy)return;
   if(!state.photo){setStatus('Upload a synthetic or expressly authorized test image first.','error');return}
   if(!$('#roomType').value){setStatus('Choose the project type before generating.','error');return}
@@ -145,7 +153,7 @@ async function deleteStudioProject(){
   if(!state.projectId||state.busy)return;
   try{
     setBusy(true,'Deleting private Studio project…');await invoke('delete-project',{project_id:state.projectId});
-    conceptCards.forEach(card=>{if(card.dataset.objectUrl)URL.revokeObjectURL(card.dataset.objectUrl);card.hidden=true;card.classList.remove('selected');card.removeAttribute('data-concept-id');card.removeAttribute('data-object-url');const b=card.querySelector('.concept-select');b.disabled=true;b.textContent='Select';setPressed(b,false);card.querySelector('.concept-art').replaceChildren(Object.assign(document.createElement('span'),{textContent:'Concept — waiting'}))});
+    conceptCards.forEach(card=>{if(card.dataset.objectUrl)URL.revokeObjectURL(card.dataset.objectUrl);card.hidden=true;card.classList.remove('selected');card.removeAttribute('data-concept-id');card.removeAttribute('data-object-url');const b=card.querySelector('.concept-select');b.disabled=true;b.textContent='Select';setPressed(b,false);const art=card.querySelector('.concept-art');art.classList.remove('has-image');art.replaceChildren(Object.assign(document.createElement('span'),{textContent:'Concept — waiting'}))});
     state.projectId=null;state.sourceAssetId=null;state.concepts=[];state.selectedConcept=null;
     $('#concepts').hidden=true;reviewPanel.hidden=true;deleteBtn.hidden=true;generateBtn.textContent='Generate First AI Concept';setStatus('Private project, source image and generated concepts were deleted.','success');updatePacket()
   }catch(error){setStatus(normalizedMessage(error.message),'error')}
@@ -158,6 +166,30 @@ function readValue(selector,fallback='Not selected'){const el=$(selector);return
 function updatePacket(){const el=$('#packetText');if(!el)return;el.replaceChildren();const rows=[['Source',state.photo?state.photo.name:'No test image yet'],['Project type',readValue('#roomType')],['Direction',state.style],['Preserve',list(state.preserve)],['Change',list(state.change)],['Must-have',list(state.must)],['Planning budget',readValue('#budget','Not sure yet')],['Generated concepts',String(state.concepts.length)]];if(state.selectedConcept)rows.push(['Preferred concept',state.selectedConcept]);rows.forEach(([label,value],i)=>{const strong=document.createElement('strong');strong.textContent=label+': ';el.appendChild(strong);el.appendChild(document.createTextNode(value));if(i<rows.length-1)el.appendChild(document.createElement('br'))})}
 ['#roomType','#budget'].forEach(selector=>{const el=$(selector);if(el)el.addEventListener('change',updatePacket)});updatePacket();
 
-$('#estimateForm').addEventListener('submit',e=>{e.preventDefault();if(!e.currentTarget.reportValidity())return;const fd=new FormData(e.currentTarget);const packet={metadata:{record_type:'Shell & Co Pre-Estimate Intelligence Packet',founder_review_build:true,created_at:new Date().toISOString(),response_expectation:'within 24 hours'},customer:{name:fd.get('name'),phone:fd.get('phone'),email:fd.get('email'),zip:fd.get('zip'),property_status:fd.get('propertyStatus'),marketing_consent:fd.get('marketingConsent')==='on'},project:{project_type:fd.get('projectType'),studio_project_type:$('#roomType').value,planning_budget:fd.get('budget'),style:state.style,preserve:[...state.preserve],change:[...state.change],must_have:[...state.must],notes:$('#vision').value,selected_concept:state.selectedConcept,studio_project_id:state.projectId,timing:fd.get('timing')},source_photo:{filename:state.photo?.name||null,note:'Photo bytes are never included in this downloaded packet.'},appointment_policy:{initial_phone_photo_review:'no charge',onsite_reservation_fee_usd:49,credit_if_hired_within_days:30,cancellation_notice_hours:24,travel_surcharge:'$1.50 per additional one-way mile beyond 35 miles from Charlestown, Indiana'},disclosures:['AI visualization is conceptual, not a construction drawing or quote.','Planning budget is qualification context, not a price commitment.','Buildability, measurements, code, trade, permit, pricing and material availability require field verification.','Customer production use remains gated pending adopted privacy, legal, storage, retention and deletion controls.']};const blob=new Blob([JSON.stringify(packet,null,2)],{type:'application/json'});const url=URL.createObjectURL(blob);const dl=$('#downloadPacket');if(dl.href)URL.revokeObjectURL(dl.href);dl.href=url;dl.download='shell-co-pre-estimate-founder-review.json';dl.hidden=false;$('#formResult').style.display='block';$('#formResult').scrollIntoView({behavior:'smooth',block:'nearest'})});
+const inquiryForm=$('#estimateForm'),inquiryResult=$('#formResult'),inquirySubmit=$('#estimateSubmit'),startedAt=$('#formStartedAt');
+if(startedAt)startedAt.value=String(Date.now());
+inquiryForm.addEventListener('submit',async e=>{
+  e.preventDefault();if(!inquiryForm.reportValidity()||inquirySubmit.disabled)return;
+  const fd=new FormData(inquiryForm),payload={
+    name:fd.get('name'),phone:fd.get('phone'),email:fd.get('email'),zip:fd.get('zip'),
+    project_type:fd.get('projectType'),planning_budget:fd.get('budget'),timing:fd.get('timing'),
+    property_status:fd.get('propertyStatus'),message:fd.get('message'),website:fd.get('website'),
+    started_at:Number(fd.get('startedAt')),contact_consent:fd.get('contactConsent')==='on',
+    marketing_consent:fd.get('marketingConsent')==='on'
+  };
+  inquirySubmit.disabled=true;inquirySubmit.textContent='Sending…';inquiryResult.style.display='block';
+  inquiryResult.className='form-result';inquiryResult.textContent='Securely sending your nonbinding inquiry…';
+  try{
+    const response=await fetch(STUDIO_CONFIG.url+'/functions/v1/submit-inquiry',{method:'POST',headers:{apikey:STUDIO_CONFIG.publishableKey,'Content-Type':'application/json'},body:JSON.stringify(payload),cache:'no-store'});
+    const result=await response.json().catch(()=>({}));
+    if(!response.ok)throw new Error(result.error||'INQUIRY_FAILED');
+    inquiryResult.className='form-result success';inquiryResult.textContent='Thank you. Your nonbinding project inquiry was received. Shell & Co will follow up using the contact information you provided.';
+    inquiryForm.reset();if(startedAt)startedAt.value=String(Date.now());inquirySubmit.textContent='Inquiry Sent';
+  }catch(error){
+    const messages={RATE_LIMITED:'Too many requests were received from this connection. Please call or text (502) 303-2398.',DUPLICATE_INQUIRY:'This inquiry appears to have already been received. Please call or text if you need to add information.',INVALID_REQUEST:'Please review the required fields and try again.'};
+    inquiryResult.className='form-result error';inquiryResult.textContent=messages[error.message]||'Your inquiry could not be sent. Please call or text (502) 303-2398 instead.';
+    inquirySubmit.disabled=false;inquirySubmit.textContent='Send Nonbinding Inquiry';
+  }
+});
 
 $('#copyPhone').addEventListener('click',async()=>{try{await navigator.clipboard.writeText('502-303-2398');$('#copyPhone').textContent='Phone Copied'}catch{location.href='tel:+15023032398'}});

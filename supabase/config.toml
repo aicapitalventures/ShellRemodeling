@@ -41,3 +41,8 @@ verify_jwt = false
 
 [functions.br02-ip-diagnostic]
 verify_jwt = true
+
+# Public launch inquiry intake implements its own strict validation, origin,
+# honeypot, duplicate and rate-limit controls before any private database write.
+[functions.submit-inquiry]
+verify_jwt = false
