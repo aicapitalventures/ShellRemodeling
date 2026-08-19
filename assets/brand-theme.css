@@ -124,7 +124,7 @@ textarea:focus-visible,
   border-bottom-color:rgba(199,173,115,.62);
 }
 .studio-head span { color:var(--brand-gold-light); }
-.controls { background:#f8f7f3; }
+.controls { background:#f8f7f3; border:0; margin:0; min-inline-size:0; }
 .output { background:#deded9; }
 .dropzone,
 .chip,
