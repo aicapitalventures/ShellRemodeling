@@ -1,4 +1,3 @@
-const qaStyles=document.createElement('link');qaStyles.rel='stylesheet';qaStyles.href='assets/qa-fixes.css';document.head.appendChild(qaStyles);
 
 const STUDIO_CONFIG=Object.freeze({
   url:'https://mlxboidajkqyayxjdcvh.supabase.co',
