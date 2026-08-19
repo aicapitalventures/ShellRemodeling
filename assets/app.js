@@ -3,7 +3,7 @@ const STUDIO_CONFIG=Object.freeze({
   url:'https://mlxboidajkqyayxjdcvh.supabase.co',
   publishableKey:'sb_publishable_fA2sw0bUz0DipHRI07y1bA_gbLEwz5L',
   maxUploadBytes:6*1024*1024,
-  maxConcepts:4,
+  maxConcepts:3,
   founderReview:true,
   publicLaunchMode:true
 });
@@ -120,7 +120,7 @@ async function generateNext(){
   if(!state.photo){setStatus('Upload a synthetic or expressly authorized test image first.','error');return}
   if(!$('#roomType').value){setStatus('Choose the project type before generating.','error');return}
   if(!$('#syntheticConsent').checked){setStatus('Confirm the founder-review image restriction before transmitting any image.','error');return}
-  if(state.concepts.length>=STUDIO_CONFIG.maxConcepts){setStatus('Four controlled concepts have already been generated for this project.','success');return}
+  if(state.concepts.length>=STUDIO_CONFIG.maxConcepts){setStatus('Three controlled concepts have already been generated for this project.','success');return}
   try{
     setBusy(true,state.projectId?'Generating next concept…':'Creating private Studio project…');
     await prepareProject();

@@ -2,6 +2,8 @@ import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 import { assertProjectOwner, json, preflight, requireUser } from "../_shared/core.ts";
 
 const PURPOSE = "studio_pass";
+const ADOPTED_AMOUNT_CENTS = 1900;
+const ADOPTED_ALLOWANCE = 3;
 
 function enabledConfig() {
   const enabled = Deno.env.get("STRIPE_TEST_MODE_ENABLED") === "true";
@@ -10,7 +12,7 @@ function enabledConfig() {
   const amount = Number(Deno.env.get("STRIPE_STUDIO_AMOUNT_CENTS") || "0");
   const allowance = Number(Deno.env.get("STRIPE_STUDIO_ALLOWANCE") || "0");
   if (!enabled || !secret.startsWith("sk_test_") || !priceId.startsWith("price_") ||
-      !Number.isInteger(amount) || amount <= 0 || !Number.isInteger(allowance) || allowance < 1 || allowance > 20) {
+      amount !== ADOPTED_AMOUNT_CENTS || allowance !== ADOPTED_ALLOWANCE) {
     throw new Error("PAYMENT_DISABLED");
   }
   return { secret, priceId, amount, allowance };

@@ -1,6 +1,7 @@
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 import { hmacIpHash, json, normalizedError, preflight, requireUser, RESULT_BUCKET, sha256Hex } from "../_shared/core.ts";
 import { compileRemodelPrompt } from "../_shared/prompt.ts";
+import { normalizeProviderFailure } from "../_shared/provider-errors.ts";
 
 const MODEL = "gpt-image-2";
 const QUALITY = "medium";
@@ -37,8 +38,7 @@ async function callOpenAI(apiKey: string, source: Blob, sourceMime: string, prom
     const payload = await response.json().catch(() => ({}));
     if (response.ok) return { payload, requestId };
     const upstreamCode = String(payload?.error?.code || "");
-    if (upstreamCode === "moderation_blocked") throw new Error("MODERATION_BLOCKED");
-    throw new Error(response.status === 408 ? "GENERATION_TIMEOUT" : "GENERATION_FAILED");
+    throw new Error(normalizeProviderFailure(response.status, upstreamCode));
   } catch (err) {
     if (err instanceof DOMException && err.name === "AbortError") throw new Error("GENERATION_TIMEOUT");
     if (err instanceof Error && ["MODERATION_BLOCKED", "GENERATION_TIMEOUT", "GENERATION_FAILED"].includes(err.message)) throw err;
@@ -66,7 +66,7 @@ Deno.serve(async (req: Request) => {
     const sourceAssetId = String(body.source_asset_id || "");
     const ordinal = Number(body.ordinal || 0);
     const conceptDirection = String(body.concept_direction || "").trim().slice(0, 160);
-    if (!projectId || !sourceAssetId || !Number.isInteger(ordinal) || ordinal < 1 || ordinal > 4 || !conceptDirection) {
+    if (!projectId || !sourceAssetId || !Number.isInteger(ordinal) || ordinal < 1 || ordinal > 3 || !conceptDirection) {
       return json(req, 400, { error: "INVALID_REQUEST" });
     }
 

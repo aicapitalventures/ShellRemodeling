@@ -1,8 +1,8 @@
 # SCR-BR02-TEST-001 — Secure End-to-End Proof Test & Acceptance Plan v1.0
 
 **Record ID:** SCR-BR02-TEST-001  
-**Version:** 1.0  
-**Status:** TEST PLAN ADOPTED — EXECUTION PENDING CLOUD PROJECT  
+**Version:** 1.1
+**Status:** TEST PLAN ADOPTED — T01–T12 EVIDENCED; T13 SECRET EXECUTION PENDING
 **Effective date:** 2026-08-12  
 **Dependencies:** SCR-BR02-001, SCR-BR02-DATA-001, SCR-BR02-PROMPT-001  
 
@@ -106,7 +106,7 @@ destructive quota-ceiling exhaustion and provider-error simulations remain pendi
 
 Verify:
 
-- project concept maximum = 4;
+- adopted project concept maximum = 3;
 - anonymous user daily attempt maximum enforced;
 - hashed-IP hourly maximum enforced;
 - raw IP is absent from DB;
@@ -150,4 +150,9 @@ Passing this proof does **not** authorize real customer data. A separate product
 
 ## Next Best Action
 
-Create the dedicated Shell & Co Supabase project after cost confirmation, then apply the migration and execute T02–T06 with OpenAI disabled before provisioning the OpenAI proof key.
+Configure the server-only T13 cleanup secret, execute the expired synthetic-fixture purge, and complete the remaining reviewer/CAPTCHA controls without opening the OpenAI gate.
+
+## Change history
+
+- v1.1 — 2026-08-19: Aligned the T10 project ceiling with the founder-adopted three-concept Studio pass and updated the execution state.
+- v1.0 — 2026-08-12: Adopted the initial secure proof plan.

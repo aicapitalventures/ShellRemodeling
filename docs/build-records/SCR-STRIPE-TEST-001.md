@@ -3,20 +3,20 @@
 | Metadata field | Value |
 |---|---|
 | Record ID | SCR-STRIPE-TEST-001 |
-| Version | 1.1 |
-| Status | Test architecture implemented and fail-closed; commercial terms remain Proposed |
-| Effective date | 2026-08-19 for technical controls only |
-| Founder authority | Test-mode preparation authorized 2026-08-19 |
-| Adoption status | Proposed — requires founder price/allowance adoption and test-account configuration |
+| Version | 1.2 |
+| Status | Founder Approved — test architecture implemented and fail-closed |
+| Effective date | 2026-08-19 |
+| Founder authority | USD 19 one-time pass with up to three concepts expressly adopted 2026-08-19 |
+| Adoption status | Adopted for Stripe test-mode implementation; no live-charge authority |
 | Scope | Test-mode Studio Concept Pass and future remodeling-deposit separation |
 | Explicit exclusions | Live charges, live deposits, contracts, financing and production entitlement activation |
 | Dependencies | SCR-META-000; SCR-FIN-001; SCR-BR02-001; verified Stripe test account |
 
-## Proposed Studio Concept Pass
+## Adopted Studio Concept Pass
 
 - One-time purchase; no subscription.
-- Proposed price: USD 19.
-- Proposed allowance: up to three concepts for one owned Studio project.
+- Adopted price: USD 19.
+- Adopted allowance: up to three concepts for one owned Studio project.
 - Payment must be verified by a signed Stripe webhook before an entitlement can
   be activated.
 - Browser success redirects are never payment proof.
@@ -99,12 +99,12 @@ displayed in logs.
 
 ## Gate verdict
 
-- CANON CREATED: Proposed Stripe test-mode architecture record
-- CANON LOCKED: No
-- PROVISIONAL / UNRESOLVED: USD 19 price and three-concept allowance
-- GATES OPEN: Fail-closed test records and Edge Function deployment
+- CANON CREATED: Stripe test-mode architecture and adopted Studio-pass commercial terms
+- CANON LOCKED: USD 19 one-time price and up-to-three-concept allowance for the Studio Concept Pass
+- PROVISIONAL / UNRESOLVED: Stripe test account identifiers, test Price ID and signed-webhook proof
+- GATES OPEN: Fail-closed test records, test-only configuration and signed-webhook testing
 - GATES CLOSED: Stripe API execution, paid entitlement activation, live charges and deposits
-- NEXT BEST ACTION: Founder adopts or revises the proposed Studio price and allowance, then configures test-only Stripe secrets and the signed webhook endpoint.
+- NEXT BEST ACTION: Configure test-only Stripe secrets and the signed webhook endpoint, then execute the no-money test matrix.
 
 ## 2026-08-19 implementation proof
 
@@ -127,3 +127,4 @@ displayed in logs.
 
 - v1.0 — 2026-08-19: Created fail-closed test-mode architecture; no Stripe call or charge made.
 - v1.1 — 2026-08-19: Applied test-only schema, deployed fail-closed Checkout/webhook functions and verified denial paths without calling Stripe.
+- v1.2 — 2026-08-19: Founder adopted the USD 19 one-time Studio pass with up to three concepts; implementation was hardened to fail closed unless server configuration exactly matches USD 19 and three concepts.

@@ -46,7 +46,7 @@ The prompt compiler must favor explicit Preserve/source-truth information over a
 
 ## Multi-Concept Law
 
-BR02 supports up to four controlled concept directions, one server-side image-edit request at a time:
+BR02 supports up to three controlled concept directions per adopted Studio pass, one server-side image-edit request at a time:
 
 - Clean Modern;
 - Warm Transitional;

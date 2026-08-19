@@ -88,7 +88,7 @@ This is a CONCEPT VISUALIZATION for homeowner discussion and Shell & Co human re
 
 ## Concept Variation Law
 
-A project may generate no more than four controlled concepts. Each call generates one concept. The concept direction must create meaningful aesthetic variation without changing protected source-space facts.
+A paid Studio project may generate no more than three controlled concepts under the adopted one-time pass. Each authorized call generates one concept. The concept direction must create meaningful aesthetic variation without changing protected source-space facts.
 
 Default founder-approved direction labels:
 
