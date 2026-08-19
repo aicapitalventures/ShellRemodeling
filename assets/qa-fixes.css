@@ -39,7 +39,7 @@ body { background:var(--cream); }
 
 .site-header .nav { padding:11px 0; }
 .brand { flex:0 0 auto; }
-.brand-logo-horizontal {width:min(390px,38vw)!important;height:auto!important;max-height:92px;filter:contrast(1.14) saturate(1.18) brightness(1.03) drop-shadow(0 4px 9px rgba(0,0,0,.12))}
+.brand-logo-horizontal {width:min(300px,30vw)!important;height:auto!important;max-height:none;filter:contrast(1.06) saturate(1.08) drop-shadow(0 4px 9px rgba(0,0,0,.16))}
 .nav-links { gap:19px; }
 .nav-links a { color:#302f2d; font-weight:720; }
 
@@ -73,14 +73,14 @@ section[id] { scroll-margin-top:120px; }
 .mobile-contact-dock {display:none}
 
 @media (max-width:1100px) and (min-width:921px) {
-  .brand-logo-horizontal { width:min(335px,34vw)!important; }
+  .brand-logo-horizontal { width:min(270px,28vw)!important; }
   .nav-links { gap:14px; }
   .nav-links a { font-size:12px; }
   .site-header > .wrap > .button { padding-left:14px; padding-right:14px; }
 }
 @media (max-width:920px) {
   .site-header .nav { gap:14px; }
-  .brand-logo-horizontal { width:min(315px,52vw)!important; max-height:82px; }
+  .brand-logo-horizontal { width:min(255px,48vw)!important; max-height:none; }
   .site-header > .wrap > .button { flex:0 0 auto; white-space:nowrap; }
   .hero { grid-template-columns:1fr; }
   .hero-copy { padding:64px 34px; }
@@ -95,7 +95,7 @@ section[id] { scroll-margin-top:120px; }
   .prototype-bar { font-size:9px; letter-spacing:.08em; padding:7px 10px; }
   .contact-bar { font-size:12px; padding:9px 10px; }
   .site-header .nav { padding:8px 0; gap:8px; }
-  .brand-logo-horizontal {width:min(230px,72vw)!important;height:auto!important;max-height:68px}
+  .brand-logo-horizontal {width:min(215px,68vw)!important;height:auto!important;max-height:none}
   .site-header > .wrap > .button { display:none; }
   .hero-copy { padding:52px 20px; }
   .hero-visual { min-height:390px; padding:14px; }
@@ -112,7 +112,7 @@ section[id] { scroll-margin-top:120px; }
 }
 
 @media (max-width:380px) {
-  .brand-logo-horizontal { width:min(205px,76vw)!important; }
+  .brand-logo-horizontal { width:min(195px,70vw)!important; }
   .hero-copy { padding-left:16px; padding-right:16px; }
   .wrap { width:calc(100% - 20px); }
 }
