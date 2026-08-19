@@ -75,7 +75,9 @@ Before enabling OpenAI:
 
 With kill switch ON, generation must fail closed with `GENERATION_DISABLED` and must not call OpenAI.
 
-### T08 — One Controlled Concept
+### T08 — One Controlled Concept — PASSED 2026-08-19
+
+Controlling execution evidence: `SCR-BR02-T08-001`.
 
 With test switch temporarily open, generate exactly ONE medium-quality GPT Image 2 concept through the server-side Image Edits flow.
 

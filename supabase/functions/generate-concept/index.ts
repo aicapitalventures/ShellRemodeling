@@ -8,65 +8,44 @@ const IMAGE_SIZE = "1536x1024";
 const TOTAL_OPENAI_DEADLINE_MS = 120_000;
 const RESERVED_COST = Number(Deno.env.get("BR02_RESERVED_COST_PER_CALL_USD") || "0.08");
 const MONTHLY_BUDGET = Number(Deno.env.get("BR02_MONTHLY_BUDGET_USD") || "20");
+const T08_GATE_CLOSED = true;
 
-function sleep(ms: number) { return new Promise((resolve) => setTimeout(resolve, ms)); }
 function sourceName(mime: string) { return mime === "image/png" ? "source.png" : mime === "image/webp" ? "source.webp" : "source.jpg"; }
 
 async function callOpenAI(apiKey: string, source: Blob, sourceMime: string, prompt: string) {
-  const deadlineAt = Date.now() + TOTAL_OPENAI_DEADLINE_MS;
-  let lastStatus = 0;
-  for (let attempt = 0; attempt < 3; attempt++) {
-    const remaining = deadlineAt - Date.now();
-    if (remaining <= 1500) throw new Error("GENERATION_TIMEOUT");
+  const form = new FormData();
+  form.append("model", MODEL);
+  form.append("image[]", source, sourceName(sourceMime));
+  form.append("prompt", prompt);
+  form.append("n", "1");
+  form.append("size", IMAGE_SIZE);
+  form.append("quality", QUALITY);
+  form.append("output_format", "webp");
+  form.append("output_compression", "85");
+  form.append("moderation", "auto");
 
-    const form = new FormData();
-    form.append("model", MODEL);
-    form.append("image[]", source, sourceName(sourceMime));
-    form.append("prompt", prompt);
-    form.append("n", "1");
-    form.append("size", IMAGE_SIZE);
-    form.append("quality", QUALITY);
-    form.append("output_format", "webp");
-    form.append("output_compression", "85");
-    form.append("moderation", "auto");
-
-    const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), remaining);
-    try {
-      const response = await fetch("https://api.openai.com/v1/images/edits", {
-        method: "POST",
-        headers: { Authorization: `Bearer ${apiKey}` },
-        body: form,
-        signal: controller.signal,
-      });
-      lastStatus = response.status;
-      const requestId = response.headers.get("x-request-id");
-      const payload = await response.json().catch(() => ({}));
-      if (response.ok) return { payload, requestId };
-
-      const upstreamCode = String(payload?.error?.code || "");
-      if (upstreamCode === "moderation_blocked") throw new Error("MODERATION_BLOCKED");
-      const transient = response.status === 429 || response.status >= 500;
-      if (transient && attempt < 2) {
-        const delay = 500 * (2 ** attempt) + Math.floor(Math.random() * 250);
-        if (Date.now() + delay + 1500 < deadlineAt) { await sleep(delay); continue; }
-        throw new Error("GENERATION_TIMEOUT");
-      }
-      throw new Error("GENERATION_FAILED");
-    } catch (err) {
-      if (err instanceof DOMException && err.name === "AbortError") throw new Error("GENERATION_TIMEOUT");
-      if (err instanceof Error && ["MODERATION_BLOCKED", "GENERATION_TIMEOUT", "GENERATION_FAILED"].includes(err.message)) throw err;
-      const transient = lastStatus === 429 || lastStatus >= 500;
-      if (transient && attempt < 2) {
-        const delay = 500 * (2 ** attempt) + Math.floor(Math.random() * 250);
-        if (Date.now() + delay + 1500 < deadlineAt) { await sleep(delay); continue; }
-      }
-      throw new Error("GENERATION_FAILED");
-    } finally {
-      clearTimeout(timeout);
-    }
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), TOTAL_OPENAI_DEADLINE_MS);
+  try {
+    const response = await fetch("https://api.openai.com/v1/images/edits", {
+      method: "POST",
+      headers: { Authorization: `Bearer ${apiKey}` },
+      body: form,
+      signal: controller.signal,
+    });
+    const requestId = response.headers.get("x-request-id");
+    const payload = await response.json().catch(() => ({}));
+    if (response.ok) return { payload, requestId };
+    const upstreamCode = String(payload?.error?.code || "");
+    if (upstreamCode === "moderation_blocked") throw new Error("MODERATION_BLOCKED");
+    throw new Error(response.status === 408 ? "GENERATION_TIMEOUT" : "GENERATION_FAILED");
+  } catch (err) {
+    if (err instanceof DOMException && err.name === "AbortError") throw new Error("GENERATION_TIMEOUT");
+    if (err instanceof Error && ["MODERATION_BLOCKED", "GENERATION_TIMEOUT", "GENERATION_FAILED"].includes(err.message)) throw err;
+    throw new Error("GENERATION_FAILED");
+  } finally {
+    clearTimeout(timeout);
   }
-  throw new Error("GENERATION_FAILED");
 }
 
 Deno.serve(async (req: Request) => {
@@ -78,9 +57,7 @@ Deno.serve(async (req: Request) => {
   let service: any = null;
   try {
     const auth = await requireUser(req); userId = auth.userId; service = auth.service;
-    const enabled = Deno.env.get("BR02_OPENAI_ENABLED") === "true";
-    const killSwitch = Deno.env.get("BR02_KILL_SWITCH") !== "false";
-    if (!enabled || killSwitch) return json(req, 503, { error: "GENERATION_DISABLED" });
+    if (T08_GATE_CLOSED) return json(req, 503, { error: "GENERATION_DISABLED" });
     const apiKey = Deno.env.get("OPENAI_API_KEY");
     if (!apiKey) return json(req, 503, { error: "GENERATION_DISABLED" });
 
