@@ -45,7 +45,14 @@
 .studio-shell.public-preview .button{cursor:not-allowed}
 .honeypot{position:absolute!important;left:-10000px!important;width:1px!important;height:1px!important;overflow:hidden!important}
 .button[disabled]{opacity:.65;cursor:not-allowed;transform:none}
+.mobile-menu{display:none;position:relative;margin-left:auto}
+.mobile-menu summary{list-style:none;cursor:pointer;border:1px solid #9b7441;border-radius:4px;padding:10px 13px;font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.07em}
+.mobile-menu summary::-webkit-details-marker{display:none}
+.mobile-menu nav{position:absolute;right:0;top:calc(100% + 10px);z-index:100;width:220px;display:grid;background:#fff;border:1px solid #b9aa94;border-radius:5px;box-shadow:0 16px 36px rgba(30,28,25,.18);padding:8px}
+.mobile-menu nav a{text-decoration:none;padding:11px 12px;border-bottom:1px solid #e3dbd0;font-size:13px;font-weight:700}
+.mobile-menu nav a:last-child{border-bottom:0;background:#292826;color:#fff}
 @media(max-width:980px){.service-grid{grid-template-columns:repeat(2,1fr)}.policy-grid{grid-template-columns:1fr}.proof-preview-grid,.founder-grid{grid-template-columns:1fr}.proof-copy{padding-left:0}}
+@media(max-width:920px){.mobile-menu{display:block}}
 @media(max-width:560px){.service-grid,.project-archive-board{grid-template-columns:1fr}.archive-project{min-height:130px}.mobile-contact-dock{position:fixed;z-index:1000;display:grid;grid-template-columns:repeat(3,1fr);left:0;right:0;bottom:0;background:#181817;border-top:1px solid #c6a778;padding:7px}.mobile-contact-dock a{color:#fff;text-decoration:none;text-align:center;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;padding:11px 5px;border-right:1px solid #4d4943}.mobile-contact-dock a:last-child{border-right:0;background:#c6a778;color:#181817}.footer{padding-bottom:78px}}
 </style>
 </head>
@@ -55,6 +62,7 @@
 <header class="site-header"><div class="wrap nav">
 <a class="brand" href="#top"><img class="brand-logo brand-logo-horizontal" src="assets/brand/shellco-nav-header.png" alt="Shell & Co Remodeling — Cutting Edge Craftsmanship. Lasting Beauty."></a>
 <nav class="nav-links" aria-label="Primary"><a href="#studio">Remodel Studio</a><a href="our-work.html">Our Work</a><a href="#services">Services</a><a href="#process">Process</a><a href="#estimate">Estimate</a></nav>
+<details class="mobile-menu"><summary>Menu</summary><nav aria-label="Mobile primary"><a href="#services">Services</a><a href="our-work.html">Our Work</a><a href="#process">Process</a><a href="#studio">Studio — Coming Soon</a><a href="#estimate">Project Inquiry</a></nav></details>
 <a class="button" href="#estimate">Project Inquiry</a>
 </div></header>
 <main id="top">

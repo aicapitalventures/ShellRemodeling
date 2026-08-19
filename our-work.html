@@ -28,6 +28,13 @@
 .project-note p{font-size:13px;color:#5f5951}
 .proof-law{margin-top:24px;padding:16px 18px;border-left:4px solid #c6a778;background:#2a2927;color:#e7ded2;font-size:13px}
 .work-cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px}
+.mobile-menu{display:none;position:relative;margin-left:auto}
+.mobile-menu summary{list-style:none;cursor:pointer;border:1px solid #9b7441;border-radius:4px;padding:10px 13px;font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.07em}
+.mobile-menu summary::-webkit-details-marker{display:none}
+.mobile-menu nav{position:absolute;right:0;top:calc(100% + 10px);z-index:100;width:220px;display:grid;background:#fff;border:1px solid #b9aa94;border-radius:5px;box-shadow:0 16px 36px rgba(30,28,25,.18);padding:8px}
+.mobile-menu nav a{text-decoration:none;padding:11px 12px;border-bottom:1px solid #e3dbd0;font-size:13px;font-weight:700}
+.mobile-menu nav a:last-child{border-bottom:0;background:#292826;color:#fff}
+@media(max-width:920px){.mobile-menu{display:block}}
 @media(max-width:760px){.project-archive-board,.project-notes{grid-template-columns:1fr}.archive-project{min-height:150px}.work-hero{padding:54px 0 42px}.work-proof{padding:44px 0}}
 </style>
 </head>
@@ -37,6 +44,7 @@
 <header class="site-header"><div class="wrap nav">
 <a class="brand" href="index.html#top"><img class="brand-logo brand-logo-horizontal" src="assets/brand/shellco-nav-header.png" alt="Shell & Co Remodeling — Cutting Edge Craftsmanship. Lasting Beauty."></a>
 <nav class="nav-links" aria-label="Primary"><a href="index.html#studio">Remodel Studio</a><a href="our-work.html" aria-current="page">Our Work</a><a href="index.html#services">Services</a><a href="index.html#process">Process</a><a href="index.html#estimate">Estimate</a></nav>
+<details class="mobile-menu"><summary>Menu</summary><nav aria-label="Mobile primary"><a href="index.html#services">Services</a><a href="our-work.html" aria-current="page">Our Work</a><a href="index.html#process">Process</a><a href="index.html#studio">Studio — Coming Soon</a><a href="index.html#estimate">Project Inquiry</a></nav></details>
 <a class="button" href="index.html#estimate">Project Inquiry</a>
 </div></header>
 <main>
