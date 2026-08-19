@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow, noarchive">
+  <meta name="referrer" content="no-referrer">
+  <title>Private Studio Review | Shell &amp; Co Remodeling</title>
+  <link rel="stylesheet" href="assets/reviewer.css">
+</head>
+<body>
+  <header class="reviewer-header">
+    <div>
+      <p class="eyebrow">Shell &amp; Co Remodel Studio™</p>
+      <h1>Private buildability review</h1>
+    </div>
+    <button id="signOutButton" class="button button-secondary" type="button" hidden>Sign out</button>
+  </header>
+
+  <main>
+    <section id="loginPanel" class="panel login-panel" aria-labelledby="loginTitle">
+      <p class="eyebrow">Authorized reviewers only</p>
+      <h2 id="loginTitle">Reviewer sign in</h2>
+      <p>Use the Supabase reviewer account assigned by a founder. Credentials remain in this browser and are never written to the repository.</p>
+      <form id="loginForm">
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email" autocomplete="username" required>
+        <label for="password">Password</label>
+        <input id="password" name="password" type="password" autocomplete="current-password" required>
+        <button id="loginButton" class="button" type="submit">Sign in securely</button>
+      </form>
+      <p id="loginStatus" class="status" role="status" aria-live="polite"></p>
+    </section>
+
+    <section id="queuePanel" hidden>
+      <div class="queue-heading">
+        <div>
+          <p class="eyebrow">Human review queue</p>
+          <h2>Selected remodel concepts</h2>
+        </div>
+        <button id="refreshButton" class="button button-secondary" type="button">Refresh queue</button>
+      </div>
+      <div class="review-law" role="note">
+        <strong>Review law:</strong> GREEN means apparently feasible pending field verification. YELLOW requires measurement, trade, or code verification. RED means likely impractical or not recommended as rendered.
+      </div>
+      <p id="queueStatus" class="status" role="status" aria-live="polite"></p>
+      <div id="queue" class="queue"></div>
+    </section>
+  </main>
+
+  <template id="reviewCardTemplate">
+    <article class="review-card">
+      <div class="concept-visual"><img alt="Selected remodel concept for private buildability review"></div>
+      <div class="concept-details">
+        <div class="concept-title-row">
+          <div><p class="eyebrow concept-number"></p><h3 class="concept-title"></h3></div>
+          <span class="review-state">Unreviewed</span>
+        </div>
+        <dl class="facts"></dl>
+        <div class="requirements"></div>
+        <form class="review-form">
+          <fieldset>
+            <legend>Buildability status</legend>
+            <div class="status-options">
+              <label class="green"><input type="radio" name="status" value="green" required> GREEN</label>
+              <label class="yellow"><input type="radio" name="status" value="yellow"> YELLOW</label>
+              <label class="red"><input type="radio" name="status" value="red"> RED</label>
+            </div>
+          </fieldset>
+          <label>Reviewer notes<textarea name="notes" rows="5" maxlength="3000" placeholder="Record field, measurement, trade, code, material, or feasibility findings."></textarea></label>
+          <button class="button submit-review" type="submit">Save controlled review</button>
+          <p class="status card-status" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </article>
+  </template>
+  <script src="assets/reviewer.js" defer></script>
+</body>
+</html>

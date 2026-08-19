@@ -28,6 +28,9 @@ verify_jwt = true
 [functions.review-concept]
 verify_jwt = true
 
+[functions.review-queue]
+verify_jwt = true
+
 [functions.delete-project]
 verify_jwt = true
 
