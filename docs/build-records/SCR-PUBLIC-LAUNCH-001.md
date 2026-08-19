@@ -3,7 +3,7 @@
 | Metadata field | Value |
 |---|---|
 | Record ID | SCR-PUBLIC-LAUNCH-001 |
-| Version | 1.1 |
+| Version | 1.2 |
 | Status | Founder Approved |
 | Effective date | 2026-08-19 |
 | Originating architect | Production Software / Launch / Repository Governance Architecture |
@@ -81,7 +81,10 @@ Verification date: 2026-08-19 UTC.
 | Completed-image house placeholder | PASS — suppressed by `.has-image` rule |
 | Inquiry privacy/nonbinding notice | PASS |
 | Public secret scan | PASS — no deployed credential found |
-| Custom domain | CLOSED — `https://shellremodeling.com/` returns HTTP 502 and is not represented as active |
+| Custom domain | PASS — `https://shellremodeling.com/` returns HTTP 200 over verified HTTPS |
+| `www` domain | PASS — redirects to canonical `https://shellremodeling.com/` |
+| Inquiry custom-origin preflight | PASS — HTTP 200 with exact allowed origin |
+| Inquiry invalid-payload boundary | PASS — HTTP 400 `INVALID_REQUEST`; no inquiry created |
 
 ## Repository and deployment references
 
@@ -93,6 +96,10 @@ Verification date: 2026-08-19 UTC.
 - Pull requests: `#1` and `#2`
 - Launch-proof reconciliation: pull request `#3`, main merge
   `4d93b95a4efba96800df331c9afa017d19fd037d`
+- Custom-domain deployment commit on Pages source:
+  `497b6802537863678c698a77999b01fd10b1c303`
+- Cloud/repository parity: the Pages source contains `CNAME` with canonical domain
+  `shellremodeling.com`; live root and `www` routing match that record.
 
 ## Security advisor disposition
 
@@ -104,9 +111,6 @@ configuration remain separate production security gates.
 
 ## Provisional / unresolved
 
-- The purchased custom domain is not active. It is not represented as active
-  until the GitHub Pages custom-domain setting, Namecheap DNS, HTTPS and the
-  inquiry endpoint's allowed origin are directly verified.
 - CAPTCHA/Turnstile is a post-launch hardening item; the current launch endpoint
   uses honeypot, timing, rate and duplicate controls.
 - Founder lead-notification routing is not yet active. Authorized users must
@@ -116,9 +120,8 @@ configuration remain separate production security gates.
 
 ## Next authorized action
 
-Configure and verify the purchased custom domain without disturbing the working
-GitHub Pages launch, then add the verified custom-domain origin to the private
-inquiry endpoint's allowlist before directing customers to that domain.
+Begin founder live QA at the verified public domain while preserving the closed
+OpenAI, Stripe, deposit, contract and credential gates.
 
 ## Change history
 
@@ -126,3 +129,4 @@ inquiry endpoint's allowlist before directing customers to that domain.
 |---|---|---|
 | 1.0 | 2026-08-19 | Created launch and secure-inquiry proof record. |
 | 1.1 | 2026-08-19 | Recorded verified public deployment, commits, controls and custom-domain gate. |
+| 1.2 | 2026-08-19 | Verified Namecheap DNS, Pages CNAME deployment, HTTPS, canonical redirect, inquiry-origin allowlist and cloud/repository parity. |
