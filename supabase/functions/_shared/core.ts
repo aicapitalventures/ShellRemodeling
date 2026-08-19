@@ -28,7 +28,8 @@ function browserPublishableKey(): string | null {
 
 export function corsHeaders(req: Request): Record<string, string> {
   const requestedOrigin = req.headers.get("origin") || "";
-  const configured = (Deno.env.get("BR02_ALLOWED_ORIGIN") || "https://aicapitalventures.github.io")
+  const configured = (Deno.env.get("BR02_ALLOWED_ORIGIN") ||
+    "https://aicapitalventures.github.io,https://shellremodeling.com,https://www.shellremodeling.com")
     .split(",")
     .map((x) => x.trim())
     .filter(Boolean);
