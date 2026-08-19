@@ -36,8 +36,8 @@ portfolio imagery, credentials and formal business gates remain closed.
   HMAC IP rate-limit, duplicate and private service-role write controls.
 - The customer-facing site is live at
   `https://aicapitalventures.github.io/ShellRemodeling/`.
-- GitHub Pages deploys from `build/01-ux-ui-prototype`, which is reconciled to
-  main launch commit `a5ec693271c18ce1b99d408c51787b7bf4886f46`.
+- GitHub Pages deploys from `build/01-ux-ui-prototype`, which tracks reviewed
+  main commits. Launch runtime baseline: `a5ec693271c18ce1b99d408c51787b7bf4886f46`.
 
 ## Public launch controls
 
@@ -91,6 +91,8 @@ Verification date: 2026-08-19 UTC.
 - Mobile-navigation merge to main and current Pages source:
   `a5ec693271c18ce1b99d408c51787b7bf4886f46`
 - Pull requests: `#1` and `#2`
+- Launch-proof reconciliation: pull request `#3`, main merge
+  `4d93b95a4efba96800df331c9afa017d19fd037d`
 
 ## Security advisor disposition
 

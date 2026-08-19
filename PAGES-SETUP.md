@@ -13,8 +13,9 @@ GitHub Pages is enabled and deploys the repository root from
 `build/01-ux-ui-prototype`. The deployment branch is intentionally fast-forwarded
 to the reviewed main launch commit after each accepted launch change.
 
-Current Pages source commit:
-`a5ec693271c18ce1b99d408c51787b7bf4886f46`.
+Launch runtime baseline commit:
+`a5ec693271c18ce1b99d408c51787b7bf4886f46`. The Pages source branch
+continues to track reviewed main commits, including later proof-only updates.
 
 ## Public launch controls
 
