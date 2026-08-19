@@ -12,9 +12,12 @@ const ZIP = /^[0-9A-Za-z -]{3,12}$/;
 
 function allowedOrigin(req: Request): boolean {
   const origin = req.headers.get("origin") || "";
-  const configured = (Deno.env.get("BR02_ALLOWED_ORIGIN") ||
-    "https://aicapitalventures.github.io,https://shellremodeling.com,https://www.shellremodeling.com")
-    .split(",").map((value) => value.trim()).filter(Boolean);
+  const configured = [
+    ...(Deno.env.get("BR02_ALLOWED_ORIGIN") || "").split(","),
+    "https://aicapitalventures.github.io",
+    "https://shellremodeling.com",
+    "https://www.shellremodeling.com",
+  ].map((value) => value.trim()).filter(Boolean);
   return configured.includes(origin);
 }
 
