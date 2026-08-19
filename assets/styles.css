@@ -14,3 +14,15 @@
 .notice.success{border-color:#4d7559;background:#eff8f1;color:#284c32}
 #generateBtn[disabled],#deleteStudioBtn[disabled]{opacity:.62;cursor:wait}
 
+/* SCR-BR02 upload layout correction — keep the step header outside the dropzone. */
+.studio-upload-step{display:flex;flex-direction:column;width:100%;min-width:0}
+.studio-upload-step .step-label{position:relative;z-index:1;width:100%;margin:4px 0 14px;overflow:visible}
+.studio-upload-step .step-label span{display:block;min-width:0;line-height:1.35}
+.studio-upload-step .dropzone{display:flex;flex-direction:column;align-items:center;justify-content:center;width:100%;min-height:132px;padding:26px 22px;overflow:visible;line-height:1.45}
+.studio-upload-step .dropzone strong{display:block;max-width:100%;margin:0;color:var(--ink);line-height:1.35}
+.studio-upload-step .dropzone small{display:block;max-width:100%;margin-top:8px;color:#5f5951;line-height:1.45}
+.studio-upload-step .preview-image{flex:0 0 auto}
+
+@media(max-width:560px){
+  .studio-upload-step .dropzone{min-height:120px;padding:22px 16px}
+}

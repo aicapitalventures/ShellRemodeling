@@ -82,8 +82,15 @@
 <div class="studio-head"><strong>Remodel Studio</strong><span>Secure backend connected • OpenAI generation remains founder-gated</span></div>
 <div class="studio-grid">
 <div class="controls">
-<div class="step-label"><i>1</i> Upload your space</div>
-<label class="dropzone" id="dropzone" for="spacePhoto"><strong>Choose or drop a bathroom/project photo</strong><br><small id="photoLabel">JPG, PNG or WEBP • maximum 6 MiB</small><input id="spacePhoto" type="file" accept="image/jpeg,image/png,image/webp"><img class="preview-image" id="photoPreview" alt="Customer uploaded room preview"></label>
+<div class="studio-upload-step">
+<div class="step-label"><i>1</i><span>Upload your space project photo</span></div>
+<label class="dropzone" id="dropzone" for="spacePhoto">
+<strong>Choose or drop a bathroom/project photo</strong>
+<small id="photoLabel">JPG, PNG or WEBP • maximum 6 MiB</small>
+<input id="spacePhoto" type="file" accept="image/jpeg,image/png,image/webp">
+<img class="preview-image" id="photoPreview" alt="Customer uploaded room preview">
+</label>
+</div>
 <div class="field"><label for="roomType">Project type</label><select id="roomType"><option value="">Choose a project type</option><option>Full Bathroom Remodel</option><option>Shower / Tub Area</option><option>Accessible Bathroom</option><option>Bathroom Tile / Finish Work</option><option>Tile Flooring Outside Bathroom</option></select></div>
 <div class="field"><label>Design direction</label><div class="chips"><button type="button" class="chip active" data-style="Clean Modern">Clean Modern</button><button type="button" class="chip" data-style="Warm Transitional">Warm Transitional</button><button type="button" class="chip" data-style="Spa / Natural">Spa / Natural</button><button type="button" class="chip" data-style="Custom">Custom</button></div></div>
 <div class="field"><label>Preserve</label><div class="chips"><button type="button" class="chip" data-group="preserve" data-value="Layout">Layout</button><button type="button" class="chip" data-group="preserve" data-value="Window / Door">Window / Door</button><button type="button" class="chip" data-group="preserve" data-value="Plumbing locations">Plumbing locations</button><button type="button" class="chip" data-group="preserve" data-value="Floor plan">Floor plan</button></div></div>
