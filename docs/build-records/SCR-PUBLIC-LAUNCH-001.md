@@ -3,13 +3,13 @@
 | Metadata field | Value |
 |---|---|
 | Record ID | SCR-PUBLIC-LAUNCH-001 |
-| Version | 1.0 |
-| Status | Under Review |
-| Effective date | Pending deployed-site verification |
+| Version | 1.1 |
+| Status | Founder Approved |
+| Effective date | 2026-08-19 |
 | Originating architect | Production Software / Launch / Repository Governance Architecture |
 | Founder authority | Public-launch authorization supplied in the controlling prompt |
 | Approval authority | Founder review |
-| Adoption status | Not yet adopted |
+| Adoption status | Founder-authorized operational launch proof; not Canon-Locked |
 | Branch | `build/02-secure-remodel-studio` |
 | Dependencies | SCR-META-000; SCR-WEB-001; SCR-BR02-001; SCR-BR02-T08-001 |
 | Supersedes | None |
@@ -34,6 +34,10 @@ portfolio imagery, credentials and formal business gates remain closed.
 - Edge Function `submit-inquiry` version 1 is active with `verify_jwt = false`
   because it implements public-endpoint origin, validation, timing, honeypot,
   HMAC IP rate-limit, duplicate and private service-role write controls.
+- The customer-facing site is live at
+  `https://aicapitalventures.github.io/ShellRemodeling/`.
+- GitHub Pages deploys from `build/01-ux-ui-prototype`, which is reconciled to
+  main launch commit `a5ec693271c18ce1b99d408c51787b7bf4886f46`.
 
 ## Public launch controls
 
@@ -61,6 +65,33 @@ Test date: 2026-08-19 UTC.
 | OpenAI call | PASS — none made |
 | Payment call | PASS — none made |
 
+## Public deployment proof
+
+Verification date: 2026-08-19 UTC.
+
+| Control | Result |
+|---|---|
+| Public Pages URL | PASS — HTTP 200 |
+| Truthful launch-stage wording | PASS |
+| Approved call/text number | PASS — `(502) 303-2398` |
+| Desktop navigation | PASS — direct deployed-site browser verification |
+| Mobile navigation | PASS — deployed menu DOM, links and responsive CSS verified; founder device QA remains recommended |
+| Required local links/assets | PASS — static validation and deployed-page checks |
+| Studio generation/photo controls | PASS — disabled and fail-closed |
+| Completed-image house placeholder | PASS — suppressed by `.has-image` rule |
+| Inquiry privacy/nonbinding notice | PASS |
+| Public secret scan | PASS — no deployed credential found |
+| Custom domain | CLOSED — `https://shellremodeling.com/` returns HTTP 502 and is not represented as active |
+
+## Repository and deployment references
+
+- Launch feature branch commit: `3a85be542ce09a4f8d52f8e7a0197b579645dd7b`
+- Mobile-navigation branch commit: `395dea22ddbecc378ee7d24757168d70e58c83cd`
+- Launch merge to main: `beadfd6f9aeb51469c3ae11c79d5db465049c432`
+- Mobile-navigation merge to main and current Pages source:
+  `a5ec693271c18ce1b99d408c51787b7bf4886f46`
+- Pull requests: `#1` and `#2`
+
 ## Security advisor disposition
 
 The Supabase advisor reports the private inquiry table's lack of policies as an
@@ -71,10 +102,9 @@ configuration remain separate production security gates.
 
 ## Provisional / unresolved
 
-- The public GitHub Pages URL must be deployed, opened and tested before this
-  record can advance from Under Review.
-- The purchased custom domain is not represented as active until DNS and HTTPS
-  are directly verified.
+- The purchased custom domain is not active. It is not represented as active
+  until the GitHub Pages custom-domain setting, Namecheap DNS, HTTPS and the
+  inquiry endpoint's allowed origin are directly verified.
 - CAPTCHA/Turnstile is a post-launch hardening item; the current launch endpoint
   uses honeypot, timing, rate and duplicate controls.
 - Founder lead-notification routing is not yet active. Authorized users must
@@ -84,12 +114,13 @@ configuration remain separate production security gates.
 
 ## Next authorized action
 
-Commit the reviewed launch diff, publish it to the authorized branch, merge the
-exact reviewed diff to the Pages source branch if required, and verify the live
-deployment on desktop and mobile.
+Configure and verify the purchased custom domain without disturbing the working
+GitHub Pages launch, then add the verified custom-domain origin to the private
+inquiry endpoint's allowlist before directing customers to that domain.
 
 ## Change history
 
 | Version | Date | Change |
 |---|---|---|
 | 1.0 | 2026-08-19 | Created launch and secure-inquiry proof record. |
+| 1.1 | 2026-08-19 | Recorded verified public deployment, commits, controls and custom-domain gate. |
