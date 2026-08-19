@@ -20,7 +20,11 @@
 .service-card p,.policy-card p,.proof-card p,.founder-card p{font-size:13px;color:#5d5750;margin:0}
 .proof-preview{background:#20201f;color:#fff}
 .proof-preview-grid{grid-template-columns:1.35fr .65fr;align-items:center}
-.proof-preview img{display:block;width:100%;height:auto;border-radius:5px;border:1px solid #695a46;box-shadow:0 26px 60px rgba(0,0,0,.32)}
+.project-archive-board{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;padding:22px;border-radius:5px;border:1px solid #695a46;background:linear-gradient(145deg,#2f2e2b,#1b1b1a);box-shadow:0 26px 60px rgba(0,0,0,.32)}
+.archive-project{min-height:190px;display:flex;flex-direction:column;justify-content:flex-end;padding:20px;border:1px solid rgba(198,167,120,.42);border-radius:4px;background:linear-gradient(180deg,rgba(198,167,120,.08),rgba(0,0,0,.18))}
+.archive-project span{font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#d5b986}
+.archive-project strong{font-family:Georgia,"Times New Roman",serif;font-size:22px;line-height:1.12;margin-top:8px}
+.archive-status{grid-column:1/-1;margin:0;padding-top:4px;color:#cfc5b8;font-size:12px;line-height:1.5}
 .proof-copy{padding:18px 0 18px 18px}
 .proof-copy .lead{color:#d9d0c5}
 .founder-grid{grid-template-columns:1.1fr .9fr}
@@ -34,7 +38,7 @@
 .form-help{font-size:12px;color:#625c55;margin-top:7px;line-height:1.55}
 .mobile-contact-dock{display:none}
 @media(max-width:980px){.service-grid{grid-template-columns:repeat(2,1fr)}.policy-grid{grid-template-columns:1fr}.proof-preview-grid,.founder-grid{grid-template-columns:1fr}.proof-copy{padding-left:0}}
-@media(max-width:560px){.service-grid{grid-template-columns:1fr}.mobile-contact-dock{position:fixed;z-index:1000;display:grid;grid-template-columns:repeat(3,1fr);left:0;right:0;bottom:0;background:#181817;border-top:1px solid #c6a778;padding:7px}.mobile-contact-dock a{color:#fff;text-decoration:none;text-align:center;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;padding:11px 5px;border-right:1px solid #4d4943}.mobile-contact-dock a:last-child{border-right:0;background:#c6a778;color:#181817}.footer{padding-bottom:78px}}
+@media(max-width:560px){.service-grid,.project-archive-board{grid-template-columns:1fr}.archive-project{min-height:130px}.mobile-contact-dock{position:fixed;z-index:1000;display:grid;grid-template-columns:repeat(3,1fr);left:0;right:0;bottom:0;background:#181817;border-top:1px solid #c6a778;padding:7px}.mobile-contact-dock a{color:#fff;text-decoration:none;text-align:center;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;padding:11px 5px;border-right:1px solid #4d4943}.mobile-contact-dock a:last-child{border-right:0;background:#c6a778;color:#181817}.footer{padding-bottom:78px}}
 </style>
 </head>
 <body>
@@ -116,7 +120,7 @@
 </div></div></div>
 </div></section>
 
-<section class="section proof-preview"><div class="wrap"><div class="proof-preview-grid"><div><img src="assets/projects/before-after-project-proof.webp" alt="Three founder-supplied bathroom remodeling project comparisons showing before and after transformations." loading="lazy"></div><div class="proof-copy"><div class="eyebrow">Real Project Proof</div><h2>Three projects. Visible transformation.</h2><p class="lead">The founder-supplied archive has been classified into three bathroom jobs with representative before-and-after views. No fabricated testimonials or customer identities are used.</p><div class="hero-actions"><a class="button beige" href="our-work.html">View Our Work</a></div></div></div></div></section>
+<section class="section proof-preview"><div class="wrap"><div class="proof-preview-grid"><div class="project-archive-board" aria-label="Three documented bathroom remodeling projects"><article class="archive-project"><span>Project 01</span><strong>Tub &amp; Tile</strong></article><article class="archive-project"><span>Project 02</span><strong>Accessible Bath</strong></article><article class="archive-project"><span>Project 03</span><strong>Vanity &amp; Finish</strong></article><p class="archive-status">Founder-supplied archive verified • visual comparison board restoration pending</p></div><div class="proof-copy"><div class="eyebrow">Documented Project Archive</div><h2>Three projects. Documented transformation scope.</h2><p class="lead">The founder-supplied archive is classified into three completed bathroom jobs. This founder-review build presents their verified scopes without fabricated photography, testimonials or customer identities.</p><div class="hero-actions"><a class="button beige" href="our-work.html">View Our Work</a></div></div></div></div></section>
 
 <section class="section white"><div class="wrap"><div class="eyebrow">Founder & Craftsmanship</div><h2>Owner-operated. Apprenticeship-trained. Bathroom focused.</h2><div class="founder-grid"><article class="founder-card dark-card"><span class="num">Founder</span><h3>Bernard Shell Jr. — Founder &amp; Owner</h3><p>Founder-reported 35 years of remodeling and construction experience, learned through apprenticeship, with bathroom remodeling identified as his preferred trade focus.</p></article><article class="founder-card"><span class="num">Standard</span><h3>Precision before promises.</h3><p>Shell &amp; Co’s craftsmanship language describes the operating standard. Final measurements, buildability, materials, permits and written warranty terms are confirmed through the actual project process.</p></article></div></div></section>
 
