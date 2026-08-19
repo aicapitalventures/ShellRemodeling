@@ -1,0 +1,166 @@
+/* Shell & Co Remodeling — founder-directed site palette
+   Source reference: approved navigation-header artwork, 2026-08-19. */
+
+:root {
+  --brand-charcoal-950:#1f2123;
+  --brand-charcoal-900:#272a2c;
+  --brand-charcoal-800:#303337;
+  --brand-graphite:#3c4043;
+  --brand-steel:#66696c;
+  --brand-silver:#d5d4ce;
+  --brand-mist:#e7e6e1;
+  --brand-ivory:#f5f3ee;
+  --brand-gold:#c7ad73;
+  --brand-gold-light:#ddca9c;
+  --brand-gold-dark:#765b2e;
+
+  --ink:var(--brand-charcoal-950);
+  --charcoal:var(--brand-charcoal-800);
+  --charcoal2:var(--brand-charcoal-950);
+  --gray:var(--brand-steel);
+  --line:#aaa79e;
+  --beige:var(--brand-gold);
+  --sand:#d9d8d3;
+  --cream:#ebeae6;
+  --white:#fff;
+  --shadow:0 22px 64px rgba(20,22,24,.2);
+}
+
+body { background:var(--cream); color:var(--ink); }
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+.dropzone:focus-within { outline-color:var(--brand-gold); }
+
+.prototype-bar {
+  background:#17191a;
+  color:var(--brand-gold-light);
+  border-bottom:1px solid #675a3e;
+}
+.contact-bar { background:var(--brand-graphite); color:#fff; }
+.site-header {
+  background:rgba(45,48,51,.985);
+  border-bottom-color:#746341;
+  box-shadow:0 8px 28px rgba(15,16,17,.28);
+}
+.nav-links a { color:#f2f1ed; }
+.nav-links a:hover,
+.nav-links a[aria-current="page"] { color:var(--brand-gold-light); }
+.mobile-menu summary { color:#fff; border-color:var(--brand-gold); }
+.mobile-menu nav { background:var(--brand-charcoal-800); border-color:#746341; }
+.mobile-menu nav a { color:#fff; border-bottom-color:#55595c; }
+.mobile-menu nav a:last-child { background:var(--brand-gold); color:var(--brand-charcoal-950); }
+
+.button { background:var(--brand-gold); color:var(--brand-charcoal-950); }
+.button:hover { background:var(--brand-gold-light); color:#17191a; }
+.button.light {
+  background:var(--brand-ivory);
+  color:var(--brand-charcoal-950);
+  border-color:#8f8c84;
+}
+.button.beige { background:var(--brand-gold); color:var(--brand-charcoal-950); }
+.button.ghost { border-color:#8f8c84; color:var(--brand-charcoal-950); }
+
+.hero,
+.work-hero {
+  background:linear-gradient(135deg,#f3f2ed 0%,#d2d2ce 58%,#bbbcb9 100%);
+}
+.hero h1,
+.work-hero h1 { color:var(--brand-charcoal-950); }
+.hero p,
+.work-hero .lead { color:#494d50; }
+.hero-visual {
+  background:
+    radial-gradient(circle at 50% 45%,rgba(199,173,115,.18),transparent 46%),
+    linear-gradient(145deg,#3c4043 0%,#242628 58%,#1f2123 100%);
+}
+.hero-visual:before { border-color:rgba(199,173,115,.3); }
+.hero-visual:after { border-color:rgba(213,212,206,.16); }
+.hero-brand-mark { filter:contrast(1.08) saturate(1.04) drop-shadow(0 30px 58px rgba(0,0,0,.38)); }
+
+.section.white { background:#f7f6f2; }
+.section.sand { background:#d9d8d3; }
+.section.dark,
+.proof-preview,
+.work-proof { background:var(--brand-charcoal-950); color:#fff; }
+.section .lead { color:#55595b; }
+.section.dark .lead,
+.proof-preview .lead,
+.work-proof .lead { color:#d6d5d0; }
+.eyebrow { color:var(--brand-gold-dark); }
+.section.dark .eyebrow,
+.proof-preview .eyebrow,
+.work-proof .eyebrow { color:var(--brand-gold-light); }
+.feature .num,
+.service-card .num,
+.project-stat { color:var(--brand-gold-dark); }
+
+.feature,
+.trust,
+.service-card,
+.policy-card,
+.proof-card,
+.founder-card,
+.project-note,
+.form-card {
+  background:#fbfaf7;
+  border-color:#aaa79e;
+}
+.feature p,
+.trust p,
+.service-card p,
+.policy-card p,
+.proof-card p,
+.founder-card p,
+.project-note p { color:#54585a; }
+.founder-card.dark-card,
+.contact-card { background:var(--brand-charcoal-900); border-color:#6f6246; }
+
+.studio-shell { border-color:#93856a; box-shadow:var(--shadow); }
+.studio-head {
+  background:linear-gradient(110deg,#272a2c,#3c4043);
+  border-bottom-color:rgba(199,173,115,.62);
+}
+.studio-head span { color:var(--brand-gold-light); }
+.controls { background:#f8f7f3; }
+.output { background:#deded9; }
+.dropzone,
+.chip,
+.concept,
+.form-card input,
+.form-card select,
+.form-card textarea { background:#fff; border-color:#aaa79e; }
+.chip.active { background:var(--brand-charcoal-800); color:#fff; border-color:var(--brand-charcoal-800); }
+.packet { background:var(--brand-charcoal-900); border-color:#746341; }
+.launch-notice,
+.notice { border-color:#b89d63; background:#f7f2e7; color:#50452f; }
+.launch-standard,
+.proof-law {
+  background:linear-gradient(135deg,#303337,#1f2123);
+  border-color:var(--brand-gold);
+}
+
+.project-archive-board {
+  border-color:#746341;
+  background:linear-gradient(145deg,#3c4043,#1f2123);
+}
+.archive-project { border-color:rgba(199,173,115,.5); }
+.archive-project span { color:var(--brand-gold-light); }
+.archive-status { color:#d5d4ce; }
+
+.footer {
+  background:#181a1c;
+  color:#ecebe7;
+  border-top:1px solid #746341;
+}
+.footer small { color:#bdbdb8; }
+.research-note { color:#55595b; }
+.mobile-contact-dock { background:#1f2123; border-top-color:#746341; }
+.mobile-contact-dock a { border-color:#5e6264; }
+.mobile-contact-dock a:last-child { background:var(--brand-gold); color:var(--brand-charcoal-950); border-color:var(--brand-gold); }
+
+@media (max-width:920px) {
+  .site-header { background:rgba(45,48,51,.99); }
+}
