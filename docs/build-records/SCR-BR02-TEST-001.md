@@ -133,7 +133,12 @@ Call `delete-project` as owner. Pass only when:
 - a minimal non-PII deletion tombstone remains;
 - signed URLs no longer resolve after deletion.
 
-### T13 — Retention Strategy — IMPLEMENTED / LIVE PURGE EXECUTION PENDING
+### T13 — Retention Strategy — ACTIVE AND LOCKED / AUTHORIZED PURGE EXECUTION PENDING
+
+`purge-expired` version 1 is ACTIVE with Supabase JWT verification disabled only
+because it enforces its own server-side cleanup secret. An unsigned/unconfigured
+request returned HTTP 401 `NOT_AUTHORIZED`. Live expired-fixture execution remains
+pending cleanup-secret configuration.
 
 Manually mark a test project expired and run the service-side purge path before production activation. Pass only when object deletion occurs before database cleanup and failure is recoverable/retriable without orphaning public data.
 
