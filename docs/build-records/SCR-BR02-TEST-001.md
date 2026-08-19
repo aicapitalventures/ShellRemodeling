@@ -93,11 +93,16 @@ Pass when:
 - one generation event/cost reservation recorded;
 - no raw prompt body written to audit/log tables.
 
-### T09 — Result Retrieval
+### T09 — Result Retrieval — PASSED 2026-08-19
+
+Controlling evidence: `SCR-BR02-T09-T12-001`.
 
 Request result through `get-concept`. Pass only when a short-lived signed URL is produced after ownership check and it expires as expected.
 
-### T10 — Quotas / Error Normalization
+### T10 — Quotas / Error Normalization — PARTIAL PASS / GENERATION GATE VERIFIED CLOSED
+
+Controlling evidence: `SCR-BR02-T09-T12-001`. Closed-gate normalization passed;
+destructive quota-ceiling exhaustion and provider-error simulations remain pending.
 
 Verify:
 
@@ -110,11 +115,15 @@ Verify:
 - transient retry limit is bounded;
 - provider error body/secret is not returned to client.
 
-### T11 — Human Review Boundary
+### T11 — Human Review Boundary — PASSED 2026-08-19
+
+Controlling evidence: `SCR-BR02-T09-T12-001`.
 
 Verify anonymous customer cannot create GREEN/YELLOW/RED review. Authorized reviewer path is a later controlled staff-auth test. AI generation alone must never populate a controlling review status.
 
-### T12 — Delete Project
+### T12 — Delete Project — PASSED 2026-08-19
+
+Controlling evidence: `SCR-BR02-T09-T12-001`.
 
 Call `delete-project` as owner. Pass only when:
 
@@ -124,7 +133,7 @@ Call `delete-project` as owner. Pass only when:
 - a minimal non-PII deletion tombstone remains;
 - signed URLs no longer resolve after deletion.
 
-### T13 — Retention Strategy
+### T13 — Retention Strategy — IMPLEMENTED / LIVE PURGE EXECUTION PENDING
 
 Manually mark a test project expired and run the service-side purge path before production activation. Pass only when object deletion occurs before database cleanup and failure is recoverable/retriable without orphaning public data.
 

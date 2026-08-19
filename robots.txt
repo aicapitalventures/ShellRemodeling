@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /reviewer.html
+
+Sitemap: https://shellremodeling.com/sitemap.xml
