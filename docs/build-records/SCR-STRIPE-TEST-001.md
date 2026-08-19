@@ -3,9 +3,9 @@
 | Metadata field | Value |
 |---|---|
 | Record ID | SCR-STRIPE-TEST-001 |
-| Version | 1.0 |
-| Status | Proposed |
-| Effective date | Not yet effective |
+| Version | 1.1 |
+| Status | Test architecture implemented and fail-closed; commercial terms remain Proposed |
+| Effective date | 2026-08-19 for technical controls only |
 | Founder authority | Test-mode preparation authorized 2026-08-19 |
 | Adoption status | Proposed — requires founder price/allowance adoption and test-account configuration |
 | Scope | Test-mode Studio Concept Pass and future remodeling-deposit separation |
@@ -102,10 +102,28 @@ displayed in logs.
 - CANON CREATED: Proposed Stripe test-mode architecture record
 - CANON LOCKED: No
 - PROVISIONAL / UNRESOLVED: USD 19 price and three-concept allowance
-- GATES OPEN: Repository architecture preparation only
-- GATES CLOSED: Stripe API execution, webhook activation, entitlements, live charges and deposits
-- NEXT BEST ACTION: Founder adopts or revises the proposed Studio price and allowance, then safely configures a Stripe test account and webhook endpoint.
+- GATES OPEN: Fail-closed test records and Edge Function deployment
+- GATES CLOSED: Stripe API execution, paid entitlement activation, live charges and deposits
+- NEXT BEST ACTION: Founder adopts or revises the proposed Studio price and allowance, then configures test-only Stripe secrets and the signed webhook endpoint.
+
+## 2026-08-19 implementation proof
+
+- Hosted migration `stripe_test_mode_architecture` applied successfully.
+- `payment_orders`, `payment_events` and `studio_entitlements` are RLS-enabled,
+  have no browser policies and explicitly revoke `anon`/`authenticated` access.
+- `create-checkout-session` version 1 is ACTIVE with JWT verification required.
+- `stripe-webhook` version 1 is ACTIVE with Supabase JWT verification disabled
+  only because the function requires Stripe raw-body signature verification.
+- Missing/unadopted test configuration fails closed with HTTP 503
+  `PAYMENT_DISABLED` before any Stripe request.
+- Unsigned webhook input fails with HTTP 401 `NOT_AUTHORIZED`.
+- Anonymous Data API access to payment orders fails with HTTP 401.
+- No Stripe API call, Checkout Session, payment, entitlement or deposit was
+  created during implementation.
+- Remodeling-deposit creation is not implemented in either function and remains
+  explicitly closed.
 
 ## Change history
 
 - v1.0 — 2026-08-19: Created fail-closed test-mode architecture; no Stripe call or charge made.
+- v1.1 — 2026-08-19: Applied test-only schema, deployed fail-closed Checkout/webhook functions and verified denial paths without calling Stripe.
