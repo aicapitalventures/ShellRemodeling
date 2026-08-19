@@ -11,9 +11,9 @@ function setStatus(element,message,type=''){
   element.textContent=message;
 }
 
-async function api(url,{body,auth=true}={}){
+async function api(url,{body,auth=true,method='POST'}={}){
   const response=await fetch(url,{
-    method:'POST',
+    method,
     headers:{
       apikey:REVIEW_CONFIG.publishableKey,
       'Content-Type':'application/json',
@@ -151,5 +151,51 @@ $('#loginForm').addEventListener('submit',async event=>{
   }finally{button.disabled=false}
 });
 
+$('#resetRequestButton').addEventListener('click',async()=>{
+  const email=$('#email').value.trim(),button=$('#resetRequestButton'),status=$('#loginStatus');
+  if(!email){setStatus(status,'Enter the authorized reviewer email first.','error');return}
+  button.disabled=true;setStatus(status,'Requesting a fresh recovery email…');
+  try{
+    const redirectTo=location.origin+location.pathname;
+    await api(REVIEW_CONFIG.url+'/auth/v1/recover?redirect_to='+encodeURIComponent(redirectTo),{auth:false,body:{email}});
+    setStatus(status,'If the account is eligible, a fresh recovery email has been sent. Use only the newest link.','success');
+  }catch{
+    setStatus(status,'The recovery email could not be requested. Wait briefly before trying again.','error');
+  }finally{button.disabled=false}
+});
+
+$('#recoveryForm').addEventListener('submit',async event=>{
+  event.preventDefault();
+  const password=$('#newPassword').value,confirmation=$('#confirmPassword').value;
+  const button=$('#savePasswordButton'),status=$('#recoveryStatus');
+  if(password.length<12){setStatus(status,'Use at least 12 characters.','error');return}
+  if(password!==confirmation){setStatus(status,'The passwords do not match.','error');return}
+  button.disabled=true;setStatus(status,'Saving the new password…');
+  try{
+    await api(REVIEW_CONFIG.url+'/auth/v1/user',{method:'PUT',body:{password}});
+    $('#newPassword').value='';$('#confirmPassword').value='';
+    state.accessToken=null;$('#recoveryPanel').hidden=true;$('#loginPanel').hidden=false;
+    setStatus($('#loginStatus'),'Password updated. Sign in with the new password.','success');
+  }catch{
+    setStatus(status,'The recovery session is invalid or expired. Request a fresh link.','error');
+  }finally{button.disabled=false}
+});
+
+function initializeRecovery(){
+  const params=new URLSearchParams(location.hash.slice(1));
+  const error=params.get('error'),description=params.get('error_description');
+  if(error){
+    history.replaceState(null,'',location.pathname+location.search);
+    setStatus($('#loginStatus'),description||'The recovery link is invalid or expired. Request a fresh link.','error');
+    return;
+  }
+  if(params.get('type')==='recovery'&&params.get('access_token')){
+    state.accessToken=params.get('access_token');
+    history.replaceState(null,'',location.pathname+location.search);
+    $('#loginPanel').hidden=true;$('#recoveryPanel').hidden=false;
+  }
+}
+
 $('#refreshButton').addEventListener('click',loadQueue);
 $('#signOutButton').addEventListener('click',()=>signOut());
+initializeRecovery();
