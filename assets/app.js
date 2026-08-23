@@ -77,13 +77,27 @@ input.addEventListener('change',e=>loadFile(e.target.files[0]));['dragenter','dr
 async function request(url,{method='POST',body,auth=true,headers={}}={}){
   const response=await fetch(url,{method,headers:{apikey:STUDIO_CONFIG.publishableKey,...(auth&&state.accessToken?{Authorization:'Bearer '+state.accessToken}:{}),...(body&&!(body instanceof Blob)&&!(body instanceof File)?{'Content-Type':'application/json'}:{}),...headers},body:body instanceof Blob||body instanceof File?body:body?JSON.stringify(body):undefined,cache:'no-store'});
   const payload=await response.json().catch(()=>({}));
-  if(!response.ok){const error=new Error(payload.error||payload.error_code||'GENERATION_FAILED');error.status=response.status;throw error}
+  if(!response.ok){const error=new Error(response.status===401?'NOT_AUTHORIZED':payload.error||payload.error_code||payload.code||'GENERATION_FAILED');error.status=response.status;throw error}
   return payload
 }
+function usableAccessToken(token){
+  try{
+    const part=token.split('.')[1];if(!part)return false;
+    const normalized=part.replace(/-/g,'+').replace(/_/g,'/').padEnd(Math.ceil(part.length/4)*4,'=');
+    const payload=JSON.parse(atob(normalized));return Number(payload.exp||0)*1000>Date.now()+30000
+  }catch{return false}
+}
+function resetDemoSession(){
+  state.accessToken=null;state.userId=null;state.projectId=null;state.sourceAssetId=null;state.concepts=[];state.selectedConcept=null;
+  if(founderDemo)sessionStorage.removeItem('shellStudioDemo');
+  deleteBtn.hidden=true;updatePacket()
+}
 async function ensureSession(){
-  if(state.accessToken)return;
+  if(state.accessToken&&usableAccessToken(state.accessToken))return;
+  if(state.accessToken)resetDemoSession();
   if(founderDemo){
-    try{const saved=JSON.parse(sessionStorage.getItem('shellStudioDemo')||'{}');if(saved.accessToken&&saved.userId){state.accessToken=saved.accessToken;state.userId=saved.userId;state.projectId=saved.projectId||null;state.sourceAssetId=saved.sourceAssetId||null;return}}catch{}
+    try{const saved=JSON.parse(sessionStorage.getItem('shellStudioDemo')||'{}');if(saved.accessToken&&saved.userId&&usableAccessToken(saved.accessToken)){state.accessToken=saved.accessToken;state.userId=saved.userId;state.projectId=saved.projectId||null;state.sourceAssetId=saved.sourceAssetId||null;return}}catch{}
+    sessionStorage.removeItem('shellStudioDemo')
   }
   const payload=await request(STUDIO_CONFIG.url+'/auth/v1/signup',{body:{data:{purpose:'shell-remodel-studio-founder-review'}},auth:false});
   if(!payload.access_token||!payload.user?.id)throw new Error('NOT_AUTHORIZED');
@@ -118,8 +132,17 @@ async function beginTestCheckout(){
   if(!$('#syntheticConsent').checked){setStatus('Confirm the synthetic-image restriction before checkout.','error');return}
   try{
     setBusy(true,'Preparing private test project…');checkoutBtn.disabled=true;
-    await prepareProject();
-    const result=await invoke('create-checkout-session',{project_id:state.projectId,client_request_id:crypto.randomUUID()});
+    let result=null;
+    for(let attempt=0;attempt<2;attempt++){
+      try{
+        await prepareProject();
+        result=await invoke('create-checkout-session',{project_id:state.projectId,client_request_id:crypto.randomUUID()});
+        break
+      }catch(error){
+        if(attempt===0&&(error.message==='NOT_AUTHORIZED'||error.status===401)){resetDemoSession();continue}
+        throw error
+      }
+    }
     if(!result.checkout_url)throw new Error('PAYMENT_FAILED');
     saveDemoState();location.assign(result.checkout_url)
   }catch(error){setStatus(normalizedMessage(error.message),'error');checkoutBtn.disabled=false;generateBtn.textContent='Complete Stripe Test Checkout First'}
