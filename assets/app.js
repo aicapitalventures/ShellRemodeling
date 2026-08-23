@@ -1,11 +1,12 @@
 
+const founderDemo=new URLSearchParams(location.search).get('founder_demo')==='1';
 const STUDIO_CONFIG=Object.freeze({
   url:'https://mlxboidajkqyayxjdcvh.supabase.co',
   publishableKey:'sb_publishable_fA2sw0bUz0DipHRI07y1bA_gbLEwz5L',
   maxUploadBytes:6*1024*1024,
   maxConcepts:3,
   founderReview:true,
-  publicLaunchMode:true
+  publicLaunchMode:!founderDemo
 });
 
 const state={
@@ -20,11 +21,19 @@ chipGroup('[data-group="preserve"]',state.preserve);chipGroup('[data-group="chan
 $$('[data-style]').forEach(btn=>{setPressed(btn,btn.classList.contains('active'));btn.addEventListener('click',()=>{$$('[data-style]').forEach(x=>{x.classList.remove('active');setPressed(x,false)});btn.classList.add('active');setPressed(btn,true);state.style=btn.dataset.style;updatePacket()})});
 
 const input=$('#spacePhoto'),drop=$('#dropzone'),preview=$('#photoPreview'),photoLabel=$('#photoLabel');
-const generateBtn=$('#generateBtn'),deleteBtn=$('#deleteStudioBtn'),statusBox=$('#generationStatus');
+const generateBtn=$('#generateBtn'),checkoutBtn=$('#checkoutBtn'),deleteBtn=$('#deleteStudioBtn'),statusBox=$('#generationStatus');
 const conceptCards=$$('.concept'),reviewPanel=$('#reviewPanel');
 if(STUDIO_CONFIG.publicLaunchMode){
   $$('#studio input,#studio select,#studio textarea,#studio button').forEach(control=>{control.disabled=true});
   drop.removeAttribute('tabindex');drop.removeAttribute('role');drop.setAttribute('aria-disabled','true');
+}
+if(founderDemo){
+  document.querySelector('.studio-shell')?.classList.remove('public-preview');
+  const notice=$('#studioLaunchNotice');
+  if(notice)notice.innerHTML='<strong>Founder Demo — Stripe Test Mode</strong>This controlled path accepts only the supplied synthetic test image. The $19 checkout is a test transaction, no live charge occurs, and the server permits exactly one OpenAI demo generation.';
+  const head=document.querySelector('.studio-head span');if(head)head.textContent='Founder demo • Stripe test mode • one generation';
+  checkoutBtn.hidden=false;checkoutBtn.disabled=false;
+  generateBtn.textContent='Complete Stripe Test Checkout First';generateBtn.disabled=true;
 }
 conceptCards.forEach(card=>{card.hidden=true;const button=card.querySelector('.concept-select');button.disabled=true;setPressed(button,false)});
 if(!STUDIO_CONFIG.publicLaunchMode){
@@ -38,6 +47,9 @@ function normalizedMessage(code){
     GENERATION_DISABLED:'AI generation is safely locked. The founder must open the controlled OpenAI gate before a founder-review generation.',
     RATE_LIMITED:'The generation limit has been reached. Wait before trying again.',
     BUDGET_LIMIT_REACHED:'The controlled monthly AI budget has been reached.',
+    PAYMENT_REQUIRED:'A verified Stripe test payment is required before this demo generation.',
+    PAYMENT_DISABLED:'Stripe test checkout is not available. No payment was attempted.',
+    PAYMENT_FAILED:'Stripe test checkout could not be created. No payment was attempted.',
     MODERATION_BLOCKED:'This image or request could not be processed under the safety rules.',
     GENERATION_TIMEOUT:'Generation took too long. No automatic retry will be started from this page.',
     GENERATION_FAILED:'The concept could not be generated. Try again only after checking the founder-review gate and service status.',
@@ -68,10 +80,14 @@ async function request(url,{method='POST',body,auth=true,headers={}}={}){
 }
 async function ensureSession(){
   if(state.accessToken)return;
+  if(founderDemo){
+    try{const saved=JSON.parse(sessionStorage.getItem('shellStudioDemo')||'{}');if(saved.accessToken&&saved.userId){state.accessToken=saved.accessToken;state.userId=saved.userId;state.projectId=saved.projectId||null;state.sourceAssetId=saved.sourceAssetId||null;return}}catch{}
+  }
   const payload=await request(STUDIO_CONFIG.url+'/auth/v1/signup',{body:{data:{purpose:'shell-remodel-studio-founder-review'}},auth:false});
   if(!payload.access_token||!payload.user?.id)throw new Error('NOT_AUTHORIZED');
-  state.accessToken=payload.access_token;state.userId=payload.user.id
+  state.accessToken=payload.access_token;state.userId=payload.user.id;saveDemoState()
 }
+function saveDemoState(){if(founderDemo)sessionStorage.setItem('shellStudioDemo',JSON.stringify({accessToken:state.accessToken,userId:state.userId,projectId:state.projectId,sourceAssetId:state.sourceAssetId}))}
 async function invoke(slug,body){return request(STUDIO_CONFIG.url+'/functions/v1/'+slug,{body})}
 async function prepareProject(){
   if(state.projectId)return;
@@ -91,6 +107,37 @@ async function prepareProject(){
   const uploadUrl=upload.signed_url.startsWith('http')?upload.signed_url:STUDIO_CONFIG.url+upload.signed_url;
   await request(uploadUrl,{method:'PUT',body:state.photo.file,headers:{'Content-Type':state.photo.file.type}});
   await invoke('finalize-upload',{asset_id:state.sourceAssetId});
+  saveDemoState();
+}
+async function beginTestCheckout(){
+  if(!founderDemo||state.busy)return;
+  if(!state.photo&&!state.sourceAssetId){setStatus('Choose the supplied synthetic test image before starting checkout.','error');return}
+  if(!$('#roomType').value){setStatus('Choose the project type before starting checkout.','error');return}
+  if(!$('#syntheticConsent').checked){setStatus('Confirm the synthetic-image restriction before checkout.','error');return}
+  try{
+    setBusy(true,'Preparing private test project…');checkoutBtn.disabled=true;
+    await prepareProject();
+    const result=await invoke('create-checkout-session',{project_id:state.projectId,client_request_id:crypto.randomUUID()});
+    if(!result.checkout_url)throw new Error('PAYMENT_FAILED');
+    saveDemoState();location.assign(result.checkout_url)
+  }catch(error){setStatus(normalizedMessage(error.message),'error');checkoutBtn.disabled=false;generateBtn.textContent='Complete Stripe Test Checkout First'}
+  finally{state.busy=false;deleteBtn.disabled=false}
+}
+checkoutBtn.addEventListener('click',beginTestCheckout);
+async function restorePaidDemo(){
+  if(!founderDemo)return;
+  await ensureSession();
+  if(!state.projectId||!state.sourceAssetId)return;
+  const payment=new URLSearchParams(location.search).get('studio_payment');
+  if(payment==='canceled'){setStatus('Stripe test checkout was canceled. No charge occurred.','error');generateBtn.disabled=true;return}
+  if(payment!=='success')return;
+  setStatus('Stripe test checkout returned successfully. Verifying the signed webhook entitlement…');
+  for(let attempt=0;attempt<8;attempt++){
+    const access=await invoke('studio-access',{project_id:state.projectId}).catch(()=>null);
+    if(access?.entitled){checkoutBtn.hidden=true;generateBtn.disabled=false;generateBtn.textContent='Generate One Controlled Demo Concept';setStatus('Test payment verified by signed webhook. One controlled demo generation is available.','success');return}
+    await new Promise(resolve=>setTimeout(resolve,1250))
+  }
+  setStatus('The test payment returned, but webhook verification is still pending. Refresh this page in a moment; generation remains locked.','error')
 }
 function directionFor(ordinal){
   const custom=$('#vision').value.trim();
@@ -117,7 +164,7 @@ async function renderConcept(conceptId,ordinal){
 async function generateNext(){
   if(STUDIO_CONFIG.publicLaunchMode){setStatus('Remodel Studio Early Access is coming soon. Public photo upload and AI generation remain closed.');return}
   if(state.busy)return;
-  if(!state.photo){setStatus('Upload a synthetic or expressly authorized test image first.','error');return}
+  if(!state.photo&&!state.sourceAssetId){setStatus('Upload a synthetic or expressly authorized test image first.','error');return}
   if(!$('#roomType').value){setStatus('Choose the project type before generating.','error');return}
   if(!$('#syntheticConsent').checked){setStatus('Confirm the founder-review image restriction before transmitting any image.','error');return}
   if(state.concepts.length>=STUDIO_CONFIG.maxConcepts){setStatus('Three controlled concepts have already been generated for this project.','success');return}
@@ -129,10 +176,10 @@ async function generateNext(){
     state.concepts.push({id:generated.concept_id,ordinal});
     await renderConcept(generated.concept_id,ordinal);
     setStatus('Concept '+ordinal+' generated and retrieved through a short-lived signed URL. Select it or generate another controlled direction.','success');
-    generateBtn.textContent=ordinal<STUDIO_CONFIG.maxConcepts?'Generate Another AI Concept':'Concept Limit Reached';
-    generateBtn.disabled=ordinal>=STUDIO_CONFIG.maxConcepts;updatePacket();$('#concepts').scrollIntoView({behavior:'smooth',block:'nearest'})
+    generateBtn.textContent=founderDemo?'Demo Generation Complete — Gate Closed':ordinal<STUDIO_CONFIG.maxConcepts?'Generate Another AI Concept':'Concept Limit Reached';
+    generateBtn.disabled=founderDemo||ordinal>=STUDIO_CONFIG.maxConcepts;checkoutBtn.hidden=true;updatePacket();$('#concepts').scrollIntoView({behavior:'smooth',block:'nearest'})
   }catch(error){setStatus(normalizedMessage(error.message),'error');generateBtn.textContent=state.concepts.length?'Generate Another AI Concept':'Generate First AI Concept'}
-  finally{state.busy=false;deleteBtn.disabled=false;if(state.concepts.length<STUDIO_CONFIG.maxConcepts)generateBtn.disabled=false}
+  finally{state.busy=false;deleteBtn.disabled=false;if(!founderDemo&&state.concepts.length<STUDIO_CONFIG.maxConcepts)generateBtn.disabled=false}
 }
 generateBtn.addEventListener('click',generateNext);
 
@@ -165,6 +212,7 @@ function list(set){return [...set].length?[...set].join(', '):'None selected'}
 function readValue(selector,fallback='Not selected'){const el=$(selector);return el&&el.value?el.value:fallback}
 function updatePacket(){const el=$('#packetText');if(!el)return;el.replaceChildren();const rows=[['Source',state.photo?state.photo.name:'No test image yet'],['Project type',readValue('#roomType')],['Direction',state.style],['Preserve',list(state.preserve)],['Change',list(state.change)],['Must-have',list(state.must)],['Planning budget',readValue('#budget','Not sure yet')],['Generated concepts',String(state.concepts.length)]];if(state.selectedConcept)rows.push(['Preferred concept',state.selectedConcept]);rows.forEach(([label,value],i)=>{const strong=document.createElement('strong');strong.textContent=label+': ';el.appendChild(strong);el.appendChild(document.createTextNode(value));if(i<rows.length-1)el.appendChild(document.createElement('br'))})}
 ['#roomType','#budget'].forEach(selector=>{const el=$(selector);if(el)el.addEventListener('change',updatePacket)});updatePacket();
+restorePaidDemo().catch(()=>setStatus('The founder demo session could not be restored. No generation was attempted.','error'));
 
 const inquiryForm=$('#estimateForm'),inquiryResult=$('#formResult'),inquirySubmit=$('#estimateSubmit'),startedAt=$('#formStartedAt');
 if(startedAt)startedAt.value=String(Date.now());
