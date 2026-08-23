@@ -29,6 +29,7 @@ if(STUDIO_CONFIG.publicLaunchMode){
 }
 if(founderDemo){
   document.querySelector('.studio-shell')?.classList.remove('public-preview');
+  document.querySelector('#studio fieldset.controls')?.removeAttribute('disabled');
   const notice=$('#studioLaunchNotice');
   if(notice)notice.innerHTML='<strong>Founder Demo — Stripe Test Mode</strong>This controlled path accepts only the supplied synthetic test image. The $19 checkout is a test transaction, no live charge occurs, and the server permits exactly one OpenAI demo generation.';
   const head=document.querySelector('.studio-head span');if(head)head.textContent='Founder demo • Stripe test mode • one generation';
