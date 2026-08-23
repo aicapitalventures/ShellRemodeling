@@ -1,5 +1,5 @@
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
-import { corsHeaders, hmacIpHash, json, preflight, sanitizeText, serviceClient, sha256Hex } from "../_shared/core.ts";
+import { hmacIpHash, json, preflight, sanitizeText, serviceClient, sha256Hex } from "../_shared/core.ts";
 
 const ALLOWED_PROJECT_TYPES = new Set([
   "Full Bathroom Remodel", "Shower / Tub", "Accessibility Upgrade",
@@ -9,6 +9,11 @@ const ALLOWED_PROJECT_TYPES = new Set([
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const PHONE = /^[0-9+().\-\s]{7,40}$/;
 const ZIP = /^[0-9A-Za-z -]{3,12}$/;
+const INQUIRY_NOTIFICATION_RECIPIENTS = [
+  "bshell019@yahoo.com",
+  "divinityxenterprisesllc@gmail.com",
+] as const;
+const INQUIRY_NOTIFICATION_FROM = "Shell & Co Remodeling <inquiries@shellremodeling.com>";
 
 function allowedOrigin(req: Request): boolean {
   const origin = req.headers.get("origin") || "";
@@ -19,6 +24,74 @@ function allowedOrigin(req: Request): boolean {
     "https://www.shellremodeling.com",
   ].map((value) => value.trim()).filter(Boolean);
   return configured.includes(origin);
+}
+
+function display(value: string, fallback = "Not provided"): string {
+  return value || fallback;
+}
+
+async function sendInquiryNotification(inquiry: {
+  name: string;
+  phone: string;
+  email: string;
+  projectZip: string;
+  projectType: string;
+  planningBudget: string;
+  desiredTiming: string;
+  propertyStatus: string;
+  projectMessage: string;
+  marketingConsent: boolean;
+}): Promise<string> {
+  const resendApiKey = Deno.env.get("RESEND_API_KEY");
+  if (!resendApiKey) throw new Error("RESEND_CONFIG_MISSING");
+
+  const subject = `New Shell & Co Inquiry — ${inquiry.projectType} — ${inquiry.name}`;
+  const text = [
+    "NEW NONBINDING PROJECT INQUIRY",
+    "Shell & Co Remodeling",
+    "",
+    `Name: ${inquiry.name}`,
+    `Phone: ${inquiry.phone}`,
+    `Email: ${display(inquiry.email)}`,
+    `Project ZIP: ${inquiry.projectZip}`,
+    `Project type: ${inquiry.projectType}`,
+    `Planning budget: ${inquiry.planningBudget}`,
+    `Desired timing: ${inquiry.desiredTiming}`,
+    `Property status: ${display(inquiry.propertyStatus)}`,
+    `Marketing consent: ${inquiry.marketingConsent ? "Yes" : "No"}`,
+    "",
+    "Project details:",
+    display(inquiry.projectMessage),
+    "",
+    "This is a nonbinding inquiry submitted through shellremodeling.com. Review the project details and follow up using the contact information above.",
+  ].join("\n");
+
+  const response = await fetch("https://api.resend.com/emails", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${resendApiKey}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      from: INQUIRY_NOTIFICATION_FROM,
+      to: [...INQUIRY_NOTIFICATION_RECIPIENTS],
+      subject,
+      text,
+      ...(inquiry.email ? { reply_to: inquiry.email } : {}),
+      tags: [
+        { name: "source", value: "shellremodeling.com" },
+        { name: "type", value: "project_inquiry" },
+      ],
+    }),
+  });
+
+  const payload = await response.json().catch(() => ({}));
+  if (!response.ok) {
+    const providerError = typeof payload?.message === "string" ? payload.message : `HTTP ${response.status}`;
+    throw new Error(`RESEND_SEND_FAILED: ${providerError}`);
+  }
+  if (typeof payload?.id !== "string" || !payload.id) throw new Error("RESEND_SEND_FAILED: missing email id");
+  return payload.id;
 }
 
 Deno.serve(async (req: Request) => {
@@ -43,6 +116,7 @@ Deno.serve(async (req: Request) => {
     const projectMessage = sanitizeText(body.message, 2000);
     const honeypot = sanitizeText(body.website, 200);
     const startedAt = Number(body.started_at);
+    const marketingConsent = body.marketing_consent === true;
 
     if (honeypot) return json(req, 202, { received: true });
     if (!name || !PHONE.test(phone) || (email && !EMAIL.test(email)) || !ZIP.test(projectZip)) {
@@ -80,17 +154,43 @@ Deno.serve(async (req: Request) => {
     if (duplicateError) throw duplicateError;
     if ((duplicateCount || 0) > 0) return json(req, 409, { error: "DUPLICATE_INQUIRY" });
 
+    const tokenBytes = crypto.getRandomValues(new Uint8Array(32));
+    const studioUnlockToken = Array.from(tokenBytes, (byte) => byte.toString(16).padStart(2, "0")).join("");
+    const studioUnlockTokenHash = await sha256Hex(studioUnlockToken);
+    const studioUnlockExpiresAt = new Date(Date.now() + 3_600_000).toISOString();
     const { error: insertError } = await service.from("public_project_inquiries").insert({
       name, phone, email, project_zip: projectZip, project_type: projectType,
       planning_budget: planningBudget, desired_timing: desiredTiming,
       property_status: propertyStatus, project_message: projectMessage,
-      contact_consent: true, marketing_consent: body.marketing_consent === true,
+      contact_consent: true, marketing_consent: marketingConsent,
       dedupe_hash: dedupeHash, ip_hash: ipHash,
+      studio_unlock_token_hash: studioUnlockTokenHash,
+      studio_unlock_expires_at: studioUnlockExpiresAt,
       user_agent: sanitizeText(req.headers.get("user-agent"), 300),
     });
     if (insertError) throw insertError;
 
-    return json(req, 201, { received: true });
+    let notificationSent = false;
+    try {
+      const providerEmailId = await sendInquiryNotification({
+        name, phone, email, projectZip, projectType, planningBudget, desiredTiming,
+        propertyStatus, projectMessage, marketingConsent,
+      });
+      notificationSent = true;
+      console.log("submit-inquiry notification sent", { provider: "resend", providerEmailId });
+    } catch (notificationError) {
+      console.error(
+        "submit-inquiry notification failed",
+        notificationError instanceof Error ? notificationError.message : String(notificationError),
+      );
+    }
+
+    return json(req, 201, {
+      received: true,
+      notification_sent: notificationSent,
+      studio_unlock_token: studioUnlockToken,
+      studio_unlock_expires_at: studioUnlockExpiresAt,
+    });
   } catch (error) {
     console.error("submit-inquiry failed", error instanceof Error ? error.message : String(error));
     return json(req, 500, { error: "INQUIRY_FAILED" });
