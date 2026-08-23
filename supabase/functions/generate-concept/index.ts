@@ -9,7 +9,6 @@ const IMAGE_SIZE = "1536x1024";
 const TOTAL_OPENAI_DEADLINE_MS = 120_000;
 const RESERVED_COST = Number(Deno.env.get("BR02_RESERVED_COST_PER_CALL_USD") || "0.08");
 const MONTHLY_BUDGET = Number(Deno.env.get("BR02_MONTHLY_BUDGET_USD") || "20");
-const T08_GATE_CLOSED = true;
 
 function sourceName(mime: string) { return mime === "image/png" ? "source.png" : mime === "image/webp" ? "source.webp" : "source.jpg"; }
 
@@ -57,7 +56,6 @@ Deno.serve(async (req: Request) => {
   let service: any = null;
   try {
     const auth = await requireUser(req); userId = auth.userId; service = auth.service;
-    if (T08_GATE_CLOSED) return json(req, 503, { error: "GENERATION_DISABLED" });
     const apiKey = Deno.env.get("OPENAI_API_KEY");
     if (!apiKey) return json(req, 503, { error: "GENERATION_DISABLED" });
 
@@ -97,7 +95,7 @@ Deno.serve(async (req: Request) => {
       conceptDirection,
     });
 
-    const { data: reservation, error: reservationError } = await service.rpc("br02_reserve_generation", {
+    const { data: reservation, error: reservationError } = await service.rpc("br02_reserve_demo_generation", {
       p_project_id: projectId,
       p_owner_user_id: userId,
       p_source_asset_id: sourceAssetId,
@@ -166,7 +164,7 @@ Deno.serve(async (req: Request) => {
         event_type: code === "MODERATION_BLOCKED" ? "blocked" : "failed", normalized_code: code, reserved_cost_usd: 0,
       });
     }
-    const status = code === "NOT_AUTHORIZED" ? 401 : code === "NOT_FOUND" ? 404 : code === "RATE_LIMITED" ? 429 : code === "BUDGET_LIMIT_REACHED" ? 402 : code === "MODERATION_BLOCKED" ? 400 : code === "GENERATION_TIMEOUT" ? 504 : code === "UPLOAD_NOT_READY" ? 409 : 500;
+    const status = code === "NOT_AUTHORIZED" ? 401 : code === "NOT_FOUND" ? 404 : code === "RATE_LIMITED" ? 429 : code === "PAYMENT_REQUIRED" || code === "BUDGET_LIMIT_REACHED" ? 402 : code === "GENERATION_DISABLED" ? 503 : code === "MODERATION_BLOCKED" ? 400 : code === "GENERATION_TIMEOUT" ? 504 : code === "UPLOAD_NOT_READY" ? 409 : 500;
     return json(req, status, { error: code });
   }
 });
