@@ -25,6 +25,7 @@ const generateBtn=$('#generateBtn'),checkoutBtn=$('#checkoutBtn'),deleteBtn=$('#
 const conceptCards=$$('.concept'),reviewPanel=$('#reviewPanel');
 if(STUDIO_CONFIG.publicLaunchMode){
   $$('#studio input,#studio select,#studio textarea,#studio button').forEach(control=>{control.disabled=true});
+  checkoutBtn.hidden=true;checkoutBtn.style.display='none';
   drop.removeAttribute('tabindex');drop.removeAttribute('role');drop.setAttribute('aria-disabled','true');
 }
 if(founderDemo){
@@ -33,7 +34,7 @@ if(founderDemo){
   const notice=$('#studioLaunchNotice');
   if(notice)notice.innerHTML='<strong>Founder Demo — Stripe Test Mode</strong>This controlled path accepts only the supplied synthetic test image. The $19 checkout is a test transaction, no live charge occurs, and the server permits exactly one OpenAI demo generation.';
   const head=document.querySelector('.studio-head span');if(head)head.textContent='Founder demo • Stripe test mode • one generation';
-  checkoutBtn.hidden=false;checkoutBtn.disabled=false;
+  checkoutBtn.hidden=false;checkoutBtn.style.display='block';checkoutBtn.disabled=false;
   generateBtn.textContent='Complete Stripe Test Checkout First';generateBtn.disabled=true;
 }
 conceptCards.forEach(card=>{card.hidden=true;const button=card.querySelector('.concept-select');button.disabled=true;setPressed(button,false)});
@@ -135,7 +136,7 @@ async function restorePaidDemo(){
   setStatus('Stripe test checkout returned successfully. Verifying the signed webhook entitlement…');
   for(let attempt=0;attempt<8;attempt++){
     const access=await invoke('studio-access',{project_id:state.projectId}).catch(()=>null);
-    if(access?.entitled){checkoutBtn.hidden=true;generateBtn.disabled=false;generateBtn.textContent='Generate One Controlled Demo Concept';setStatus('Test payment verified by signed webhook. One controlled demo generation is available.','success');return}
+    if(access?.entitled){checkoutBtn.hidden=true;checkoutBtn.style.display='none';generateBtn.disabled=false;generateBtn.textContent='Generate One Controlled Demo Concept';setStatus('Test payment verified by signed webhook. One controlled demo generation is available.','success');return}
     await new Promise(resolve=>setTimeout(resolve,1250))
   }
   setStatus('The test payment returned, but webhook verification is still pending. Refresh this page in a moment; generation remains locked.','error')
@@ -178,7 +179,7 @@ async function generateNext(){
     await renderConcept(generated.concept_id,ordinal);
     setStatus('Concept '+ordinal+' generated and retrieved through a short-lived signed URL. Select it or generate another controlled direction.','success');
     generateBtn.textContent=founderDemo?'Demo Generation Complete — Gate Closed':ordinal<STUDIO_CONFIG.maxConcepts?'Generate Another AI Concept':'Concept Limit Reached';
-    generateBtn.disabled=founderDemo||ordinal>=STUDIO_CONFIG.maxConcepts;checkoutBtn.hidden=true;updatePacket();$('#concepts').scrollIntoView({behavior:'smooth',block:'nearest'})
+    generateBtn.disabled=founderDemo||ordinal>=STUDIO_CONFIG.maxConcepts;checkoutBtn.hidden=true;checkoutBtn.style.display='none';updatePacket();$('#concepts').scrollIntoView({behavior:'smooth',block:'nearest'})
   }catch(error){setStatus(normalizedMessage(error.message),'error');generateBtn.textContent=state.concepts.length?'Generate Another AI Concept':'Generate First AI Concept'}
   finally{state.busy=false;deleteBtn.disabled=false;if(!founderDemo&&state.concepts.length<STUDIO_CONFIG.maxConcepts)generateBtn.disabled=false}
 }
