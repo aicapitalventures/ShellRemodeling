@@ -58,8 +58,8 @@ Deno.serve(async (req: Request) => {
     if (origin !== "https://shellremodeling.com") throw new Error("PAYMENT_DISABLED");
     const params = new URLSearchParams();
     params.set("mode", "payment");
-    params.set("success_url", `${origin}/?studio_payment=success&session_id={CHECKOUT_SESSION_ID}#studio`);
-    params.set("cancel_url", `${origin}/?studio_payment=canceled#studio`);
+    params.set("success_url", `${origin}/?founder_demo=1&studio_payment=success&session_id={CHECKOUT_SESSION_ID}#studio`);
+    params.set("cancel_url", `${origin}/?founder_demo=1&studio_payment=canceled#studio`);
     params.set("line_items[0][price]", config.priceId);
     params.set("line_items[0][quantity]", "1");
     params.set("metadata[order_id]", orderId);
