@@ -10,8 +10,8 @@ const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const PHONE = /^[0-9+().\-\s]{7,40}$/;
 const ZIP = /^[0-9A-Za-z -]{3,12}$/;
 const INQUIRY_NOTIFICATION_RECIPIENTS = [
-  "bshell019@yahoo.com",
-  "divinityxenterprisesllc@gmail.com",
+  "bernard@shellremodeling.com",
+  "elijah@shellremodeling.com",
 ] as const;
 const INQUIRY_NOTIFICATION_FROM = "Shell & Co Remodeling <inquiries@shellremodeling.com>";
 
