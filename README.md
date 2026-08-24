@@ -3,7 +3,7 @@
 **Repository:** `aicapitalventures/ShellRemodeling`  
 **Governance:** Metadata Law™  
 **Production website:** `https://shellremodeling.com/`  
-**Current stage:** Production Public Website — Launch Baseline Closeout  
+**Current stage:** Website Launch Baseline v1.0 COMPLETE — MAINTENANCE MODE  
 **Repository classification:** PUBLIC — NON-SENSITIVE ARCHITECTURE AND FRONTEND SOURCE ONLY
 
 ## Company
@@ -39,6 +39,8 @@ The current production inquiry notification recipients are limited to:
 
 The notification sender is `Shell & Co Remodeling <inquiries@shellremodeling.com>`. When a customer supplies an email address, the notification uses the customer address as Reply-To so authorized recipients can respond directly to the inquiry.
 
+A post-v15 live website submission was verified through Supabase storage and Resend delivery to exactly the authorized recipient set. See `docs/build-records/SCR-CLOSEOUT-001.md`.
+
 ## Current Public Positioning
 
 The website accepts **nonbinding project inquiries**. It does not represent a website submission as a contract, guaranteed estimate, scheduled appointment, project acceptance, permit approval, licensing determination, insurance certification, or guaranteed price.
@@ -70,7 +72,7 @@ Not authorized for public production until separately verified and released:
 - unrestricted customer photo upload;
 - live AI generation using public browser secrets;
 - persistent customer-photo storage without approved privacy/retention controls;
-- automated final pricing;
+- automated final pricing; and
 - representing generated imagery as a guaranteed buildable result.
 
 ## OpenAI / Secret-Handling Boundary
@@ -96,25 +98,16 @@ Current controlling ownership/public-production status is governed by:
 - `docs/canon/SCR-META-000.md`
 - `docs/build-records/SCR-CLOSEOUT-001.md`
 
-Status taxonomy:
-
-1. Proposed
-2. Draft
-3. Under Review
-4. Founder Approved
-5. Adopted
-6. Canon-Locked
-7. Superseded
-8. Deprecated
-9. Reserved / Not Yet Authorized
-
 ## Launch Baseline
 
-**Baseline:** Shell & Co Remodeling Website Launch Baseline v1.0  
-**Closeout record:** `SCR-CLOSEOUT-001`  
-**Nonessential feature expansion:** FROZEN after closeout unless separately reauthorized.  
-**Permitted maintenance:** security, availability, factual corrections, lead-delivery reliability, compliance corrections, and explicitly authorized production fixes.
+**Baseline:** Shell & Co Remodeling Website Launch Baseline v1.0 — COMPLETE  
+**Closeout record:** `SCR-CLOSEOUT-001 v1.1`  
+**Operating state:** MAINTENANCE MODE  
+**Nonessential feature expansion:** FROZEN unless separately reauthorized.  
+**Permitted maintenance:** security, availability, factual corrections, lead-delivery reliability, compliance corrections, dependency/security updates, critical accessibility fixes, and explicitly authorized production defects.  
+**Active development priority:** transferred to `DXE-BANK-READY-001` for DivinityxEnterprises.com.
 
 ## Change History
 
-- 2026-08-23 — Ownership/public-production correction: Bernard Shell Jr. recorded as 100% owner; proposed 70/30 and Elijah/Divinityx co-founder/ownership language superseded; production inquiry system and current notification recipients documented; launch-baseline closeout controls added.
+- 2026-08-23 — Ownership/public-production correction: Bernard Shell Jr. recorded as 100% owner; proposed 70/30 and Elijah/Divinityx co-founder/ownership language superseded; production inquiry system and current notification recipients documented.
+- 2026-08-23 — Website Launch Baseline v1.0 locked complete after live post-v15 routing verification; project entered maintenance mode and active development priority transferred to DivinityxEnterprises.com.
