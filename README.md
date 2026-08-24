@@ -2,31 +2,48 @@
 
 **Repository:** `aicapitalventures/ShellRemodeling`  
 **Governance:** Metadata Law™  
-**Current stage:** Build Room 01 — UX/UI + AI Remodel Studio Prototype  
-**Prototype branch:** `build/01-ux-ui-prototype`  
+**Production website:** `https://shellremodeling.com/`  
+**Current stage:** Production Public Website — Launch Baseline Closeout  
 **Repository classification:** PUBLIC — NON-SENSITIVE ARCHITECTURE AND FRONTEND SOURCE ONLY
 
 ## Company
 
-Shell & Co Remodeling is the working brand for a founder-led residential remodeling venture initially focused on bathroom remodeling, bathroom gut-outs, showers, tile, flooring, vanity/fixture installation, and related residential renovation.
+Shell & Co Remodeling is a Bernard Shell Jr.-owned residential remodeling company serving the Kentuckiana market, with an initial focus on bathroom remodeling, showers, tile, accessibility improvements, flooring-related tile work, and related residential renovation.
 
-**Founder-adopted intended ownership architecture:**
-- Bernard Shell Jr. — 70%
-- Divinityx Enterprises LLC — 30%
+## Ownership & Authority
 
-The ownership vehicle question is resolved for planning. The repository does **not** represent Shell & Co Remodeling LLC as legally formed until formation evidence exists.
+**Bernard Shell Jr. — 100% owner.**
 
-## Founder Roles
+Earlier repository records that discussed a proposed 70/30 ownership structure or identified Elijah L. Cooley / Divinityx Enterprises LLC as a prospective owner or co-founder reflect superseded planning architecture and are not current company ownership authority.
 
-**Bernard Shell Jr.** — proposed Primary Technical Founder / Technical Operations Authority / Lead Craftsmanship Authority.
+Elijah L. Cooley and Divinityx Enterprises LLC do **not** hold a membership interest in Shell & Co Remodeling under the current adopted structure. Any business-development, digital, labor, management, intellectual-property, lead-generation, or other services involving outside parties must be governed separately and do not create ownership by implication.
 
-**Elijah L. Cooley** — proposed Co-Founder / Business Architecture & Operations Authority, including digital systems and AI-product architecture.
+Sensitive formation records, EIN information, banking information, signatures, and other private legal/financial records are intentionally excluded from this public repository.
 
-Exact legal titles, management authority, signing authority, compensation and reserved decisions remain subject to later governance adoption and operating-agreement execution.
+## Production Website Status
 
-## Initial Market Wedge
+The public website is live at `https://shellremodeling.com/` and currently supports:
 
-Bathroom remodeling is the initial market-entry wedge. Future expansion into kitchens, broader flooring/tile, interior renovation, and selected residential remodeling is contemplated but not automatically authorized.
+- public company/service information;
+- documented-work presentation controls;
+- mobile and desktop navigation/contact paths;
+- nonbinding project inquiry submission;
+- server-side validation, rate limiting, deduplication, and anti-abuse controls;
+- persistent lead storage in Supabase; and
+- transactional inquiry notification through Resend.
+
+The current production inquiry notification recipients are limited to:
+
+- `bernard@shellremodeling.com`
+- `elijah@shellremodeling.com`
+
+The notification sender is `Shell & Co Remodeling <inquiries@shellremodeling.com>`. When a customer supplies an email address, the notification uses the customer address as Reply-To so authorized recipients can respond directly to the inquiry.
+
+## Current Public Positioning
+
+The website accepts **nonbinding project inquiries**. It does not represent a website submission as a contract, guaranteed estimate, scheduled appointment, project acceptance, permit approval, licensing determination, insurance certification, or guaranteed price.
+
+Public credential, licensing, registration, insurance, permit, and trade claims must remain evidence-controlled and may not be added unless verified for the applicable jurisdiction and scope.
 
 ## Brand Foundation
 
@@ -36,53 +53,51 @@ Bathroom remodeling is the initial market-entry wedge. Future expansion into kit
 **Primary positioning:** “Built with the Right Tools. Finished the Right Way.”  
 **Craftsmanship statement:** “Our Best Tool Is Precision. Our Standard Is Excellence.”
 
-The former phrase “Precision Cuts. Beautiful Results.” is **SUPERSEDED — PRIOR CONCEPT / NOT CURRENT**.
+The former phrase “Precision Cuts. Beautiful Results.” remains **SUPERSEDED — PRIOR CONCEPT / NOT CURRENT**.
 
-## Remodel Studio Product Direction
+## Remodel Studio™ Boundary
 
-The website prototype now includes a proposed AI-assisted remodel studio. The intended customer flow is:
+The website contains the Shell & Co Remodel Studio™ product direction, but the public production boundary remains controlled.
 
-`Upload actual space → Preserve / Change / Must-Have preferences → Multiple concept directions → Customer selection → Shell & Co buildability review → Pre-estimate intelligence packet → Estimate conversation`
+Authorized public state:
 
-The market already contains AI remodel visualizers. Shell & Co therefore does **not** claim that photo-to-render AI is unique. Proposed differentiation is the governed contractor workflow around the visualization: explicit constraints, human buildability review, scope preparation, provenance/versioning and direct estimate handoff.
+- coming-soon / preview presentation;
+- explanation of the planned visualization-to-estimate workflow; and
+- no implication that AI imagery certifies code, dimensions, structure, plumbing, electrical, price, permits, or buildability.
 
-See `docs/website/SCR-AIVIS-001.md`.
+Not authorized for public production until separately verified and released:
 
-## OpenAI Security Boundary
+- unrestricted customer photo upload;
+- live AI generation using public browser secrets;
+- persistent customer-photo storage without approved privacy/retention controls;
+- automated final pricing;
+- representing generated imagery as a guaranteed buildable result.
 
-GitHub Pages is a static/browser environment. The production OpenAI API integration must route through a secure backend or serverless function. **Never place an OpenAI API key in this repository or browser JavaScript.**
+## OpenAI / Secret-Handling Boundary
 
-## Founder Remodel Photo Hold
+GitHub Pages is a static/browser environment. Production integrations requiring private credentials must route through a secure backend or serverless function. **Never place OpenAI, Supabase service-role, Resend, Stripe, or other secret keys in this repository or browser JavaScript.**
 
-The prior-remodel photographs supplied by Bernard Shell Jr. are intentionally excluded from the website until their project grouping and exact before/after sequence are verified. They may not be used merely because they were uploaded for review.
+## Project-Proof Boundary
 
-## Founder Review Prototype
+Prior-remodel photographs or other project evidence may be published only when the project grouping, sequence, ownership/permission, and descriptive claims are sufficiently verified. Do not fabricate before/after narratives, customer reviews, project values, locations, credentials, or outcomes.
 
-Pages-ready source is located at repository root on branch `build/01-ux-ui-prototype`:
+## Public Repository Safety
 
-- `index.html`
-- `assets/styles.css`
-- `assets/app.js`
-- `assets/shell-co-logo.svg`
-- `.nojekyll`
+Do not commit EINs, SSNs, dates of birth, private financial information, account/routing numbers, credit-card data, customer PII, customer uploads, private tax records, insurance policy numbers, credentials, API keys, access tokens, employee PII, private signatures, or confidential investor/vendor information.
 
-The prototype supports local photo upload/preview, structured design preferences, concept-selection UX, proposed buildability-review statuses, and a local pre-estimate packet demonstration.
-
-See `PAGES-SETUP.md` for the one-time GitHub Pages activation steps.
-
-## Contact Inputs Currently Authorized for Prototype
-
-- **Phone:** (502) 303-2398
-- **Address:** 8422 Locust Dr, Charlestown, IN
-- **Selected domain:** `shellremodeling.com` — registration/control verification remains separate
-
-Licensing/registration and insurance claims remain pending exact verification.
+See `docs/policies/SCR-POL-001.md`.
 
 ## Metadata Law™
 
-Material company records must visibly distinguish status, authority, provenance, dependencies, adoption, canon state, supersession, and next authorized action. Proposed concepts do not become company canon merely because they appear in repository content.
+Material records must distinguish status, authority, provenance, dependencies, adoption, canon state, supersession, and next authorized action. Historical planning records remain traceable but cannot override later adopted decisions.
+
+Current controlling ownership/public-production status is governed by:
+
+- `docs/canon/SCR-META-000.md`
+- `docs/build-records/SCR-CLOSEOUT-001.md`
 
 Status taxonomy:
+
 1. Proposed
 2. Draft
 3. Under Review
@@ -93,43 +108,13 @@ Status taxonomy:
 8. Deprecated
 9. Reserved / Not Yet Authorized
 
-## Public Repository Safety
+## Launch Baseline
 
-Do not commit EINs, SSNs, dates of birth, private financial information, account/routing numbers, credit-card data, customer PII, customer uploads, private tax records, insurance policy numbers, credentials, API keys, access tokens, employee PII, private signatures or confidential investor/vendor information.
+**Baseline:** Shell & Co Remodeling Website Launch Baseline v1.0  
+**Closeout record:** `SCR-CLOSEOUT-001`  
+**Nonessential feature expansion:** FROZEN after closeout unless separately reauthorized.  
+**Permitted maintenance:** security, availability, factual corrections, lead-delivery reliability, compliance corrections, and explicitly authorized production fixes.
 
-See `docs/policies/SCR-POL-001.md`.
+## Change History
 
-## Current Key Records
-
-- `docs/canon/SCR-META-000.md`
-- `docs/business/SCR-BIZ-001.md`
-- `docs/governance/SCR-GOV-001.md`
-- `docs/brand/SCR-BRAND-001.md`
-- `docs/operations/SCR-SVC-001.md`
-- `docs/operations/SCR-OPS-001.md`
-- `docs/finance/SCR-FIN-001.md`
-- `docs/bfps/SCR-BFPS-001.md`
-- `docs/website/SCR-WEB-001.md`
-- `docs/website/SCR-AIVIS-001.md`
-- `docs/policies/SCR-POL-001.md`
-- `docs/build-records/SCR-BR00-001.md`
-
-## Current Prototype Boundary
-
-Authorized now:
-- founder-review UX/UI;
-- GitHub Pages demonstration;
-- local room-photo preview;
-- preference capture;
-- prototype concept-selection flow;
-- proposed contractor buildability review UX;
-- local pre-estimate packet demonstration.
-
-Not authorized/implemented yet:
-- live OpenAI calls;
-- public API secrets;
-- persistent customer photo storage;
-- production lead submission;
-- automated final pricing;
-- verified licensing/insurance claims;
-- representing AI imagery as guaranteed buildable outcomes.
+- 2026-08-23 — Ownership/public-production correction: Bernard Shell Jr. recorded as 100% owner; proposed 70/30 and Elijah/Divinityx co-founder/ownership language superseded; production inquiry system and current notification recipients documented; launch-baseline closeout controls added.
