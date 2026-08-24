@@ -79,7 +79,7 @@ async function sendInquiryNotification(inquiry: {
       text,
       ...(inquiry.email ? { reply_to: inquiry.email } : {}),
       tags: [
-        { name: "source", value: "shellremodeling.com" },
+        { name: "source", value: "shellremodeling_com" },
         { name: "type", value: "project_inquiry" },
       ],
     }),
