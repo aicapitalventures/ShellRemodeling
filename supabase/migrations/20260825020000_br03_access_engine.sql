@@ -362,9 +362,9 @@ begin
 end;
 $$;
 
-revoke all on function public.br03_reserve_generation(uuid, uuid, uuid, text, text, text, text, text, text, text, numeric, numeric)
+revoke all on function public.br03_reserve_generation(uuid, uuid, uuid, text, text, text, text, text, text, text, text, numeric, numeric)
   from public, anon, authenticated;
-grant execute on function public.br03_reserve_generation(uuid, uuid, uuid, text, text, text, text, text, text, text, numeric, numeric)
+grant execute on function public.br03_reserve_generation(uuid, uuid, uuid, text, text, text, text, text, text, text, text, numeric, numeric)
   to service_role;
 
 create or replace function public.br03_finalize_generation_success(
