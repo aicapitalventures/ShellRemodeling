@@ -519,6 +519,18 @@ If later activated:
 - 100% project credit rule represented in customer terms and accounting design;
 - not treated as construction deposit.
 
+## 15. G1 Execution — Progressive Access Core Schema
+
+- **Commit SHA:** assigned to the single scoped implementation commit for this G1 run.
+- **Migration:** `supabase/migrations/20260825010000_br03_progressive_access_core.sql`
+- **Implemented:** `studio_access_grants`; `studio_generation_credit_reservations`; `studio_staff_notes`; `project_commercial_terms`; `project_pricing_assessments`; `remodel_projects.business_stage`; stage-aware `remodel_concepts.access_stage`; conditional compatibility extension for an existing `payment_orders` table; and the justified project/stage, owner, active-grant, payment-order, business-stage, commercial-term, and pricing indexes.
+- **Security:** all new operational tables use RLS with no browser policies; service-role access only. No auth functions, generation RPCs, Stripe functions, frontend, storage, or recipient routing changed.
+- **Constraint decisions:** direct hosted read-only verification confirmed `payment_orders_purpose_check`, its historical values `studio_pass` and `remodeling_deposit`, the exact `remodel_concepts_project_id_ordinal_key` and `remodel_concepts_ordinal_check` names, and the historical ordinal range of 1..3. The legacy `(project_id, ordinal)` uniqueness was replaced with `(project_id, access_stage, ordinal)` so pre-contract and active-project capacity can be enforced independently by a future protected server path. The global `ordinal <= 3` constraint was superseded by `ordinal >= 1`; future protected entitlement/grant logic will enforce stage-specific generation limits. Existing rows remain valid; the legacy BR02 generation functions remain unchanged for G1. Project-deposit grants require active-project stage, allowance 3, and a payment-order reference with a unique payment-order linkage. Pricing calculations use the margin floor whenever a verified comparable target would fall below it; no 15% deposit formula is enforced.
+- **Validation:** branch/HEAD/worktree/main baseline checks; all current migration and controlling-record reads; SQL/static review; `git diff --check`; secret/PII/prohibited-recipient scans; authorized-file and main-untouched verification; no Supabase apply/deploy observed.
+- **Hosted verification:** current hosted payment-order rows use `studio_pass`; `payment_orders_purpose_check` permits the historical `studio_pass` and `remodeling_deposit` values; `remodel_concepts_project_id_ordinal_key` is the exact hosted uniqueness constraint; `remodel_concepts_ordinal_check` is the exact hosted 1..3 ordinal constraint; and no `studio_owner_user_id` index existed, so `public_project_inquiries_studio_owner_idx` is intentionally added as a safe partial index. The nullable commercial-terms and new-grant payment-order foreign keys do not require historical payment rows to reference commercial terms.
+- **Unresolved:** future protected server logic must settle reservations and enforce stage allowance caps before consumer activation.
+- **Status:** repository-only G1 schema evidence. The migration remains unapplied.
+
 ## 15. Internal Competitive Pricing Logic
 
 No public auto-quote and no public guaranteed 5%-beat claim.
