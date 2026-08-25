@@ -791,3 +791,16 @@ Before production release:
 ## 22. Immediate Repository Action
 
 Restore `20260823142733_free_concept_lead_entitlement.sql` to BR03 from verified hosted schema/function evidence. Then begin G1 as a separate scoped implementation run.
+
+## G3 Execution — Consumer Studio and Staff Operations Experience
+
+- **Starting SHA:** `a6b87b77e4a88cff6f126ef7522d81a7f3dd1e94`.
+- **Files created/changed:** `studio.html`, `assets/studio.css`, `assets/studio.js`, `staff.html`, `assets/staff.css`, `assets/staff.js`, and a minimal Studio CTA in `index.html`.
+- **Customer Studio:** guided entry, verified claim handoff, project truth, private 6 MiB photo upload, access display, generation states, concept comparison/selection, human-review boundary, planning handoff, and deletion/privacy controls.
+- **Re-entry architecture:** the one-time claim token remains in memory and is scrubbed from the URL; normal verified Auth session state supports owner-scoped project re-entry. No raw claim token is stored in localStorage or sent to analytics.
+- **Staff workspace:** verified Auth entry, server-authoritative staff queue, project truth, selected concept preview, human GREEN/YELLOW/RED review controls, and admin-only +1/+2 planning grants. Business stage is displayed read-only because G2 has no protected stage-update endpoint.
+- **Access/grants:** customer-facing language hides entitlement/RPC/ordinal/database identifiers; staff grant actions defer to the G2 backend ceiling and do not submit `used`, credit source, staff identity, ordinal, payment state, or commercial terms.
+- **Responsive/accessibility:** mobile-first layouts target 360px, 768px, and desktop; semantic headings, labels, visible focus, keyboard photo controls, ARIA live status, large touch targets, non-color-only review text, stable image ratios, and reduced-motion handling are included.
+- **Known backend gaps:** G1/G2 are unapplied and G2 Edge Functions are undeployed; no local hosted runtime proof was performed. G2 lacks a dedicated customer project-list/access-detail endpoint and protected business-stage update endpoint, so re-entry uses owner-scoped read-only project listing and stage display remains read-only. Production generation remains closed.
+- **Validation:** JavaScript syntax checks for new and existing scripts; local asset/path checks; protected inquiry/Stripe/frontend scope scans; secret/PII/recipient/token-persistence/deprecated-path/static mutation scans; responsive CSS review. No Supabase, Stripe, deployment, DNS, secret, or production operation occurred.
+- **Status:** G1 remains UNAPPLIED. G2 remains UNAPPLIED and Edge Functions remain UNDEPLOYED. G3 frontend remains repository-only and UNDEPLOYED. Stripe and production remain unchanged. G3 is not committed in this run.
