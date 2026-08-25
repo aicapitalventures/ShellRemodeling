@@ -1,6 +1,7 @@
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
-import { hmacIpHash, json, normalizedError, preflight, requireUser, RESULT_BUCKET, sha256Hex } from "../_shared/core.ts";
+import { hmacIpHash, json, normalizedError, preflight, requireVerifiedUser, RESULT_BUCKET, sha256Hex } from "../_shared/core.ts";
 import { compileRemodelPrompt } from "../_shared/prompt.ts";
+import { normalizeProviderFailure } from "../_shared/provider-errors.ts";
 
 const MODEL = "gpt-image-2";
 const QUALITY = "medium";
@@ -8,7 +9,8 @@ const IMAGE_SIZE = "1536x1024";
 const TOTAL_OPENAI_DEADLINE_MS = 120_000;
 const RESERVED_COST = Number(Deno.env.get("BR02_RESERVED_COST_PER_CALL_USD") || "0.08");
 const MONTHLY_BUDGET = Number(Deno.env.get("BR02_MONTHLY_BUDGET_USD") || "20");
-const T08_GATE_CLOSED = true;
+const GENERATION_ENABLED = Deno.env.get("BR03_STUDIO_GENERATION_ENABLED") === "true";
+const KILL_SWITCH_OPEN = Deno.env.get("BR03_STUDIO_KILL_SWITCH") === "false";
 
 function sourceName(mime: string) { return mime === "image/png" ? "source.png" : mime === "image/webp" ? "source.webp" : "source.jpg"; }
 
@@ -37,8 +39,7 @@ async function callOpenAI(apiKey: string, source: Blob, sourceMime: string, prom
     const payload = await response.json().catch(() => ({}));
     if (response.ok) return { payload, requestId };
     const upstreamCode = String(payload?.error?.code || "");
-    if (upstreamCode === "moderation_blocked") throw new Error("MODERATION_BLOCKED");
-    throw new Error(response.status === 408 ? "GENERATION_TIMEOUT" : "GENERATION_FAILED");
+    throw new Error(normalizeProviderFailure(response.status, upstreamCode));
   } catch (err) {
     if (err instanceof DOMException && err.name === "AbortError") throw new Error("GENERATION_TIMEOUT");
     if (err instanceof Error && ["MODERATION_BLOCKED", "GENERATION_TIMEOUT", "GENERATION_FAILED"].includes(err.message)) throw err;
@@ -55,18 +56,20 @@ Deno.serve(async (req: Request) => {
   let projectId: string | null = null;
   let userId: string | null = null;
   let service: any = null;
+  let resultPath: string | null = null;
+  let resultAssetId: string | null = null;
   try {
-    const auth = await requireUser(req); userId = auth.userId; service = auth.service;
-    if (T08_GATE_CLOSED) return json(req, 503, { error: "GENERATION_DISABLED" });
+    const auth = await requireVerifiedUser(req); userId = auth.userId; service = auth.service;
+    if (!GENERATION_ENABLED || !KILL_SWITCH_OPEN) return json(req, 503, { error: "GENERATION_DISABLED" });
     const apiKey = Deno.env.get("OPENAI_API_KEY");
     if (!apiKey) return json(req, 503, { error: "GENERATION_DISABLED" });
 
     const body = await req.json();
     projectId = String(body.project_id || "");
     const sourceAssetId = String(body.source_asset_id || "");
-    const ordinal = Number(body.ordinal || 0);
+    const accessStage = String(body.access_stage || "");
     const conceptDirection = String(body.concept_direction || "").trim().slice(0, 160);
-    if (!projectId || !sourceAssetId || !Number.isInteger(ordinal) || ordinal < 1 || ordinal > 4 || !conceptDirection) {
+    if (!projectId || !sourceAssetId || !["pre_contract", "active_project"].includes(accessStage) || !conceptDirection) {
       return json(req, 400, { error: "INVALID_REQUEST" });
     }
 
@@ -97,11 +100,11 @@ Deno.serve(async (req: Request) => {
       conceptDirection,
     });
 
-    const { data: reservation, error: reservationError } = await service.rpc("br02_reserve_generation", {
+    const { data: reservation, error: reservationError } = await service.rpc("br03_reserve_generation", {
       p_project_id: projectId,
       p_owner_user_id: userId,
       p_source_asset_id: sourceAssetId,
-      p_ordinal: ordinal,
+      p_access_stage: accessStage,
       p_concept_direction: conceptDirection,
       p_model: MODEL,
       p_quality: QUALITY,
@@ -124,8 +127,8 @@ Deno.serve(async (req: Request) => {
     if (!b64 || typeof b64 !== "string") throw new Error("GENERATION_FAILED");
     const binary = Uint8Array.from(atob(b64), (c) => c.charCodeAt(0));
     const digest = await sha256Hex(binary);
-    const resultAssetId = crypto.randomUUID();
-    const resultPath = `${userId}/${projectId}/concept/${resultAssetId}.webp`;
+    resultAssetId = crypto.randomUUID();
+    resultPath = `${userId}/${projectId}/concept/${resultAssetId}.webp`;
     const { error: uploadError } = await service.storage.from(RESULT_BUCKET).upload(resultPath, binary, {
       contentType: "image/webp", upsert: false, cacheControl: "0",
     });
@@ -140,33 +143,25 @@ Deno.serve(async (req: Request) => {
       throw assetInsertError;
     }
 
-    await service.from("remodel_concepts").update({
-      result_asset_id: resultAssetId, openai_request_id: requestId, status: "completed", error_code: null,
-    }).eq("id", conceptId);
-    await service.from("remodel_projects").update({
-      status: "concepts_ready",
-      retention_expires_at: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(),
-    }).eq("id", projectId);
-    await service.from("generation_events").insert({
-      project_id: projectId, owner_user_id: userId, concept_id: conceptId, ip_hash: ipHash,
-      event_type: "completed", normalized_code: null, reserved_cost_usd: 0,
-    });
-    await service.from("audit_events").insert({
-      subject_project_id: projectId, owner_user_id: userId, event_type: "concept_generated",
-      metadata: { concept_id: conceptId, ordinal, model: MODEL, quality: QUALITY, image_size: IMAGE_SIZE, prompt_version: compiled.version, prompt_hash: compiled.hash },
-    });
+    const { data: settled, error: settlementError } = await service.rpc("br03_finalize_generation_success", {
+      p_concept_id: conceptId,
+      p_result_asset_id: resultAssetId,
+      p_openai_request_id: requestId,
+    }).single();
+    if (settlementError || settled?.status !== "completed") throw new Error(String(settled?.error_code || "GENERATION_FAILED"));
 
-    return json(req, 201, { concept_id: conceptId, ordinal, status: "completed", result_asset_id: resultAssetId, model: MODEL, quality: QUALITY, image_size: IMAGE_SIZE });
+    return json(req, 201, { concept_id: conceptId, ordinal: reservation.ordinal, access_stage: reservation.access_stage, status: "completed", result_asset_id: resultAssetId, model: MODEL, quality: QUALITY, image_size: IMAGE_SIZE });
   } catch (err) {
     const code = normalizedError(err);
     if (service && conceptId) {
-      await service.from("remodel_concepts").update({ status: code === "MODERATION_BLOCKED" ? "blocked" : "failed", error_code: code }).eq("id", conceptId);
-      await service.from("generation_events").insert({
-        project_id: projectId, owner_user_id: userId, concept_id: conceptId,
-        event_type: code === "MODERATION_BLOCKED" ? "blocked" : "failed", normalized_code: code, reserved_cost_usd: 0,
+      await service.rpc("br03_finalize_generation_failure", {
+        p_concept_id: conceptId,
+        p_error_code: code,
       });
+      if (resultPath) await service.storage.from(RESULT_BUCKET).remove([resultPath]);
+      if (resultAssetId) await service.from("remodel_assets").delete().eq("id", resultAssetId).eq("owner_user_id", userId);
     }
-    const status = code === "NOT_AUTHORIZED" ? 401 : code === "NOT_FOUND" ? 404 : code === "RATE_LIMITED" ? 429 : code === "BUDGET_LIMIT_REACHED" ? 402 : code === "MODERATION_BLOCKED" ? 400 : code === "GENERATION_TIMEOUT" ? 504 : code === "UPLOAD_NOT_READY" ? 409 : 500;
+    const status = code === "NOT_AUTHORIZED" || code === "VERIFIED_EMAIL_REQUIRED" || code === "EMAIL_REQUIRED_FOR_STUDIO" ? 401 : code === "NOT_FOUND" ? 404 : code === "RATE_LIMITED" ? 429 : code === "BUDGET_LIMIT_REACHED" ? 402 : code === "MODERATION_BLOCKED" ? 400 : code === "GENERATION_TIMEOUT" ? 504 : code === "UPLOAD_NOT_READY" ? 409 : code === "GENERATION_DISABLED" ? 503 : 500;
     return json(req, status, { error: code });
   }
 });

@@ -1,5 +1,5 @@
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
-import { json, preflight, requireUser } from "../_shared/core.ts";
+import { assertStaff, json, preflight, requireVerifiedUser } from "../_shared/core.ts";
 
 const REVIEWER_ROLES = new Set(["reviewer", "admin"]);
 const QUEUE_LIMIT = 40;
@@ -9,12 +9,8 @@ Deno.serve(async (req: Request) => {
   if (req.method !== "POST") return json(req, 405, { error: "METHOD_NOT_ALLOWED" });
 
   try {
-    const { userId, service } = await requireUser(req);
-    const { data: reviewer, error: reviewerError } = await service.auth.admin.getUserById(userId);
-    const role = String(reviewer?.user?.app_metadata?.shell_role || "");
-    if (reviewerError || !reviewer?.user || !REVIEWER_ROLES.has(role)) {
-      return json(req, 403, { error: "NOT_AUTHORIZED" });
-    }
+    const { userId, service } = await requireVerifiedUser(req);
+    await assertStaff(service, userId, [...REVIEWER_ROLES]);
 
     const { data: projects, error: projectsError } = await service
       .from("remodel_projects")

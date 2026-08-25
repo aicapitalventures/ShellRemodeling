@@ -531,6 +531,21 @@ If later activated:
 - **Unresolved:** future protected server logic must settle reservations and enforce stage allowance caps before consumer activation.
 - **Status:** repository-only G1 schema evidence. The migration remains unapplied.
 
+## G2 Execution — Customer Claim, Staff Authorization & Fair Credit Engine
+
+- **Starting G1 SHA:** `8eca6d11e26e01bacad5babfae375471ef18ca20`.
+- **Migration:** `supabase/migrations/20260825020000_br03_access_engine.sql`.
+- **Files reconstructed/created:** `_shared/core.ts` verified-user/staff authority; `_shared/provider-errors.ts`; `create-project`; `studio-access`; `grant-studio-access`; and `generate-concept`. `submit-inquiry`, Stripe functions, frontend files, and BR02 functions remain unchanged.
+- **Hosted evidence used:** `submit-inquiry` v15, `create-project` v23, `studio-access` v9, `generate-concept` v32, plus the verified hosted claim columns and historical BR02 reservation behavior.
+- **Customer claim/re-entry:** one-time hashed inquiry token plus matching confirmed Auth email atomically claims the inquiry and creates the one-credit lead entitlement. Subsequent access uses verified Auth ownership; the token is not required for re-entry and raw tokens are never stored.
+- **Staff authorization:** service-side `studio_staff_members` with protected `admin`/`reviewer` roles; grants require an active `admin` and no staff identities or UUIDs are seeded.
+- **Grant ceiling:** planning staff grants accept only +1/+2 and preserve the total pre-contract allowance ceiling of 3; active-project staff grants accept only +1/+2 after the adopted deposit-paid/scheduled/active-project stages. Stripe deposit activation is deferred.
+- **Fair credit engine:** BR03 reservation selects the next ordinal server-side, locks project/credit scope, counts reserved credits, prefers the complimentary lead entitlement, then planning grants, and uses active-project grants only for active-project access. Success consumes exactly one credit; provider/system/storage failure releases the reservation without incrementing usage, while attempt/rate/budget history remains conservative.
+- **Generation controls:** `BR03_STUDIO_GENERATION_ENABLED` must equal `true` and `BR03_STUDIO_KILL_SWITCH` must equal `false`; otherwise generation is closed. Model remains `gpt-image-2`, medium, `1536x1024`, one output/request, and the monthly budget default remains USD 20.
+- **Legacy Stripe supersession:** primary `studio-access` now uses only BR03 snapshot data and does not fall back to `studio_entitlements` or `stripe_test`; legacy tables/data remain untouched.
+- **Validation:** preflight branch/HEAD/remote checks; current and historical function reconciliation; static migration/function review; diagnostics where available; `git diff --check`; authorized-file, secret/PII, deprecated-RPC, ordinal, kill-switch, RLS/policy, and unchanged-`submit-inquiry` scans. No deployment or migration apply occurred.
+- **Unresolved/operator action:** authenticated staff accounts must be provisioned later through a protected operator action; G1/G2 migrations remain unapplied and Edge Functions remain undeployed.
+
 ## 15. Internal Competitive Pricing Logic
 
 No public auto-quote and no public guaranteed 5%-beat claim.
