@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Remodel Studio | Shell &amp; Co Remodeling</title>
+<meta name="description" content="A private, guided visual planning workspace for your remodeling project with Shell & Co Remodeling.">
+<link rel="icon" type="image/png" href="assets/brand/favicon-32x32.png">
+<link rel="stylesheet" href="assets/brand-theme.css">
+<link rel="stylesheet" href="assets/studio.css">
+</head>
+<body>
+<header class="studio-topbar">
+  <a class="studio-brand" href="index.html"><img src="assets/brand/shellco-nav-header.png" alt="Shell & Co Remodeling"></a>
+  <div class="topbar-actions"><span class="secure-mark">Private planning workspace</span><a class="text-link" href="index.html">Back to Shell &amp; Co</a></div>
+</header>
+<main class="studio-main">
+  <section class="studio-hero" aria-labelledby="studio-title">
+    <div class="eyebrow">Shell &amp; Co Remodel Studio</div>
+    <h1 id="studio-title">Make the next decision from your actual space.</h1>
+    <p class="hero-lead">Build a private planning packet from your room, your priorities and a few possible directions. It is a conversation starter for Shell &amp; Co, not a construction drawing or a quote.</p>
+    <div class="hero-meta"><span>Private by default</span><span>Guided in a few minutes</span><span>Human review stays in charge</span></div>
+  </section>
+
+  <section id="entryPanel" class="panel entry-panel" aria-labelledby="entry-title">
+    <div class="panel-kicker">01 / Secure entry</div>
+    <div class="entry-grid">
+      <div>
+        <h2 id="entry-title">Your Remodel Studio starts after you submit a project inquiry.</h2>
+        <p id="entryCopy">Qualified inquiries receive a one-time Studio handoff. Use the same email address you shared with Shell &amp; Co so your workspace can be securely tied to you.</p>
+        <div class="entry-note"><strong>What stays private</strong><span>Your claim link is used once, then future visits use your verified account. The link is never saved as a permanent login.</span></div>
+      </div>
+      <div class="entry-actions">
+        <div id="claimContext" class="claim-context" hidden><span class="status-dot"></span><span>Studio handoff detected. Verify your email to continue.</span></div>
+        <form id="authForm" class="compact-form">
+          <label for="authEmail">Email used for your project inquiry</label>
+          <input id="authEmail" type="email" autocomplete="email" inputmode="email" required placeholder="you@example.com">
+          <button class="button primary-button" type="submit" id="sendCodeButton">Send verification code <span aria-hidden="true">→</span></button>
+        </form>
+        <form id="verifyForm" class="compact-form" hidden>
+          <label for="authCode">Verification code</label>
+          <input id="authCode" type="text" inputmode="numeric" autocomplete="one-time-code" minlength="6" maxlength="8" required placeholder="Enter the code from your email">
+          <button class="button primary-button" type="submit">Verify and open Studio <span aria-hidden="true">→</span></button>
+          <button class="button subtle-button" type="button" id="changeEmailButton">Use a different email</button>
+        </form>
+        <p id="authStatus" class="inline-status" role="status" aria-live="polite"></p>
+        <a class="button outline-button" href="index.html#estimate" id="inquiryButton">Start with a project inquiry</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="workspace" hidden aria-live="polite">
+    <div class="workspace-bar">
+      <div><span class="panel-kicker">Your private project</span><h2 id="workspaceTitle">Let’s shape the room.</h2></div>
+      <div class="workspace-actions"><span id="sessionLabel" class="session-label"></span><button type="button" class="text-button" id="signOutButton">Sign out</button></div>
+    </div>
+    <div id="workspaceStatus" class="notice" role="status" aria-live="polite"></div>
+    <div id="projectChooser" class="project-chooser" hidden><div><span class="panel-kicker">Return to a project</span><h3>Your private Studio projects</h3></div><div id="projectList" class="project-list"></div></div>
+
+    <section id="truthStep" class="panel flow-panel" aria-labelledby="truth-title">
+      <div class="flow-heading"><div><span class="panel-kicker">02 / Project truth</span><h2 id="truth-title">Start with what matters in the room.</h2></div><span class="step-count">1 of 3</span></div>
+      <p class="section-intro">A few grounded details help keep every concept connected to your actual project.</p>
+      <form id="projectForm" class="truth-form">
+        <div class="field-grid">
+          <div class="field"><label for="projectType">What are you changing?</label><select id="projectType" required><option value="">Choose a project type</option><option>Full Bathroom Remodel</option><option>Shower / Tub</option><option>Accessibility Upgrade</option><option>Bathroom Tile / Finish Work</option><option>Tile Flooring Outside Bathroom</option><option>Repair / Smaller Bathroom Project</option></select></div>
+          <div class="field"><label for="planningBudget">Planning budget</label><select id="planningBudget"><option>Not sure yet</option><option>Under $5,000</option><option>$5,000–$10,000</option><option>$10,000–$20,000</option><option>$20,000–$35,000</option><option>$35,000+</option></select><small>Planning context only, not a quote.</small></div>
+          <div class="field"><label for="timing">Desired timing</label><select id="timing"><option>Just planning</option><option>As soon as practical</option><option>Within 30 days</option><option>1–3 months</option><option>3+ months</option></select></div>
+          <div class="field"><label for="propertyStatus">Property context</label><select id="propertyStatus"><option>I own the property</option><option>I rent and have or will obtain owner authorization</option><option>Other / I need to discuss</option></select></div>
+        </div>
+        <div class="choice-section"><span class="field-label">What should stay? <small>Choose any</small></span><div class="choice-grid" data-choice-group="preserve"><button type="button" data-value="Layout">Layout</button><button type="button" data-value="Window / Door">Window / door</button><button type="button" data-value="Plumbing locations">Plumbing locations</button><button type="button" data-value="Floor plan">Floor plan</button></div></div>
+        <div class="choice-section"><span class="field-label">What can change? <small>Choose any</small></span><div class="choice-grid" data-choice-group="change"><button type="button" data-value="Tile" aria-pressed="true">Tile</button><button type="button" data-value="Vanity" aria-pressed="true">Vanity</button><button type="button" data-value="Tub / Shower">Tub / shower</button><button type="button" data-value="Lighting">Lighting</button><button type="button" data-value="Flooring">Flooring</button><button type="button" data-value="Paint / Finish">Paint / finish</button></div></div>
+        <div class="choice-section"><span class="field-label">What is essential? <small>Choose any</small></span><div class="choice-grid" data-choice-group="must_have"><button type="button" data-value="Walk-in shower">Walk-in shower</button><button type="button" data-value="Double vanity">Double vanity</button><button type="button" data-value="Accessibility">Accessibility</button><button type="button" data-value="Storage">Storage</button><button type="button" data-value="Premium tile">Premium tile</button></div></div>
+        <div class="field-grid lower-fields"><div class="field"><label for="designDirection">Starting design direction</label><select id="designDirection"><option>Clean Modern</option><option>Warm Transitional</option><option>Spa / Natural</option><option>Custom Direction</option></select></div><div class="field"><label for="accessibilityNeeds">Accessibility needs</label><input id="accessibilityNeeds" placeholder="Anything Shell & Co should plan around?"></div></div>
+        <div class="field"><label for="visionNotes">Tell us what you are imagining</label><textarea id="visionNotes" rows="4" placeholder="Keep the window and plumbing where they are, but replace the tub with a walk-in shower..."></textarea></div>
+        <button class="button primary-button" type="submit">Save project truth <span aria-hidden="true">→</span></button>
+      </form>
+    </section>
+
+    <section id="photoStep" class="panel flow-panel" aria-labelledby="photo-title" hidden>
+      <div class="flow-heading"><div><span class="panel-kicker">03 / Secure photo</span><h2 id="photo-title">Show us the space as it is.</h2></div><span class="step-count">2 of 3</span></div>
+      <p class="section-intro">Your original photo remains the controlling source reference. It is stored privately and may be transmitted to the AI provider only to create the concept you request.</p>
+      <div class="photo-layout">
+        <div class="upload-zone" id="uploadZone" tabindex="0" role="button" aria-label="Choose a room photo">
+          <input id="photoInput" type="file" accept="image/jpeg,image/png,image/webp" hidden>
+          <div class="upload-icon" aria-hidden="true">＋</div><strong>Choose a room photo</strong><span>JPG, PNG or WEBP · up to 6 MiB</span><button type="button" class="button outline-button" id="choosePhotoButton">Choose photo</button>
+        </div>
+        <div class="photo-preview-wrap"><img id="photoPreview" class="photo-preview" alt="Your selected room photo" hidden><div id="photoEmpty" class="photo-empty">Your private source photo will appear here.</div><button id="replacePhotoButton" class="text-button" type="button" hidden>Replace photo</button></div>
+      </div>
+      <div class="privacy-strip"><strong>Private source image</strong><span>Stored in private project storage. Not automatically authorized for marketing. You can delete this project and its images at any time.</span></div>
+      <button class="button primary-button" id="uploadPhotoButton" type="button" disabled>Upload private photo <span aria-hidden="true">→</span></button>
+    </section>
+
+    <section id="conceptStep" class="panel flow-panel" aria-labelledby="concept-title" hidden>
+      <div class="flow-heading"><div><span class="panel-kicker">04 / Explore directions</span><h2 id="concept-title">See a few ways forward.</h2></div><span class="step-count">3 of 3</span></div>
+      <div class="access-summary" id="accessSummary"><div><span class="summary-label">Your Studio access</span><strong id="availableCount">Checking availability…</strong><span id="accessNote">Complimentary access is available after a successful project handoff.</span></div><div class="summary-meter"><span id="meterFill"></span></div></div>
+      <div class="generation-controls"><div class="direction-selector"><span class="field-label">Choose a direction</span><div class="direction-grid"><button type="button" data-direction="pre_contract" data-style="Clean Modern" aria-pressed="true">Clean Modern</button><button type="button" data-direction="pre_contract" data-style="Warm Transitional">Warm Transitional</button><button type="button" data-direction="pre_contract" data-style="Spa / Natural">Spa / Natural</button><button type="button" data-direction="pre_contract" data-style="Custom Direction">Custom Direction</button></div></div><button class="button primary-button generate-button" id="generateButton" type="button" disabled>Generate a concept <span aria-hidden="true">→</span></button></div>
+      <div id="generationStatus" class="notice" role="status" aria-live="polite">Your available access will appear here after your private photo is ready.</div>
+      <div id="conceptGrid" class="concept-grid"></div>
+      <div id="comparisonPanel" class="comparison-panel" hidden><div class="compare-heading"><div><span class="panel-kicker">Selected direction</span><h3 id="selectedTitle">Your preference</h3></div><span class="review-pending">Pending Shell &amp; Co review</span></div><div class="compare-grid"><div><span class="image-label">Original space</span><div class="compare-image original-compare"><img id="originalCompare" alt="Original source space"></div></div><div><span class="image-label">Concept visualization</span><div class="compare-image"><img id="selectedCompare" alt="Selected conceptual visualization"></div></div></div><p class="limitation">Concept visualization for planning and discussion. Final dimensions, materials, code requirements, feasibility and pricing require Shell &amp; Co field review.</p></div>
+      <div id="reviewPanel" class="review-panel" hidden><span class="panel-kicker">Human reality check</span><h3>Shell &amp; Co review is the deciding voice.</h3><div id="reviewStatus" class="review-status-empty">No human review has been recorded yet.</div></div>
+      <div class="handoff-panel"><div><span class="panel-kicker">Next conversation</span><h3>Continue planning with Shell &amp; Co</h3><p>Use this private project context for a nonbinding planning conversation. No appointment, contract or payment is created here.</p></div><a class="button outline-button" href="index.html#estimate">Continue planning with Shell &amp; Co <span aria-hidden="true">→</span></a></div>
+    </section>
+
+    <section class="privacy-panel" aria-labelledby="privacy-title"><span class="panel-kicker">Private by design</span><h2 id="privacy-title">A planning visual is not a promise.</h2><div class="privacy-columns"><p>Photos are used to create requested concepts and are stored privately under the project’s retention rules. They may be transmitted to the AI provider for generation. They are not automatically authorized for marketing.</p><p>AI concepts do not certify dimensions, materials, code, permits, feasibility, price or schedule. Shell &amp; Co human review and field verification remain necessary before any project commitment.</p></div><button id="deleteProjectButton" class="button danger-button" type="button" hidden>Delete project and private images</button></section>
+  </section>
+</main>
+<footer class="studio-footer"><span>Shell &amp; Co Remodeling</span><a href="index.html#estimate">Nonbinding project inquiry</a><span>Private Studio planning · No online payments</span></footer>
+<script src="assets/studio.js"></script>
+</body>
+</html>

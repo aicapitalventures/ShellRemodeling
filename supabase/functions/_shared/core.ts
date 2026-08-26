@@ -28,8 +28,12 @@ function browserPublishableKey(): string | null {
 
 export function corsHeaders(req: Request): Record<string, string> {
   const requestedOrigin = req.headers.get("origin") || "";
-  const configured = (Deno.env.get("BR02_ALLOWED_ORIGIN") || "https://aicapitalventures.github.io")
-    .split(",")
+  const configured = [
+    ...(Deno.env.get("BR02_ALLOWED_ORIGIN") || "").split(","),
+    "https://aicapitalventures.github.io",
+    "https://shellremodeling.com",
+    "https://www.shellremodeling.com",
+  ]
     .map((x) => x.trim())
     .filter(Boolean);
   const origin = configured.includes(requestedOrigin) ? requestedOrigin : configured[0];
@@ -73,6 +77,39 @@ export async function requireUser(req: Request): Promise<{ userId: string; servi
   const { data, error } = await caller.auth.getUser(token);
   if (error || !data.user) throw new Error("NOT_AUTHORIZED");
   return { userId: data.user.id, service: serviceClient() };
+}
+
+export async function requireVerifiedUser(req: Request): Promise<{ userId: string; email: string; service: SupabaseClient }> {
+  const auth = req.headers.get("authorization") || "";
+  if (!auth.toLowerCase().startsWith("bearer ")) throw new Error("NOT_AUTHORIZED");
+  const token = auth.slice(7).trim();
+  const url = Deno.env.get("SUPABASE_URL");
+  const publishable = browserPublishableKey();
+  if (!url || !publishable) throw new Error("SERVER_CONFIG_MISSING");
+  const caller = createClient(url, publishable, {
+    global: { headers: { Authorization: `Bearer ${token}` } },
+    auth: { persistSession: false, autoRefreshToken: false },
+  });
+  const { data, error } = await caller.auth.getUser(token);
+  const user = data.user;
+  if (error || !user || user.is_anonymous === true) throw new Error("NOT_AUTHORIZED");
+  const email = user.email?.trim().toLowerCase() || "";
+  if (!email) throw new Error("EMAIL_REQUIRED_FOR_STUDIO");
+  if (!user.email_confirmed_at) throw new Error("VERIFIED_EMAIL_REQUIRED");
+  return { userId: user.id, email, service: serviceClient() };
+}
+
+export async function assertStaff(service: SupabaseClient, userId: string, allowedRoles: string[]): Promise<string> {
+  const { data, error } = await service
+    .from("studio_staff_members")
+    .select("role")
+    .eq("user_id", userId)
+    .eq("status", "active")
+    .in("role", allowedRoles)
+    .maybeSingle();
+  if (error) throw error;
+  if (!data) throw new Error("STAFF_NOT_AUTHORIZED");
+  return data.role;
 }
 
 export async function assertProjectOwner(service: SupabaseClient, projectId: string, userId: string) {
@@ -153,6 +190,7 @@ export function normalizedError(err: unknown): string {
     "INVALID_UPLOAD", "UPLOAD_NOT_READY", "GENERATION_DISABLED", "RATE_LIMITED",
     "BUDGET_LIMIT_REACHED", "MODERATION_BLOCKED", "GENERATION_TIMEOUT",
     "GENERATION_FAILED", "NOT_AUTHORIZED", "NOT_FOUND", "SERVER_CONFIG_MISSING",
+    "VERIFIED_EMAIL_REQUIRED", "EMAIL_REQUIRED_FOR_STUDIO", "STAFF_NOT_AUTHORIZED",
   ]);
   return allowed.has(msg) ? msg : "GENERATION_FAILED";
 }
