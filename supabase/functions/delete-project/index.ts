@@ -1,11 +1,11 @@
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
-import { assertProjectOwner, json, preflight, requireUser } from "../_shared/core.ts";
+import { assertProjectOwner, json, preflight, requireVerifiedUser } from "../_shared/core.ts";
 
 Deno.serve(async (req: Request) => {
   const options = preflight(req); if (options) return options;
   if (req.method !== "POST") return json(req, 405, { error: "METHOD_NOT_ALLOWED" });
   try {
-    const { userId, service } = await requireUser(req);
+    const { userId, service } = await requireVerifiedUser(req);
     const body = await req.json();
     const projectId = String(body.project_id || "");
     if (!projectId) return json(req, 400, { error: "INVALID_REQUEST" });
