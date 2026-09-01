@@ -243,12 +243,17 @@ const inquiryForm=$('#estimateForm'),inquiryResult=$('#formResult'),inquirySubmi
 if(startedAt)startedAt.value=String(Date.now());
 inquiryForm.addEventListener('submit',async e=>{
   e.preventDefault();if(!inquiryForm.reportValidity()||inquirySubmit.disabled)return;
-  const fd=new FormData(inquiryForm),payload={
+  const fd=new FormData(inquiryForm),params=new URLSearchParams(location.search),payload={
     name:fd.get('name'),phone:fd.get('phone'),email:fd.get('email'),zip:fd.get('zip'),
     project_type:fd.get('projectType'),planning_budget:fd.get('budget'),timing:fd.get('timing'),
     property_status:fd.get('propertyStatus'),message:fd.get('message'),website:fd.get('website'),
     started_at:Number(fd.get('startedAt')),contact_consent:fd.get('contactConsent')==='on',
-    marketing_consent:fd.get('marketingConsent')==='on'
+    marketing_consent:fd.get('marketingConsent')==='on',
+    utm_source:params.get('utm_source')||'',
+    utm_medium:params.get('utm_medium')||'',
+    utm_campaign:params.get('utm_campaign')||'',
+    gclid:params.get('gclid')||'',
+    landing_page:location.origin+location.pathname+location.search
   };
   inquirySubmit.disabled=true;inquirySubmit.textContent='Sending…';inquiryResult.style.display='block';
   inquiryResult.className='form-result';inquiryResult.textContent='Securely sending your nonbinding inquiry…';
