@@ -41,6 +41,11 @@ async function sendInquiryNotification(inquiry: {
   propertyStatus: string;
   projectMessage: string;
   marketingConsent: boolean;
+  utmSource: string;
+  utmMedium: string;
+  utmCampaign: string;
+  gclid: string;
+  landingPage: string;
 }): Promise<string> {
   const resendApiKey = Deno.env.get("RESEND_API_KEY");
   if (!resendApiKey) throw new Error("RESEND_CONFIG_MISSING");
@@ -62,6 +67,13 @@ async function sendInquiryNotification(inquiry: {
     "",
     "Project details:",
     display(inquiry.projectMessage),
+    "",
+    "LEAD ATTRIBUTION",
+    `Source: ${display(inquiry.utmSource)}`,
+    `Medium: ${display(inquiry.utmMedium)}`,
+    `Campaign: ${display(inquiry.utmCampaign)}`,
+    `Google Click ID: ${display(inquiry.gclid)}`,
+    `Landing page: ${display(inquiry.landingPage)}`,
     "",
     "This is a nonbinding inquiry submitted through shellremodeling.com. Review the project details and follow up using the contact information above.",
   ].join("\n");
@@ -117,6 +129,11 @@ Deno.serve(async (req: Request) => {
     const honeypot = sanitizeText(body.website, 200);
     const startedAt = Number(body.started_at);
     const marketingConsent = body.marketing_consent === true;
+    const utmSource = sanitizeText(body.utm_source, 120);
+    const utmMedium = sanitizeText(body.utm_medium, 120);
+    const utmCampaign = sanitizeText(body.utm_campaign, 120);
+    const gclid = sanitizeText(body.gclid, 255);
+    const landingPage = sanitizeText(body.landing_page, 2048);
 
     if (honeypot) return json(req, 202, { received: true });
     if (!name || !PHONE.test(phone) || (email && !EMAIL.test(email)) || !ZIP.test(projectZip)) {
@@ -167,6 +184,11 @@ Deno.serve(async (req: Request) => {
       studio_unlock_token_hash: studioUnlockTokenHash,
       studio_unlock_expires_at: studioUnlockExpiresAt,
       user_agent: sanitizeText(req.headers.get("user-agent"), 300),
+      utm_source: utmSource || null,
+      utm_medium: utmMedium || null,
+      utm_campaign: utmCampaign || null,
+      gclid: gclid || null,
+      landing_page: landingPage || null,
     });
     if (insertError) throw insertError;
 
@@ -175,6 +197,7 @@ Deno.serve(async (req: Request) => {
       const providerEmailId = await sendInquiryNotification({
         name, phone, email, projectZip, projectType, planningBudget, desiredTiming,
         propertyStatus, projectMessage, marketingConsent,
+        utmSource, utmMedium, utmCampaign, gclid, landingPage,
       });
       notificationSent = true;
       console.log("submit-inquiry notification sent", { provider: "resend", providerEmailId });
