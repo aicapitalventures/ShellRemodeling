@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Lead Operations | Shell &amp; Co Remodeling</title>
+<link rel="icon" type="image/png" href="assets/brand/favicon-32x32.png">
+<link rel="stylesheet" href="assets/brand-theme.css"><link rel="stylesheet" href="assets/lead-ops.css">
+</head>
+<body>
+<header class="ops-topbar"><a href="index.html"><img src="assets/brand/shellco-nav-header.png" alt="Shell &amp; Co Remodeling"></a><div><span>Private operations</span><button id="leadSignOut" class="text-button" type="button" hidden>Sign out</button></div></header>
+<main class="ops-main">
+<section id="leadEntry" class="ops-entry" aria-labelledby="lead-entry-title"><span class="eyebrow">Shell &amp; Co / Lead Operations</span><h1 id="lead-entry-title">Lead response and qualification.</h1><p>Use your verified Shell &amp; Co account to manage incoming project inquiries. Staff authority is checked server-side.</p><form id="leadAuthForm"><label for="leadEmail">Verified staff email</label><input id="leadEmail" type="email" autocomplete="email" required placeholder="name@company.com"><button class="button gold-button" type="submit">Send verification code</button></form><form id="leadVerifyForm" hidden><label for="leadCode">Verification code</label><input id="leadCode" inputmode="numeric" autocomplete="one-time-code" minlength="6" maxlength="8" required placeholder="Code from your email"><button class="button gold-button" type="submit">Open lead operations</button><button type="button" id="changeLeadEmail" class="text-button">Use a different email</button></form><p id="leadAuthStatus" class="auth-status" role="status" aria-live="polite"></p></section>
+<section id="leadDashboard" hidden><div class="dashboard-heading"><div><span class="eyebrow">Lead queue</span><h1>Respond while the lead is warm.</h1><p>First human contact is targeted within 15 minutes. These are internal operating controls, not customer promises.</p></div><button id="refreshLeads" class="button outline-button" type="button">Refresh queue</button></div><div class="filter-bar" aria-label="Lead queue filters"><button class="filter active" type="button" data-filter="needs_contact">New / needs contact</button><button class="filter" type="button" data-filter="qualified">Qualified</button><button class="filter" type="button" data-filter="site_review">Site review</button><button class="filter" type="button" data-filter="estimate">Estimate</button><button class="filter" type="button" data-filter="closed">Closed / unqualified</button></div><p id="queueStatus" class="notice" role="status" aria-live="polite"></p><div id="leadQueue" class="lead-queue"></div></section>
+</main>
+<footer class="ops-footer"><span>Shell &amp; Co Remodeling · private operations</span><a href="index.html">Return to public site</a></footer>
+<script src="assets/lead-ops.js"></script>
+</body>
+</html>
