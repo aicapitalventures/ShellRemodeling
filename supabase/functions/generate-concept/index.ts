@@ -11,6 +11,10 @@ const RESERVED_COST = Number(Deno.env.get("BR02_RESERVED_COST_PER_CALL_USD") || 
 const MONTHLY_BUDGET = Number(Deno.env.get("BR02_MONTHLY_BUDGET_USD") || "20");
 const GENERATION_ENABLED = Deno.env.get("BR03_STUDIO_GENERATION_ENABLED") === "true";
 const KILL_SWITCH_OPEN = Deno.env.get("BR03_STUDIO_KILL_SWITCH") === "false";
+const FOUNDER_REVIEW_EMAILS = new Set([
+  "elijah@shellremodeling.com",
+  "bernard@shellremodeling.com",
+]);
 
 function sourceName(mime: string) { return mime === "image/png" ? "source.png" : mime === "image/webp" ? "source.webp" : "source.jpg"; }
 
@@ -60,7 +64,8 @@ Deno.serve(async (req: Request) => {
   let resultAssetId: string | null = null;
   try {
     const auth = await requireVerifiedUser(req); userId = auth.userId; service = auth.service;
-    if (!GENERATION_ENABLED || !KILL_SWITCH_OPEN) return json(req, 503, { error: "GENERATION_DISABLED" });
+    const founderReview = FOUNDER_REVIEW_EMAILS.has(auth.email);
+    if ((!GENERATION_ENABLED || !KILL_SWITCH_OPEN) && !founderReview) return json(req, 503, { error: "GENERATION_DISABLED" });
     const apiKey = Deno.env.get("OPENAI_API_KEY");
     if (!apiKey) return json(req, 503, { error: "GENERATION_DISABLED" });
 
@@ -150,7 +155,7 @@ Deno.serve(async (req: Request) => {
     }).single();
     if (settlementError || settled?.status !== "completed") throw new Error(String(settled?.error_code || "GENERATION_FAILED"));
 
-    return json(req, 201, { concept_id: conceptId, ordinal: reservation.ordinal, access_stage: reservation.access_stage, status: "completed", result_asset_id: resultAssetId, model: MODEL, quality: QUALITY, image_size: IMAGE_SIZE });
+    return json(req, 201, { concept_id: conceptId, ordinal: reservation.ordinal, access_stage: reservation.access_stage, status: "completed", result_asset_id: resultAssetId, model: MODEL, quality: QUALITY, image_size: IMAGE_SIZE, founder_review: founderReview });
   } catch (err) {
     const code = normalizedError(err);
     if (service && conceptId) {
