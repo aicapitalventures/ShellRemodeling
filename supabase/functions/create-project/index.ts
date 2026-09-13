@@ -2,6 +2,7 @@ import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 import { json, preflight, requireVerifiedUser, sanitizeText, sha256Hex, stringArray } from "../_shared/core.ts";
 
 const BUDGETS = new Set(["Under $5,000", "$5,000–$10,000", "$10,000–$20,000", "$20,000–$35,000", "$35,000+", "Not sure yet"]);
+const FOUNDER_REVIEW_EMAILS = new Set(["elijah@shellremodeling.com", "bernard@shellremodeling.com"]);
 
 Deno.serve(async (req: Request) => {
   const options = preflight(req); if (options) return options;
@@ -10,7 +11,30 @@ Deno.serve(async (req: Request) => {
     const { userId, email, service } = await requireVerifiedUser(req);
     const body = await req.json();
     const unlockToken = typeof body.studio_unlock_token === "string" ? body.studio_unlock_token.trim() : "";
-    if (!unlockToken) return json(req, 400, { error: "NOT_AUTHORIZED" });
+    const founderReview = FOUNDER_REVIEW_EMAILS.has(email);
+
+    let tokenHash = unlockToken ? await sha256Hex(unlockToken) : "";
+    let claimMethod = "verified_inquiry";
+
+    if (!tokenHash && founderReview) {
+      const { data: founderClaim, error: founderClaimError } = await service
+        .from("public_project_inquiries")
+        .select("studio_unlock_token_hash")
+        .eq("email", email)
+        .eq("utm_source", "founder_review")
+        .is("studio_unlocked_at", null)
+        .not("studio_unlock_token_hash", "is", null)
+        .gt("studio_unlock_expires_at", new Date().toISOString())
+        .order("created_at", { ascending: false })
+        .limit(1)
+        .maybeSingle();
+      if (founderClaimError) throw founderClaimError;
+      tokenHash = founderClaim?.studio_unlock_token_hash || "";
+      if (tokenHash) claimMethod = "founder_verified_email_recovery";
+    }
+
+    if (!tokenHash) return json(req, 400, { error: "NOT_AUTHORIZED" });
+
     const projectType = sanitizeText(body.project_type, 120);
     if (!projectType) return json(req, 400, { error: "INVALID_PROJECT" });
     const planningBudget = BUDGETS.has(body.planning_budget) ? body.planning_budget : "Not sure yet";
@@ -35,7 +59,7 @@ Deno.serve(async (req: Request) => {
     const { data, error } = await service.from("remodel_projects")
       .insert(record).select("id,status,business_stage,retention_expires_at,created_at").single();
     if (error) throw error;
-    const tokenHash = await sha256Hex(unlockToken);
+
     const { data: claim, error: claimError } = await service.rpc("br03_claim_inquiry_studio_access", {
       p_token_hash: tokenHash,
       p_project_id: data.id,
@@ -46,11 +70,15 @@ Deno.serve(async (req: Request) => {
       await service.from("remodel_projects").delete().eq("id", data.id).eq("owner_user_id", userId);
       throw new Error(String(claim?.error_code || "NOT_AUTHORIZED"));
     }
+
     await service.from("audit_events").insert({
-      subject_project_id: data.id, owner_user_id: userId, event_type: "project_created",
-      metadata: { claim_method: "verified_inquiry" },
+      subject_project_id: data.id,
+      owner_user_id: userId,
+      event_type: "project_created",
+      metadata: { claim_method: claimMethod },
     });
-    return json(req, 201, { project: data });
+
+    return json(req, 201, { project: data, founder_review_recovered: claimMethod === "founder_verified_email_recovery" });
   } catch (err) {
     const message = err instanceof Error ? err.message : "";
     const code = ["NOT_AUTHORIZED", "VERIFIED_EMAIL_REQUIRED", "EMAIL_REQUIRED_FOR_STUDIO"].includes(message) ? message : "CREATE_PROJECT_FAILED";
